@@ -1,0 +1,5 @@
+# GitHub Copilot review instructions
+
+The reviewer instructions use the harness review table and include a short fallback when linked context is unavailable. The repository-wide instruction excludes the cloud coding agent and leaves author-side checks to the coding agent and CI. Adopting projects can select the `copilot-review` component to get the instruction and its review rulesets. The user scoped this change to PR review, so both skill entry points use their previous content. [Reviewer instructions](../../.github/instructions/harness-review.instructions.md) · [Export catalog](../../skills_src/harness-files.toml) · [GitHub instruction scoping](https://docs.github.com/en/copilot/how-tos/copilot-on-github/customize-copilot/add-custom-instructions/add-repository-instructions)
+
+All 51 harness tests passed. Local checks verified the instruction links, reviewer-only metadata, and routing for code, configuration, mixed, and prose changes. Both rebuilt packages contain the reviewer instruction. Hosted review remains unverified because this checkout has no GitHub remote.

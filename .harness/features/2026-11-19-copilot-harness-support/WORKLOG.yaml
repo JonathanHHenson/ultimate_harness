@@ -1,0 +1,62 @@
+- timestamp: '2026-11-19T16:25:54+00:00'
+  phase: RESEARCH
+  summary: Feature research opened
+  details: Adapt the portable harness skills to GitHub Copilot and provide reusable
+    instructions for Copilot pull request review.
+- timestamp: '2026-11-19T16:26:12+00:00'
+  phase: DESIGN
+  summary: 'Feature phase: RESEARCH → DESIGN'
+  details: GitHub documents shared skill locations, reviewer instruction scope, head-branch
+    review context, and interactive or delegated sessions.
+- timestamp: '2026-11-19T16:26:12+00:00'
+  phase: IMPLEMENT
+  summary: 'Feature phase: DESIGN → IMPLEMENT'
+  details: Use the existing skill packages and review rules with focused Copilot integration
+    guidance.
+- timestamp: '2026-11-19T16:26:13+00:00'
+  phase: IMPLEMENT
+  summary: 'SKILLS: TODO → WIP'
+  details: Adding Copilot discovery and interaction guidance to both portable skills.
+- timestamp: '2026-11-19T16:26:13+00:00'
+  phase: IMPLEMENT
+  summary: 'REVIEW: TODO → WIP'
+  details: Adding a reviewer-specific routing file and packaging it for other projects.
+- timestamp: '2026-11-19T16:27:35+00:00'
+  phase: TEST
+  summary: 'Feature phase: IMPLEMENT → TEST'
+  details: Built both portable packages with the integration guide and active reviewer
+    instructions. Verify install layout, instruction scope, and portable review routing.
+- timestamp: '2026-11-19T16:29:06+00:00'
+  phase: TEST
+  summary: 'SKILLS: WIP → DONE'
+  details: Both packages rebuilt, validated, and unpacked into the documented Copilot
+    project skill layout with the shared guide and catalog present.
+- timestamp: '2026-11-19T16:29:06+00:00'
+  phase: TEST
+  summary: 'REVIEW: WIP → DONE'
+  details: Verified reviewer-only metadata, portable links, five review scenarios,
+    and read-only handling of reviewed-commit evidence. All 51 tests passed.
+- timestamp: '2026-11-19T16:29:06+00:00'
+  phase: DONE
+  summary: 'Feature phase: TEST → DONE'
+  details: Completed the local packaging, routing, and documentation checks. Hosted
+    Copilot execution is recorded as unverified.
+- timestamp: '2026-11-19T16:32:12+00:00'
+  phase: DESIGN
+  summary: 'Feature phase: DONE → DESIGN'
+  details: The user narrowed the scope to Copilot pull request reviewer instructions.
+    Retire the portable skill optimization requirement and keep the reviewer export.
+- timestamp: '2026-11-19T16:32:26+00:00'
+  phase: IMPLEMENT
+  summary: 'Feature phase: DESIGN → IMPLEMENT'
+  details: Restored both portable skill entry points and removed their Copilot setup
+    guide. Kept the PR reviewer instructions and export dependency wiring.
+- timestamp: '2026-11-19T16:32:26+00:00'
+  phase: TEST
+  summary: 'Feature phase: IMPLEMENT → TEST'
+  details: Verify that only reviewer support remains after rebuilding both packages.
+- timestamp: '2026-11-19T16:32:52+00:00'
+  phase: DONE
+  summary: 'Feature phase: TEST → DONE'
+  details: Verified the reviewer-only export, prior skill entry points, documentation
+    links, and all 51 harness tests.

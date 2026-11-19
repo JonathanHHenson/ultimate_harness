@@ -64,6 +64,10 @@ requires = ["software-design", "automated-test-design"]
 files = [".harness/validation/security-review.md"]
 requires = []
 
+[copilot-review]
+files = [".github/instructions/harness-review.instructions.md"]
+requires = ["code-review", "security-review"]
+
 [topic-learning]
 files = [
   ".agents/skills/learn-a-topic/SKILL.md",

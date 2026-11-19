@@ -113,3 +113,5 @@ The two skills share an explicit file catalog. Each catalog entry names a capabi
 The adopting project supplies its own entry point, validation index, ignore rules, documentation, and CI configuration. The catalog excludes this repository's versions of those files, its feature records, scratch, and runtime state. It includes the standalone feature merge check as an optional component.
 
 GitHub Actions builds from the checkout, validates both packages, and publishes a `.tar.gz` for each skill in the `harness-skills` artifact. The archives preserve hidden harness directories and file permissions. This workflow belongs to the source repository. [Packaging workflow](../.github/workflows/build-harness-skills.yml) · [GitHub Actions artifact docs](https://docs.github.com/en/actions/concepts/workflows-and-actions/workflow-artifacts)
+
+The optional `copilot-review` component gives Copilot PR reviews an entry point into the shared review rules. It uses the validation index to select checks and grounds findings in evidence for the reviewed commit. [Reviewer instructions](../.github/instructions/harness-review.instructions.md)

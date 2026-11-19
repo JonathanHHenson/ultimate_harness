@@ -1,0 +1,12 @@
+description = "Provide reusable instructions for GitHub Copilot pull request review."
+documentation = [".github/instructions/harness-review.instructions.md", "docs/TECHNICAL.md", "docs/agents/copilot-harness-support.md", "https://docs.github.com/en/copilot/how-tos/use-copilot-agents/use-code-review"]
+status = "DONE"
+
+[[requirements]]
+id = "REVIEW"
+kind = "functional"
+description = "Add reusable repository-wide instructions for Copilot code review that consume the harness's scope rules and evidence."
+definition_of_done = "The reviewer-only file is active in this checkout and offered as a portable component. Repository and built-package links resolve, and walkthroughs cover code, configuration, mixed, docs, and limited context."
+status = "DONE"
+blocked_reason = ""
+blocked_from = ""
