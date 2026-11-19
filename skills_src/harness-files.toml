@@ -57,8 +57,41 @@ files = [
 requires = []
 
 [code-review]
-files = [".harness/validation/code-review.md"]
-requires = ["software-design", "automated-test-design"]
+files = [".harness/validation/code-review.md", ".harness/validation/code-complexity.md"]
+requires = ["software-design", "automated-test-design", "skill-authoring"]
+
+[python-development]
+files = [
+  ".agents/skills/python-development/SKILL.md",
+  ".agents/skills/python-development/scripts/check_complexity.py",
+]
+requires = []
+
+[javascript-development]
+files = [
+  ".agents/skills/javascript-development/SKILL.md",
+  ".agents/skills/javascript-development/scripts/check-complexity.sh",
+]
+requires = []
+
+[html-development]
+files = [
+  ".agents/skills/html-development/SKILL.md",
+  ".agents/skills/html-development/scripts/validate-html.sh",
+]
+requires = []
+
+[css-development]
+files = [
+  ".agents/skills/css-development/SKILL.md",
+  ".agents/skills/css-development/scripts/validate-css.sh",
+  ".agents/skills/css-development/scripts/stylelint.json",
+]
+requires = []
+
+[shell-development]
+files = [".agents/skills/shell-development/SKILL.md"]
+requires = []
 
 [security-review]
 files = [".harness/validation/security-review.md"]
@@ -75,11 +108,28 @@ files = [
 ]
 requires = []
 
+[human-interaction]
+files = [
+  ".agents/skills/human-interaction/SKILL.md",
+  ".agents/skills/human-interaction/references/form-schema.md",
+  ".agents/skills/human-interaction/scripts/form.py",
+  ".agents/skills/human-interaction/scripts/form_page.py",
+  ".agents/skills/human-interaction/scripts/form_schema.py",
+  ".agents/skills/human-interaction/scripts/form_server.py",
+  ".agents/skills/human-interaction/assets/index.html",
+  ".agents/skills/human-interaction/assets/style.css",
+  ".agents/skills/human-interaction/assets/app.js",
+  ".agents/skills/human-interaction/assets/markdown.js",
+  ".agents/skills/human-interaction/assets/mermaid.js",
+]
+requires = []
+
 [skill-authoring]
 files = [
   ".agents/skills/learn-and-build-skills/SKILL.md",
   ".agents/skills/learn-and-build-skills/agents/openai.yaml",
   ".agents/skills/learn-and-build-skills/references/authoring-and-evaluation.md",
+  ".agents/skills/learn-and-build-skills/references/language-skills.md",
 ]
 requires = ["topic-learning"]
 

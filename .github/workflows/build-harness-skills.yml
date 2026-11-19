@@ -17,13 +17,33 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
+      - name: Lint Python with Ruff
+        uses: astral-sh/ruff-action@278981a28ce3188b1e39527901f38254bf3aac89 # v4.1.0
+        with:
+          version: "0.17.6"
+          args: check --config ruff.toml
+          src: >-
+            .harness/scripts
+            scripts
+            .agents/skills
+      - name: Set up Node for source validation
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: '24'
+          package-manager-cache: false
       - name: Build and validate the skills
         run: |
           python3 .harness/scripts/init_venv.py
+          .agents/skills/javascript-development/scripts/check-complexity.sh '.agents/skills/**/*.{js,mjs,cjs}'
+          .agents/skills/html-development/scripts/validate-html.sh '.agents/skills/**/*.html'
+          .agents/skills/css-development/scripts/validate-css.sh '.agents/skills/**/*.css'
+          for script in .agents/skills/*/scripts/*.sh; do sh -n "$script"; done
           .harness/.venv/bin/python scripts/build_harness_skills.py
+          .harness/.venv/bin/python .harness/scripts/check_skill_packages.py
           .harness/.venv/bin/python .harness/scripts/check_skill_packages.py skills_src
           .harness/.venv/bin/python .harness/scripts/check_markdown_links.py skills_src/install-harness/SKILL.md skills_src/evolve-harness/SKILL.md
           .harness/.venv/bin/python -m unittest discover -s .harness/scripts/tests -p test_build_harness_skills.py
+          .harness/.venv/bin/python -m unittest discover -s .harness/scripts/tests -p test_python_complexity.py
       - name: Archive both packages
         run: |
           mkdir -p "$RUNNER_TEMP/harness-skill-packages"

@@ -1,0 +1,48 @@
+description = "Require complexity validation for every changed language and give the languages used by the harness portable skills with development tooling and guidance."
+documentation = ["docs/TECHNICAL.md", "docs/agents/code-complexity-validation.md", ".harness/agents/languages.md"]
+status = "DONE"
+
+[[requirements]]
+id = "CHECK"
+kind = "functional"
+description = "Use automated complexity diagnostics for Python and JavaScript and resolve existing violations in the maintained harness."
+definition_of_done = "The analyzers reject the previous Python schema and JavaScript renderer violations and pass the maintained sources."
+status = "DONE"
+blocked_reason = ""
+blocked_from = ""
+
+[[requirements]]
+id = "ROUTE"
+kind = "functional"
+description = "Require complexity evidence for each changed executable language and wire the repository tooling into existing local and CI validation."
+definition_of_done = "The portable review rule specifies language scope, analyzer or manual counting, a threshold, and recorded evidence. The local workflow commands run the documented checks."
+status = "DONE"
+blocked_reason = ""
+blocked_from = ""
+
+[[requirements]]
+id = "LANGUAGES"
+kind = "functional"
+description = "Package separate skills for Python, JavaScript, HTML, CSS, and shell, with best practices, tooling guidance, and reusable helpers where useful."
+definition_of_done = "The project routes each language to its skill, both exports carry the standalone resources, and the pinned helpers run on project files."
+status = "DONE"
+blocked_reason = ""
+blocked_from = ""
+
+[[requirements]]
+id = "AUTHORING"
+kind = "functional"
+description = "Require a dedicated skill for every project language during code review. Put the authoring method in Learn and Build Skills and route to it from Build Harness."
+definition_of_done = "The review gate, authoring guide, and indirect maintenance route resolve in this project and both exported packages, including when code review is adopted independently."
+status = "DONE"
+blocked_reason = ""
+blocked_from = ""
+
+[[requirements]]
+id = "RUFF"
+kind = "functional"
+description = "Prefer Ruff for Python linting, formatting, and complexity, with native C901 used in harness validation and CI."
+definition_of_done = "Ruff passes the maintained Python source and rejects earlier complex functions. The Python skill, local validation and pinned CI workflow use Ruff first."
+status = "DONE"
+blocked_reason = ""
+blocked_from = ""

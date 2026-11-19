@@ -11,6 +11,11 @@ description: Set up a new programming agent harness in a project through a conve
 2. Describe a small initial setup suited to the team's actual workflow. Ask which recurring events should have instructions, which checks belong at handoff, and whether to add feature memory, scratch workspaces, isolated harness Python, or reusable skills. Ask only about consequential choices the project and user have yet to settle. Use the answers to refine the plan.
 3. Confirm the agreed capabilities, target locations, and any effects on existing files or dependencies before applying the plan. Treat explicit choices the user has already made as settled. When a choice is still open, wait for the answer before applying it.
 
+### When several installation choices are open
+
+- Use the bundled [human-interaction skill](assets/harness/.agents/skills/human-interaction/SKILL.md) to present the proposed components, validation choices, and any installation trade-offs in one form. Run the form directly from the built skill before changing the target project.
+- Use a single page when the user can decide from the proposal. If their answers affect the plan, use a multi-page form to show the resulting scope, paths, and effects and request any approval still needed. Proceed with the agreed scope after reviewing the submission. Use chat or the host's question tool for a short answer or when the local form is unavailable.
+
 ## Assemble the selected components
 
 - Read the [component catalog](assets/harness/catalog.toml) in this built skill. Copy only the agreed components from `assets/harness/` to the project, preserving relative paths or adjusting linked paths for the target runtime. The catalog's `requires` lists apply to copying components intact. If a project-native equivalent meets a dependency, adapt the affected references and behavior. If the catalog is missing, obtain the built skill package before relying on its files.

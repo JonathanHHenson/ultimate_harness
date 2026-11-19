@@ -1,0 +1,127 @@
+- timestamp: '2026-11-19T18:47:55+00:00'
+  phase: RESEARCH
+  summary: Feature research opened
+  details: Make excessive Python function complexity a blocking automated check in
+    the harness and provide the same fallback to projects adopting code review.
+- timestamp: '2026-11-19T18:48:25+00:00'
+  phase: DESIGN
+  summary: 'Feature phase: RESEARCH → DESIGN'
+  details: Selected an explicit function-level branching check with a clean start
+    and automatic local and CI enforcement.
+- timestamp: '2026-11-19T18:48:26+00:00'
+  phase: IMPLEMENT
+  summary: 'Feature phase: DESIGN → IMPLEMENT'
+  details: Implement the guard and wire it into review, export, and packaging.
+- timestamp: '2026-11-19T18:48:26+00:00'
+  phase: IMPLEMENT
+  summary: 'CHECK: TODO → WIP'
+  details: Implement the branch counter and reduce the few existing offenders.
+- timestamp: '2026-11-19T18:48:26+00:00'
+  phase: IMPLEMENT
+  summary: 'ROUTE: TODO → WIP'
+  details: Route the guard through harness validation and the existing CI workflow.
+- timestamp: '2026-11-19T18:51:04+00:00'
+  phase: TEST
+  summary: 'Feature phase: IMPLEMENT → TEST'
+  details: The full maintained tree passes the new guard. Verify the regression, workflow,
+    tests, and portable export.
+- timestamp: '2026-11-19T18:54:54+00:00'
+  phase: DESIGN
+  summary: 'Feature phase: TEST → DESIGN'
+  details: Broaden the validation requirement to every changed language and add the
+    JavaScript analyzer for this repository.
+- timestamp: '2026-11-19T19:02:16+00:00'
+  phase: IMPLEMENT
+  summary: 'Feature phase: DESIGN → IMPLEMENT'
+  details: Wire language-neutral complexity evidence and ship independent Python,
+    JavaScript, HTML, CSS, and shell skills.
+- timestamp: '2026-11-19T19:02:16+00:00'
+  phase: IMPLEMENT
+  summary: 'LANGUAGES: TODO → WIP'
+  details: Validate the routed skills, local helpers, and both portable packages.
+- timestamp: '2026-11-19T19:02:16+00:00'
+  phase: TEST
+  summary: 'Feature phase: IMPLEMENT → TEST'
+  details: The policy, language skill packages, and CI commands are in place. Verify
+    behavior and artifacts.
+- timestamp: '2026-11-19T19:06:31+00:00'
+  phase: TEST
+  summary: 'CHECK: WIP → DONE'
+  details: Confirmed the Python and pinned JavaScript analyzers reject prior regressions
+    and pass maintained sources. Chromium verified behavior after the renderer refactor.
+- timestamp: '2026-11-19T19:06:31+00:00'
+  phase: TEST
+  summary: 'ROUTE: WIP → DONE'
+  details: Verified every changed language has a review requirement and evidence route.
+    Replayed the CI commands locally and checked the portable review policy links.
+- timestamp: '2026-11-19T19:06:31+00:00'
+  phase: TEST
+  summary: 'LANGUAGES: WIP → DONE'
+  details: Validated all five skills and ran bundled analyzers from both extracted
+    packages. All 64 harness tests passed.
+- timestamp: '2026-11-19T19:06:31+00:00'
+  phase: DONE
+  summary: 'Feature phase: TEST → DONE'
+  details: Completed language-neutral review policy, independent language skills,
+    and local enforcement and package verification.
+- timestamp: '2026-11-19T20:21:50+00:00'
+  phase: DESIGN
+  summary: 'Feature phase: DONE → DESIGN'
+  details: Make per-language skill coverage a review requirement and move the authoring
+    method into Learn and Build Skills.
+- timestamp: '2026-11-19T20:23:02+00:00'
+  phase: IMPLEMENT
+  summary: 'Feature phase: DESIGN → IMPLEMENT'
+  details: Add a project-wide review gate, central language authoring guide, and portable
+    dependencies.
+- timestamp: '2026-11-19T20:23:02+00:00'
+  phase: IMPLEMENT
+  summary: 'AUTHORING: TODO → WIP'
+  details: Validate the review and indirect authoring paths in both packages and their
+    selected dependencies.
+- timestamp: '2026-11-19T20:23:02+00:00'
+  phase: TEST
+  summary: 'Feature phase: IMPLEMENT → TEST'
+  details: The review and language authoring guidance is in place. Verify inventory
+    checks, links, and isolated exports.
+- timestamp: '2026-11-19T20:23:55+00:00'
+  phase: TEST
+  summary: 'AUTHORING: WIP → DONE'
+  details: Verified the review gate, central authoring workflow and indirect Build
+    Harness route. Both standalone review installs reached the guide and all builder
+    tests passed.
+- timestamp: '2026-11-19T20:23:55+00:00'
+  phase: DONE
+  summary: 'Feature phase: TEST → DONE'
+  details: Completed the language-skill requirement and recorded the validated local
+    and portable authoring routes.
+- timestamp: '2026-11-19T20:46:34+00:00'
+  phase: DESIGN
+  summary: 'Feature phase: DONE → DESIGN'
+  details: Prefer Ruff for Python analysis and configure native C901 for the harness
+    and CI.
+- timestamp: '2026-11-19T20:47:52+00:00'
+  phase: IMPLEMENT
+  summary: 'Feature phase: DESIGN → IMPLEMENT'
+  details: Enable baseline Ruff lint and C901 in the project and make the same version
+    and configuration primary in CI.
+- timestamp: '2026-11-19T20:47:52+00:00'
+  phase: IMPLEMENT
+  summary: 'RUFF: TODO → WIP'
+  details: Verify the pinned Ruff command, source coverage, prior regression, and
+    exported guidance.
+- timestamp: '2026-11-19T20:47:52+00:00'
+  phase: TEST
+  summary: 'Feature phase: IMPLEMENT → TEST'
+  details: Ruff is configured and both packages built. Verify the analyzer and pipeline
+    arguments.
+- timestamp: '2026-11-19T20:48:45+00:00'
+  phase: TEST
+  summary: 'RUFF: WIP → DONE'
+  details: Ruff 0.17.6 passed all 27 maintained Python files and flagged the original
+    complex functions. Verified the pinned CI command and both portable skills.
+- timestamp: '2026-11-19T20:48:45+00:00'
+  phase: DONE
+  summary: 'Feature phase: TEST → DONE'
+  details: Set Ruff as the preferred Python analyzer and recorded local and packaging
+    verification.

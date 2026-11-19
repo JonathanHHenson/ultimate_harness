@@ -11,6 +11,11 @@ description: Improve an existing programming agent harness through a conversatio
 2. Ask what is failing or taking too much effort and what conventions are important to keep. Describe the smallest useful change and offer a meaningful alternative where one exists. State which entry points, commands, or records it affects and what evidence would show improvement.
 3. Confirm the selected change and any necessary integration or migration before editing. Carry forward choices the user already made. If a conflict appears that changes behavior, scope, or stored data, explain the options and wait for the user's decision on that conflict.
 
+### When several evolution choices are open
+
+- Use the bundled [human-interaction skill](assets/harness/.agents/skills/human-interaction/SKILL.md) to show the proposed increment, ask which existing conventions to preserve, and gather decisions about integration. Run the form directly from the built skill before editing the target.
+- Use one page for a concrete proposal. If answers affect the plan, use a multi-page form to present the revised increment, including any conflicts, changes to existing commands, or migration and recovery details. Collect any approval still needed before editing. Use chat or the host's question tool for a short answer or when the local form is unavailable.
+
 ## Integrate the chosen practice
 
 - Read the [component catalog](assets/harness/catalog.toml) in this built skill. Inspect only the selected files under `assets/harness/`. Its `requires` lists identify dependencies for intact copies. Reuse an existing capability when it meets the same need and adapt the selected instructions to its established paths and interfaces. If the catalog is missing, obtain the built package before relying on its files.

@@ -61,20 +61,26 @@ def feature_problems(feature: Path) -> list[str]:
     return problems
 
 
-def main() -> int:
-    features = Path(__file__).resolve().parents[1] / ".harness/features"
+def feature_records(features: Path) -> list[Path]:
     if features.is_symlink() or features.parent.is_symlink():
-        print("Expected a local .harness/features directory.", file=sys.stderr)
-        return 1
+        raise ValueError("Expected a local .harness/features directory.")
     try:
-        records = sorted(
+        return sorted(
             path for path in features.iterdir()
             if not path.name.startswith(".") and (path.is_symlink() or path.is_dir())
         )
     except FileNotFoundError:
-        records = []
+        return []
     except OSError as error:
-        print(f"Could not scan .harness/features: {error}", file=sys.stderr)
+        raise ValueError(f"Could not scan .harness/features: {error}") from error
+
+
+def main() -> int:
+    features = Path(__file__).resolve().parents[1] / ".harness/features"
+    try:
+        records = feature_records(features)
+    except ValueError as error:
+        print(error, file=sys.stderr)
         return 1
 
     failed = False

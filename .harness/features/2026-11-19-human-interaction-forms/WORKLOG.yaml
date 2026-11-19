@@ -1,0 +1,142 @@
+- timestamp: '2026-11-19T18:03:21+00:00'
+  phase: RESEARCH
+  summary: Feature research opened
+  details: Collect complex human feedback with temporary, locally hosted forms defined
+    in JSON, including adaptive multi-page exchanges and Markdown prologues.
+- timestamp: '2026-11-19T18:03:39+00:00'
+  phase: DESIGN
+  summary: 'Feature phase: RESEARCH → DESIGN'
+  details: Defined a localhost CLI lifecycle, JSON schema and bounded dependency-free
+    rendering supported by the browser.
+- timestamp: '2026-11-19T18:03:39+00:00'
+  phase: IMPLEMENT
+  summary: 'Feature phase: DESIGN → IMPLEMENT'
+  details: Protocol, local trust boundaries, browser views and verification are specified.
+- timestamp: '2026-11-19T18:03:39+00:00'
+  phase: IMPLEMENT
+  summary: 'FLOW: TODO → WIP'
+  details: Implementing response persistence and single-page and multi-page transitions.
+- timestamp: '2026-11-19T18:03:39+00:00'
+  phase: IMPLEMENT
+  summary: 'RENDER: TODO → WIP'
+  details: Implementing JSON controls, Markdown, diagrams and responsive views.
+- timestamp: '2026-11-19T18:03:39+00:00'
+  phase: IMPLEMENT
+  summary: 'LOCAL: TODO → WIP'
+  details: Adding localhost scope, skill export and verification.
+- timestamp: '2026-11-19T18:17:54+00:00'
+  phase: TEST
+  summary: 'Feature phase: IMPLEMENT → TEST'
+  details: Implemented the reusable form skill and exercised both browser flows. Verify
+    the final layout, runtime boundaries and package export.
+- timestamp: '2026-11-19T18:19:24+00:00'
+  phase: TEST
+  summary: 'FLOW: WIP → DONE'
+  details: Browser and integration checks verified one-page submission and automatic
+    shutdown, adaptive two-page waiting and explicit close, durable answers, and session
+    expiry.
+- timestamp: '2026-11-19T18:19:24+00:00'
+  phase: TEST
+  summary: 'RENDER: WIP → DONE'
+  details: Verified Markdown text, a link, a local raster image, basic flowchart and
+    sequence SVGs, several control types, and responsive desktop and mobile layouts
+    in Chromium.
+- timestamp: '2026-11-19T18:19:24+00:00'
+  phase: TEST
+  summary: 'LOCAL: WIP → DONE'
+  details: Verified standard-library execution, loopback origin and session controls,
+    scratch boundaries, six valid skill packages, both portable builds, and all 56
+    harness tests.
+- timestamp: '2026-11-19T18:19:24+00:00'
+  phase: DONE
+  summary: 'Feature phase: TEST → DONE'
+  details: Completed the feature and recorded implementation decisions, browser evidence,
+    integration results, and runtime limits.
+- timestamp: '2026-11-19T18:31:38+00:00'
+  phase: DESIGN
+  summary: 'Feature phase: DONE → DESIGN'
+  details: Extend the completed form skill so both portable harness workflows can
+    use it before making target project changes.
+- timestamp: '2026-11-19T18:32:32+00:00'
+  phase: IMPLEMENT
+  summary: 'Feature phase: DESIGN → IMPLEMENT'
+  details: Connect both portable entry points to their bundled form and document how
+    it runs before target project setup.
+- timestamp: '2026-11-19T18:32:32+00:00'
+  phase: IMPLEMENT
+  summary: 'ADOPTION: TODO → WIP'
+  details: The form instructions now support independent bundled execution and separate
+    decision collection from target changes.
+- timestamp: '2026-11-19T18:32:32+00:00'
+  phase: TEST
+  summary: 'Feature phase: IMPLEMENT → TEST'
+  details: Both packages rebuilt. Exercise each archive with a disposable target and
+    verify links and approval routing.
+- timestamp: '2026-11-19T18:33:32+00:00'
+  phase: TEST
+  summary: 'ADOPTION: WIP → DONE'
+  details: Both extracted packages ran the bundled tool from isolated targets without
+    editing them. Verified single and adaptive submissions, final confirmation, links
+    and all 56 tests.
+- timestamp: '2026-11-19T18:33:32+00:00'
+  phase: DONE
+  summary: 'Feature phase: TEST → DONE'
+  details: Completed the portable adoption integration and recorded its scope and
+    evidence.
+- timestamp: '2026-11-19T18:35:46+00:00'
+  phase: DESIGN
+  summary: 'Feature phase: DONE → DESIGN'
+  details: Add an hour of inactivity protection and an expiry notice that survives
+    a missed final poll.
+- timestamp: '2026-11-19T18:37:48+00:00'
+  phase: IMPLEMENT
+  summary: 'Feature phase: DESIGN → IMPLEMENT'
+  details: Update the server and polling client to use the inactivity deadline and
+    retain optional hard caps.
+- timestamp: '2026-11-19T18:37:48+00:00'
+  phase: IMPLEMENT
+  summary: 'EXPIRY: TODO → WIP'
+  details: Added server and browser expiry handling and integration coverage for timing
+    and activity.
+- timestamp: '2026-11-19T18:37:48+00:00'
+  phase: TEST
+  summary: 'Feature phase: IMPLEMENT → TEST'
+  details: Verify expiry and shutdown with ordinary polling and a disconnected browser.
+- timestamp: '2026-11-19T18:39:04+00:00'
+  phase: TEST
+  summary: 'EXPIRY: WIP → DONE'
+  details: Verified the one-hour default, renewal and cap behavior, polling and missed-final-response
+    notices, and automatic server exit. All 58 tests passed.
+- timestamp: '2026-11-19T18:39:04+00:00'
+  phase: DONE
+  summary: 'Feature phase: TEST → DONE'
+  details: Completed the timeout work and recorded server and browser verification.
+- timestamp: '2026-11-19T18:41:16+00:00'
+  phase: DESIGN
+  summary: 'Feature phase: DONE → DESIGN'
+  details: Address the readability finding in form_schema while preserving page, field,
+    and scratch-path behavior.
+- timestamp: '2026-11-19T18:43:46+00:00'
+  phase: IMPLEMENT
+  summary: 'Feature phase: DESIGN → IMPLEMENT'
+  details: Separate field families, shared definition properties, and local page reads
+    into cohesive operations.
+- timestamp: '2026-11-19T18:43:46+00:00'
+  phase: IMPLEMENT
+  summary: 'CLEANLINESS: TODO → WIP'
+  details: Measure the refactor, compare to the previous behavior, and exercise the
+    CLI and packaged form.
+- timestamp: '2026-11-19T18:44:33+00:00'
+  phase: TEST
+  summary: 'Feature phase: IMPLEMENT → TEST'
+  details: The refactor matched the previous results in 6021 comparisons. Verify the
+    installed code, integration tests, and archives.
+- timestamp: '2026-11-19T18:45:18+00:00'
+  phase: TEST
+  summary: 'CLEANLINESS: WIP → DONE'
+  details: Measured lower branch counts, matched previous results in 6021 cases, and
+    passed static, link, package and all 60 integration and harness tests.
+- timestamp: '2026-11-19T18:45:18+00:00'
+  phase: DONE
+  summary: 'Feature phase: TEST → DONE'
+  details: Recorded the behavior-preserving schema refactor and final validation evidence.

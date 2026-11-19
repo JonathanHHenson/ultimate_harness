@@ -1,0 +1,57 @@
+description = "Collect complex human feedback with temporary, locally hosted forms defined in JSON, including adaptive multi-page exchanges and Markdown prologues."
+documentation = ["docs/TECHNICAL.md", "docs/agents/human-interaction-forms.md"]
+status = "DONE"
+
+[[requirements]]
+id = "FLOW"
+kind = "functional"
+description = "Provide one-page and adaptive multi-page feedback. Return submitted responses to the agent, show waiting and final confirmation states, and stop the server."
+definition_of_done = "Exercise both lifecycles end to end through the CLI and browser, including explicit multi-page close and retained responses."
+status = "DONE"
+blocked_reason = ""
+blocked_from = ""
+
+[[requirements]]
+id = "RENDER"
+kind = "functional"
+description = "Generate responsive forms from JSON with a range of controls and Markdown prologues sourced from a scratch file. Render images, links and supported Mermaid diagrams locally."
+definition_of_done = "Demonstrate representative form inputs, prologue content, and form, waiting and confirmation views at desktop and mobile widths."
+status = "DONE"
+blocked_reason = ""
+blocked_from = ""
+
+[[requirements]]
+id = "LOCAL"
+kind = "non-functional"
+description = "Keep runtime dependencies to Python and browser standards, scope the server and files to the local interaction, and package the workflow as a reusable harness skill."
+definition_of_done = "The skill and export validate, checks cover localhost scope, distinct control credentials and input boundaries, and the handoff documents runtime limits."
+status = "DONE"
+blocked_reason = ""
+blocked_from = ""
+
+[[requirements]]
+id = "ADOPTION"
+kind = "functional"
+description = "Allow both portable harness skills to gather complex installation and evolution decisions through their bundled form."
+definition_of_done = "The independent packages resolve and run the bundled form before target changes. Both skills guide one-page or adaptive feedback and preserve the agreed scope."
+status = "DONE"
+blocked_reason = ""
+blocked_from = ""
+
+[[requirements]]
+id = "EXPIRY"
+kind = "functional"
+description = "Expire an abandoned form after one hour of inactivity. Tell the user when the form expires even if its open tab misses the server's final response."
+definition_of_done = "Server and browser tests cover the published deadline, inactivity and hard limits, grace shutdown, and a tab that misses the final state."
+status = "DONE"
+blocked_reason = ""
+blocked_from = ""
+
+[[requirements]]
+id = "CLEANLINESS"
+kind = "non-functional"
+description = "Simplify form schema validation and separate it from reading the interaction's page and prologue."
+definition_of_done = "Measured branch counts drop in the affected functions. Page definitions, submitted answers, and local media retain their behavior in comparison and integration checks."
+status = "DONE"
+blocked_reason = ""
+blocked_from = ""

@@ -22,6 +22,14 @@
 
 - Use the [automated-test-design skill](.agents/skills/automated-test-design/SKILL.md).
 
+## Before writing, testing, or reviewing code in a project language
+
+- Use the applicable skills from [the language instructions](.harness/agents/languages.md).
+
+## Before requesting complex feedback
+
+- Use the [human-interaction skill](.agents/skills/human-interaction/SKILL.md) when a local form would make several related answers or adaptive follow-up easier.
+
 ## Before handing off or ending a session
 
 - Use the [session-end review table](.harness/VALIDATE.md#before-choosing-session-end-reviews) to determine which reviews and checks to run before opening a review ruleset or running its checks.

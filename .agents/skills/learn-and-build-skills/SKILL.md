@@ -20,3 +20,7 @@ Begin authoring when you can explain the chosen procedure, say when a rival is b
 2. Package only guidance that changes future behavior. Keep discovery metadata distinct from execution instructions. Link conditional details and isolate stable mechanical work in small helpers only when they add value. Keep raw research and eval results in staging.
 3. Check format and links, then test discovery and task outcomes separately. Exercise a normal case, a near miss, and a variant or failure case as appropriate. For claims of improved performance, compare matched runs with and without the skill or against its previous version. Revise from observed failures.
 4. Deliver the requested skill and report the evidence supporting it, the checks actually run, and any unresolved limits. Keep unverified instructions scoped to the conditions you can support.
+
+## When authoring a language skill
+
+Follow the [language skill authoring guide](references/language-skills.md) to create, adopt, or update the dedicated skill for a language used by the project.

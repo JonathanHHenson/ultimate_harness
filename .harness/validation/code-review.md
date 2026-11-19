@@ -3,7 +3,13 @@
 ## When starting the review
 
 - Identify the code you added or changed this session, including tests, scripts, and new files. Use the diff and untracked-file list when Git is available. Otherwise use the session's changed paths. Read the changes in context and follow affected callers and interfaces as needed.
+
+## Before running code review diagnostics
+
+- Verify that every language the project uses has its own discoverable skill covering tooling, documentation, and best practices. Reconcile the language inventory with maintained source, tests, markup, styles, and automation, including embedded languages and languages introduced by the change. Check that each skill identifies the applicable linting, formatting, testing, and other development checks.
+- Use [Learn and Build Skills](../../.agents/skills/learn-and-build-skills/SKILL.md#when-authoring-a-language-skill) to resolve missing or incomplete language skills. Keep code review open while a coverage gap remains. Apply the relevant skills to the changed code.
 - Run the project's relevant lint and static type checks in diagnostic mode with its configured environment. Use available language-server diagnostics for the changed files. Prefer repository commands and configuration, then applicable installed tools when a repository command is missing. Check that the tools analyzed the intended files and report unavailable or excluded checks.
+- Follow [complexity validation](code-complexity.md) for every changed language. Use the project’s tools or the relevant language skill and verify that all changed executable code is covered.
 
 ## After collecting tool diagnostics
 
@@ -11,7 +17,7 @@
 
 ## When reviewing code cleanliness after the design pass
 
-- **Cyclomatic complexity.** Inspect changed functions for new branches, deep nesting, compound conditions, and mixed error handling and business logic. Use configured complexity diagnostics and compare changes with the previous code when available. Make paths easier to follow with simple guards, named domain decisions, or a clear table for genuinely data-driven cases. Check that the change preserves edge cases and reduces the reasoning burden across helpers.
+- **Cyclomatic complexity.** Use the measured results to inspect branches, nesting, compound conditions, and mixed error handling and business logic. Make paths easier to follow with simple guards, named domain decisions, or a clear table for genuinely data-driven cases. Check that the change preserves edge cases and reduces the reasoning burden across helpers.
 - **File size.** Use available size diagnostics or compare large or fast-growing files with their previous versions and nearby modules. Look for independent responsibilities that hide the main flow or force unrelated changes into one place. Extract a cohesive responsibility where it has a clear interface. Keep closely related behavior together when one file is easier to understand.
 - **Module organization.** Look across the changed files and nearby modules. Put related code that changes together in the existing domain or feature module. Introduce a focused module or package when related files are scattered and have a clear shared purpose. Keep imports and public entry points usable and avoid cycles, generic dumping grounds, and moves based on filenames alone.
 - Apply project-configured limits. For other findings, name the concrete path, responsibility, or dependency that makes the code hard to maintain. Flag any relevant dead code, duplication, or unclear naming that obscures behavior.

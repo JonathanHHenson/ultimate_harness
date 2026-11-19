@@ -21,6 +21,8 @@ The setup command installs the harness dependencies in `.harness/.venv/`. Use `.
 - Choose **Install a Harness** for a first setup. The agent will ask which capabilities fit your workflow and set up the selected ones. [Install skill source](skills_src/install-harness/SKILL.md)
 - Choose **Evolve a Harness** when you already have agent instructions and want to adopt a practice at a time. The agent will review your existing workflow and agree on the next change with you. [Evolve skill source](skills_src/evolve-harness/SKILL.md)
 
+Both skills can collect several setup decisions in one local form. When an answer changes the proposal, the agent can show the revised plan in the same tab before applying it.
+
 Download `harness-skills` from a successful **Build harness skills** workflow run and extract the archive for the skill you want. Place the whole extracted skill folder, including `assets/`, in the skill location your coding agent uses. Open your target project and ask the agent to use that skill.
 
 To build from your checkout, run the harness setup above, then run `.harness/.venv/bin/python scripts/build_harness_skills.py`. The two ready-to-use skill folders are written under `skills_src/`. [Build and export details](docs/TECHNICAL.md#how-portable-skills-are-built)
@@ -32,6 +34,7 @@ To build from your checkout, run the harness setup above, then run `.harness/.ve
 | What agents do during a session | The triggers in [AGENTS.md](AGENTS.md) or the detailed instructions under [.harness/agents/](.harness/agents/) |
 | Which checks run and when | The [validation guide](.harness/VALIDATE.md) or a specific review under [.harness/validation/](.harness/validation/) |
 | A reusable agent workflow | The corresponding `SKILL.md` under [.agents/skills/](.agents/skills/) |
+| Which tools agents use for a programming language | The corresponding skill in the [language guide](.harness/agents/languages.md) |
 | A harness command | The script in [.harness/scripts/](.harness/scripts/) and its behavior tests in [.harness/scripts/tests/](.harness/scripts/tests/) |
 | A command used by CI | The corresponding command under [scripts/](scripts/) |
 | How another project installs or evolves a harness | The corresponding skill or the shared export catalog under [skills_src/](skills_src/) |

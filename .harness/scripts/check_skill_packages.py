@@ -29,6 +29,17 @@ def load_metadata(text: str) -> dict[str, object]:
         raise ValueError("Invalid YAML in SKILL.md frontmatter") from None
 
 
+def check_skill_metadata(metadata: dict[str, object], directory_name: str) -> None:
+    name = metadata.get("name")
+    if not isinstance(name, str) or len(name) > 64 or not NAME.fullmatch(name):
+        raise ValueError("name must be lowercase kebab-case and at most 64 characters")
+    if name != directory_name:
+        raise ValueError(f"name {name!r} must match the package directory")
+    description = metadata.get("description")
+    if not isinstance(description, str) or not description.strip() or len(description) > 1024:
+        raise ValueError("description must be nonempty text of at most 1024 characters")
+
+
 def check_skill(directory: Path) -> None:
     if directory.is_symlink():
         raise ValueError("Expected a local skill package directory")
@@ -39,16 +50,7 @@ def check_skill(directory: Path) -> None:
         end = lines.index("---", 1)
     except ValueError:
         raise ValueError("SKILL.md frontmatter needs a closing delimiter") from None
-    metadata = load_metadata("\n".join(lines[1:end]))
-
-    name = metadata.get("name")
-    if not isinstance(name, str) or len(name) > 64 or not NAME.fullmatch(name):
-        raise ValueError("name must be lowercase kebab-case and at most 64 characters")
-    if name != directory.name:
-        raise ValueError(f"name {name!r} must match the package directory")
-    description = metadata.get("description")
-    if not isinstance(description, str) or not description.strip() or len(description) > 1024:
-        raise ValueError("description must be nonempty text of at most 1024 characters")
+    check_skill_metadata(load_metadata("\n".join(lines[1:end])), directory.name)
     if not any(line.strip() for line in lines[end + 1:]):
         raise ValueError("SKILL.md must contain instructions after the frontmatter")
 

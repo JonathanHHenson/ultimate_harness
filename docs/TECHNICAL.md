@@ -86,6 +86,22 @@ At handoff, the agent identifies the changes attributable to the session or requ
 
 The local validators cover specific contracts. The Markdown checker checks supported local inline file targets. The guidance review checks anchors and whether a trigger leads to the right instructions and actions. The skill checker verifies required package metadata and instruction content. The harness test suite exercises the scripts in isolated workspaces. An agent-session evaluation checks which guidance the agent actually opens and which commands it runs. [Guidance validation](../.harness/validation/harness-guidance.md) · [Skill checker](../.harness/scripts/check_skill_packages.py) · [Script validation](../.harness/validation/harness-scripts.md)
 
+### Language skills and complexity validation
+
+Code review requires complexity evidence for every changed executable language. Use the project's analyzer and limit where configured. Otherwise use a language helper or a documented manual decision count against the default limit of 10. Review the selected boundaries and coverage as well as the score. [Complexity validation](../.harness/validation/code-complexity.md)
+
+Code review verifies that each project language has a dedicated, discoverable skill for tooling, documentation, and best practices. Learn and Build Skills owns the authoring method, and Build Harness routes language onboarding through it. Python prefers Ruff for linting and complexity, with a bundled standard-library fallback. JavaScript ships an ESLint complexity command. HTML and CSS have standalone validation helpers. Shell uses the declared interpreter’s syntax check and the project's configured lint and test tools. The existing packaging workflow runs the maintained source checks before exporting the skills. [Ruff configuration](../ruff.toml) · [Code review](../.harness/validation/code-review.md#before-running-code-review-diagnostics) · [Language routing](../.harness/agents/languages.md) · [Language skill authoring](../.agents/skills/learn-and-build-skills/SKILL.md#when-authoring-a-language-skill) · [Packaging workflow](../.github/workflows/build-harness-skills.yml)
+
+The portable catalog packages each language skill independently. When onboarding another executable language, add its skill and validation commands, and use the shared review policy for changes in that language. The Node-based checks run during development and packaging. The feedback form continues to use standard-library Python and browser APIs at runtime. [Export catalog](../skills_src/harness-files.toml)
+
+## How feedback forms work
+
+For complex feedback, the agent writes page JSON and a Markdown prologue in a private scratch workspace. A short-lived Python process binds to loopback and supplies the same browser URL throughout the interaction. A browser submission saves structured answers in the workspace. In multi-page mode, the browser waits while the agent reads the answers and sends another JSON page or closes the form. In both modes the final view prompts the human to return to the agent, and the server shuts down after the browser acknowledges the view or a short grace period elapses. The form uses local HTML, CSS and JavaScript. [Human interaction](../.agents/skills/human-interaction/SKILL.md) · [Form contract](../.agents/skills/human-interaction/references/form-schema.md)
+
+The portable installation and evolution skills use the bundled form to collect open decisions before editing the target. They resolve the script relative to their package and can keep the form workspace outside the target. This lets an agent agree on the scope of a first installation before setting up project files or a harness environment.
+
+The form expires after an hour without a successful submission or a new page. The browser polls for state without extending the deadline. It can show the expiry notice from the last reported deadline if it cannot reach the server after the grace period.
+
 ## Feature completion and merge checks
 
 Before setting a feature to `DONE`, update project docs under `docs/` for any changed shared behavior, interfaces, or architecture. Put the enduring decisions, their rationale, and verification evidence for agents under `docs/agents/`. Record which checks ran and what they established, including any scope left unverified. The definition links readers to those documents. Include the records and docs in the same change. [Feature closeout rule](../.harness/agents/feature-memory.md#before-marking-a-feature-done)
