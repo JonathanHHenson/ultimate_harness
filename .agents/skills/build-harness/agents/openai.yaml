@@ -1,0 +1,4 @@
+interface:
+  display_name: "Build and Maintain Harness"
+  short_description: "Build and maintain project agent harnesses"
+  default_prompt: "Use $build-harness to build or maintain this project’s programming harness."

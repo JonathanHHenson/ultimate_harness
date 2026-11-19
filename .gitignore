@@ -1,0 +1,6 @@
+/.harness/features/
+/.harness/.venv/
+/.harness/.venv.lock
+/.harness/.uv-cache/
+/.scratch/
+__pycache__/
