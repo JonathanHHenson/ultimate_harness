@@ -16,6 +16,15 @@ python3 .harness/scripts/init_venv.py
 
 The setup command installs the harness dependencies in `.harness/.venv/`. Use `.harness/.venv/bin/python` for the harness tests below. Feature records travel with the repository. Scratch files stay local to your checkout. [Python setup](.harness/agents/python-environment.md)
 
+## Add these practices to another project
+
+- Choose **Install a Harness** for a first setup. The agent will ask which capabilities fit your workflow and set up the selected ones. [Install skill source](skills_src/install-harness/SKILL.md)
+- Choose **Evolve a Harness** when you already have agent instructions and want to adopt a practice at a time. The agent will review your existing workflow and agree on the next change with you. [Evolve skill source](skills_src/evolve-harness/SKILL.md)
+
+Download `harness-skills` from a successful **Build harness skills** workflow run and extract the archive for the skill you want. Place the whole extracted skill folder, including `assets/`, in the skill location your coding agent uses. Open your target project and ask the agent to use that skill.
+
+To build from your checkout, run the harness setup above, then run `.harness/.venv/bin/python scripts/build_harness_skills.py`. The two ready-to-use skill folders are written under `skills_src/`. [Build and export details](docs/TECHNICAL.md#how-portable-skills-are-built)
+
 ## Make changes
 
 | If you want to change… | Edit |
@@ -25,6 +34,7 @@ The setup command installs the harness dependencies in `.harness/.venv/`. Use `.
 | A reusable agent workflow | The corresponding `SKILL.md` under [.agents/skills/](.agents/skills/) |
 | A harness command | The script in [.harness/scripts/](.harness/scripts/) and its behavior tests in [.harness/scripts/tests/](.harness/scripts/tests/) |
 | A command used by CI | The corresponding command under [scripts/](scripts/) |
+| How another project installs or evolves a harness | The corresponding skill or the shared export catalog under [skills_src/](skills_src/) |
 | Shared documentation | Project docs under [docs/](docs/) and feature decisions and verification under [docs/agents/](docs/agents/) |
 
 Keep changes focused and run the checks that apply. For script changes, run the harness suite from the repository root.

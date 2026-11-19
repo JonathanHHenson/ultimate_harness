@@ -1,0 +1,56 @@
+- timestamp: '2026-11-19T16:11:50+00:00'
+  phase: RESEARCH
+  summary: Feature research opened
+  details: Package conversational install and evolution skills using portable components
+    built from the live harness, and publish the generated packages through GitHub
+    Actions.
+- timestamp: '2026-11-19T16:12:14+00:00'
+  phase: DESIGN
+  summary: 'Feature phase: RESEARCH → DESIGN'
+  details: Selected separate workflows, an explicit portable catalog, and standalone
+    build artifacts based on the existing harness contracts.
+- timestamp: '2026-11-19T16:12:14+00:00'
+  phase: IMPLEMENT
+  summary: 'Feature phase: DESIGN → IMPLEMENT'
+  details: The catalog, exclusion policy, build entry point, and validation strategy
+    are specified.
+- timestamp: '2026-11-19T16:12:14+00:00'
+  phase: IMPLEMENT
+  summary: 'SKILLS: TODO → WIP'
+  details: Writing focused install and evolution workflows with explicit human decisions.
+- timestamp: '2026-11-19T16:12:14+00:00'
+  phase: IMPLEMENT
+  summary: 'EXPORT: TODO → WIP'
+  details: Bundling verified source files by reusable capability.
+- timestamp: '2026-11-19T16:12:14+00:00'
+  phase: IMPLEMENT
+  summary: 'CI: TODO → WIP'
+  details: Adding a build, validation, and artifact workflow for this repository.
+- timestamp: '2026-11-19T16:18:20+00:00'
+  phase: TEST
+  summary: 'Feature phase: IMPLEMENT → TEST'
+  details: Both skill bundles build and the isolated install and evolution exercises
+    passed. Verify the current tests, archives, and repository scope before closure.
+- timestamp: '2026-11-19T16:19:11+00:00'
+  phase: TEST
+  summary: 'SKILLS: WIP → DONE'
+  details: Both package validators and local links passed. Independent first-install
+    and evolution trials applied the selected practices and verified the target workflows.
+    The final install verified the minimal feature memory dependency set.
+- timestamp: '2026-11-19T16:19:11+00:00'
+  phase: TEST
+  summary: 'EXPORT: WIP → DONE'
+  details: Both generated payloads matched the catalog and live source. Isolated tests
+    covered exclusions, rebuilds, and missing or redirected paths. All 51 harness
+    tests passed.
+- timestamp: '2026-11-19T16:19:11+00:00'
+  phase: TEST
+  summary: 'CI: WIP → DONE'
+  details: Reviewed pinned actions and read-only workflow permissions. Local workflow
+    commands built and validated both packages and the archive step preserved hidden
+    files and executable modes. Hosted execution was unavailable in this checkout.
+- timestamp: '2026-11-19T16:19:11+00:00'
+  phase: DONE
+  summary: 'Feature phase: TEST → DONE'
+  details: Completed both skills, the shared export catalog and builder, and the GitHub
+    packaging workflow. Documented the executed checks and hosted verification limit.

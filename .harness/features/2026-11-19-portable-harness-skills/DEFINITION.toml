@@ -1,0 +1,30 @@
+description = "Package conversational install and evolution skills using portable components built from the live harness, and publish the generated packages through GitHub Actions."
+documentation = ["README.md", "docs/TECHNICAL.md", "docs/agents/portable-harness-skills.md"]
+status = "DONE"
+
+[[requirements]]
+id = "SKILLS"
+kind = "functional"
+description = "Guide collaborative greenfield setup and selective evolution using different discovery, decisions, integration, and verification steps."
+definition_of_done = "Both skills validate and their workflows distinguish an unconfigured project from one with active instructions while preserving target project choices and history."
+status = "DONE"
+blocked_reason = ""
+blocked_from = ""
+
+[[requirements]]
+id = "EXPORT"
+kind = "functional"
+description = "Assemble both skill bundles from a shared allowlist of current, reusable harness files."
+definition_of_done = "Both outputs match live source bytes, refresh without stale files, and exclude the source project's configuration, records, and local data. Tests cover failed builds and unsafe source paths."
+status = "DONE"
+blocked_reason = ""
+blocked_from = ""
+
+[[requirements]]
+id = "CI"
+kind = "functional"
+description = "Build, validate, and archive both self-contained skills through GitHub Actions."
+definition_of_done = "The hosted workflow is configured with limited permissions and pinned actions. Local runs validate the build and both archives with intact dotfiles and no workflow delegation to adopting projects."
+status = "DONE"
+blocked_reason = ""
+blocked_from = ""

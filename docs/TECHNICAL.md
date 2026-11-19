@@ -8,16 +8,18 @@ Ultimate Harness supplies repository-specific instructions and local tools to a 
 | --- | --- |
 | [`AGENTS.md`](../AGENTS.md) | Entry point. Routes session events and kinds of work to the required instructions. |
 | [`.harness/agents/`](../.harness/agents/) | Contextual instructions for environment setup, scratch space, and feature memory. |
+| [`.harness/references/`](../.harness/references/) | Reusable harness contracts that a target project can install independently. |
 | [`.harness/VALIDATE.md`](../.harness/VALIDATE.md) | Index of validation triggers and the decision table for session-end reviews. |
 | [`.harness/validation/`](../.harness/validation/) | Specific checks for guidance, scripts, scratch space, code review, and security review. |
 | [`.agents/skills/`](../.agents/skills/) | Reusable procedures for harness maintenance, research, skill authoring, software design, and test design. |
 | [`.harness/scripts/`](../.harness/scripts/) | Focused Python commands, their dependency manifest, and behavioral tests. |
 | `.harness/features/` | Versioned feature definitions, designs, and worklogs. |
 | [`scripts/`](../scripts/) | Standalone commands for CI to run in a pull request checkout. |
+| [`skills_src/`](../skills_src/) | Conversational installation and evolution skills, with the catalog that selects their reusable assets. |
 | `docs/` and [`docs/agents/`](agents/) | Project documentation and durable feature decisions and verification evidence for agents. |
 | `.scratch/` | Local notes and experiments. Agents create a workspace per session under `.scratch/agent_sessions/`. |
 
-The project shares instructions, skills, scripts, feature records, and documentation through Git. Feature records carry work across sessions and checkouts. Scratch, temporary feature locks and writes, the virtual environment, its setup lock, and the default uv cache are ignored. [Repository ignore rules](../.gitignore)
+The project shares instructions, skill sources, scripts, feature records, and documentation through Git. Feature records carry work across sessions and checkouts. Scratch, temporary feature locks and writes, the virtual environment, its setup lock, the default uv cache, and generated skill assets are ignored. [Repository ignore rules](../.gitignore)
 
 ## How a session runs
 
@@ -57,7 +59,7 @@ Feature records preserve enough state for another session to understand the purp
 | `DESIGN.md` | Design decisions and the technical approach, including how they address the requirements and how the behavior will be verified. |
 | `WORKLOG.yaml` | Chronological entries with a UTC timestamp, phase, summary, and details. Entries capture substantive progress, decisions, evidence, and blockers. |
 
-Feature phases advance in order through `RESEARCH → DESIGN → IMPLEMENT → TEST → DONE`. The feature may return to an earlier phase and then advances through the intervening phases again. Requirements advance separately through `TODO → WIP → DONE`. A requirement can become `BLOCKED` from `TODO` or `WIP`. The definition records the reason and the prior state, which is the state the requirement returns to on unblocking. `DONE` is terminal for a requirement. The status command allows the feature to enter `DONE` from `TEST` once every requirement is `DONE`. The agent verifies the definitions of done and the applicable checks before requesting that transition. [Feature memory contract](../.agents/skills/build-harness/references/feature-memory.md)
+Feature phases advance in order through `RESEARCH → DESIGN → IMPLEMENT → TEST → DONE`. The feature may return to an earlier phase and then advances through the intervening phases again. Requirements advance separately through `TODO → WIP → DONE`. A requirement can become `BLOCKED` from `TODO` or `WIP`. The definition records the reason and the prior state, which is the state the requirement returns to on unblocking. `DONE` is terminal for a requirement. The status command allows the feature to enter `DONE` from `TEST` once every requirement is `DONE`. The agent verifies the definitions of done and the applicable checks before requesting that transition. [Feature memory contract](../.harness/references/feature-memory.md)
 
 `create_feature.py` takes a slug, adds the UTC date, validates the initial definition, and publishes the three files from a staging directory. It prints the path to the new record. Status and worklog commands take the full dated directory name so they can address the same feature on later days. The status commands record the transition reason in the worklog. `append_worklog.py` appends a substantive entry and rejects an exact duplicate. [Feature creation](../.harness/scripts/create_feature.py) · [Feature phase changes](../.harness/scripts/set_feature_status.py) · [Requirement status changes](../.harness/scripts/set_requirement_status.py) · [Worklog updates](../.harness/scripts/append_worklog.py)
 
@@ -103,3 +105,11 @@ The harness uses the same feature and validation workflow for changes to itself.
 For unfamiliar tasks, the research workflow starts from the question and checks whether sources actually support their claims. Socratic questioning exposes assumptions, tests alternatives and counterexamples, and checks whether the conclusion transfers to a fresh case. The skill-authoring workflow turns the supported procedure into short instructions with references or scripts where they help. [Research workflow](../.agents/skills/learn-a-topic/SKILL.md) · [Skill authoring workflow](../.agents/skills/learn-and-build-skills/SKILL.md)
 
 Evaluation distinguishes **discovery**, **execution**, and **outcomes**. A rule can point to the correct file while the agent still runs an unrelated check. When evaluating a change, use fresh sessions, keep inputs and runtime comparable, and define success before inspecting the results. Check a matching case, an unrelated case, and an overlap. For a claim of improvement, compare matched runs with the relevant baseline and score what the agent did and what it found. Keep scoring criteria outside the worker's instructions. [Evaluation procedure](../.agents/skills/learn-and-build-skills/references/authoring-and-evaluation.md#evaluate-independently-of-the-draft)
+
+## How portable skills are built
+
+The two skills share an explicit file catalog. Each catalog entry names a capability, its repository-relative files, and its dependencies when copied intact. The builder copies those live files into each skill's generated `assets/harness/` directory, preserving paths and replacing old generated content. Edit portable content at its source. When adding an export, check the file's commands and links and update the catalog for any new dependencies. [Export catalog](../skills_src/harness-files.toml) · [Build command](../scripts/build_harness_skills.py)
+
+The adopting project supplies its own entry point, validation index, ignore rules, documentation, and CI configuration. The catalog excludes this repository's versions of those files, its feature records, scratch, and runtime state. It includes the standalone feature merge check as an optional component.
+
+GitHub Actions builds from the checkout, validates both packages, and publishes a `.tar.gz` for each skill in the `harness-skills` artifact. The archives preserve hidden harness directories and file permissions. This workflow belongs to the source repository. [Packaging workflow](../.github/workflows/build-harness-skills.yml) · [GitHub Actions artifact docs](https://docs.github.com/en/actions/concepts/workflows-and-actions/workflow-artifacts)

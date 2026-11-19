@@ -4,7 +4,6 @@
 
 - Identify the code you added or changed this session, including tests, scripts, and new files. Use the diff and untracked-file list when Git is available. Otherwise use the session's changed paths. Read the changes in context and follow affected callers and interfaces as needed.
 - Run the project's relevant lint and static type checks in diagnostic mode with its configured environment. Use available language-server diagnostics for the changed files. Prefer repository commands and configuration, then applicable installed tools when a repository command is missing. Check that the tools analyzed the intended files and report unavailable or excluded checks.
-- For harness Python, use the harness interpreter. If basedpyright is available and no checker is configured, run `basedpyright -p .harness/scripts --pythonpath .harness/.venv/bin/python --verbose` from the project root, passing the changed harness Python paths. Verify the tool found source files. Continue with the manual passes when a tool is unavailable.
 
 ## After collecting tool diagnostics
 
@@ -25,6 +24,6 @@
 ## Before reporting the review complete
 
 - Fix actionable findings within the change's scope and rerun affected diagnostics and behavior checks. Confirm design, cleanliness, and behavioral coverage on the final code. Keep unrelated cleanup out of the change.
-- Run the complete configured project unit-test suite after the last code or test change. Use the documented commands and environments, including each configured unit suite in a multi-package project. Reuse a passing full-suite run against the same final state. For this project's harness tests, follow [the harness script checks](harness-scripts.md). Require a successful run with the expected tests collected. Focused tests are useful while iterating. The full suite is the completion check.
+- Run the complete configured project unit-test suite after the last code or test change. Use the documented commands and environments, including each configured unit suite in a multi-package project. Reuse a passing full-suite run against the same final state. Require a successful run with the expected tests collected. Focused tests are useful while iterating. The full suite is the completion check.
 - Resolve failing tests and rerun the full suite. If a suite is missing, skipped, or blocked, record the reason and the scope left unverified. Report skipped or excluded tests separately from passing tests.
 - Record the tools and scope checked, any unavailable or unrun checks, and unresolved findings with a file location and impact. Use feature memory when applicable. Distinguish completed review from unresolved validation failures.

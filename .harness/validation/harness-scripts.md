@@ -2,6 +2,7 @@
 
 ## After changing harness scripts, CI check scripts, tests, or runtime dependencies
 
+- Use the harness interpreter for diagnostics. If basedpyright is available and no checker is configured, run `basedpyright -p .harness/scripts --pythonpath .harness/.venv/bin/python --verbose` from the project root, passing the changed Python paths. Verify it found the expected files.
 - Set up [the harness Python environment](../agents/python-environment.md). From the project root, run `.harness/.venv/bin/python -m unittest discover -s .harness/scripts/tests -v`.
 - For changed behavior, exercise representative success and failure cases in an isolated temporary project. Use existing behavioral tests when they cover those cases; add coverage for uncovered behavior that warrants testing.
 - Require the suite and relevant command scenarios to pass. Verify outputs, exit status, and resulting state rather than source structure or exact implementation.

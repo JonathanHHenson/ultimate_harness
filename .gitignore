@@ -6,3 +6,5 @@
 /.harness/.uv-cache/
 /.scratch/
 __pycache__/
+/skills_src/*/assets/harness/
+/skills_src/*/assets/.build-harness-*/

@@ -12,6 +12,11 @@
 
 - Follow [the harness script checks](validation/harness-scripts.md).
 
+## When changing the portable skill sources, export catalog, or build workflow
+
+- Run `.harness/.venv/bin/python scripts/build_harness_skills.py` and validate the two built packages with `.harness/.venv/bin/python .harness/scripts/check_skill_packages.py skills_src`. Use the [packaging workflow](../.github/workflows/build-harness-skills.yml) for entry point link, build test, and archive commands.
+- Check that the exported set excludes source-project files and that installing the selected components leaves their target paths and applicable checks usable.
+
 ## When changing scratch conventions, session creation, or the scratch ignore rule
 
 - Follow [the scratch space checks](validation/scratch-space.md).

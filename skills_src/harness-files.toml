@@ -1,0 +1,91 @@
+# Only these files are copied from the source repository.
+
+[python-environment]
+files = [
+  ".harness/agents/python-environment.md",
+  ".harness/scripts/init_venv.py",
+  ".harness/scripts/requirements.txt",
+  ".harness/scripts/_local_files.py",
+]
+requires = []
+
+[scratch-space]
+files = [
+  ".harness/agents/scratch-space.md",
+  ".harness/scripts/create_agent_session.py",
+]
+requires = ["python-environment"]
+
+[feature-memory]
+files = [
+  ".harness/agents/feature-memory.md",
+  ".harness/references/feature-memory.md",
+  ".harness/scripts/_feature_memory.py",
+  ".harness/scripts/_feature_store.py",
+  ".harness/scripts/create_feature.py",
+  ".harness/scripts/set_feature_status.py",
+  ".harness/scripts/set_requirement_status.py",
+  ".harness/scripts/append_worklog.py",
+]
+requires = ["python-environment"]
+
+[feature-merge-check]
+files = ["scripts/check_features_done.py"]
+requires = ["feature-memory"]
+
+[guidance-checks]
+files = [
+  ".harness/scripts/check_markdown_links.py",
+  ".harness/scripts/check_skill_packages.py",
+]
+requires = ["python-environment"]
+
+[software-design]
+files = [
+  ".agents/skills/software-design/SKILL.md",
+  ".agents/skills/software-design/references/paradigm-selection.md",
+  ".agents/skills/software-design/references/principles-and-patterns.md",
+]
+requires = []
+
+[automated-test-design]
+files = [
+  ".agents/skills/automated-test-design/SKILL.md",
+  ".agents/skills/automated-test-design/references/behavioral-unit-tests.md",
+  ".agents/skills/automated-test-design/references/complex-dependencies.md",
+]
+requires = []
+
+[code-review]
+files = [".harness/validation/code-review.md"]
+requires = ["software-design", "automated-test-design"]
+
+[security-review]
+files = [".harness/validation/security-review.md"]
+requires = []
+
+[topic-learning]
+files = [
+  ".agents/skills/learn-a-topic/SKILL.md",
+  ".agents/skills/learn-a-topic/references/research.md",
+]
+requires = []
+
+[skill-authoring]
+files = [
+  ".agents/skills/learn-and-build-skills/SKILL.md",
+  ".agents/skills/learn-and-build-skills/agents/openai.yaml",
+  ".agents/skills/learn-and-build-skills/references/authoring-and-evaluation.md",
+]
+requires = ["topic-learning"]
+
+[harness-maintenance]
+files = [
+  ".agents/skills/build-harness/SKILL.md",
+  ".agents/skills/build-harness/agents/openai.yaml",
+  ".agents/skills/build-harness/references/agents-md.md",
+  ".agents/skills/build-harness/references/python-environment.md",
+  ".agents/skills/build-harness/references/scratch-space.md",
+  ".agents/skills/build-harness/references/validation.md",
+]
+requires = ["feature-memory", "skill-authoring", "software-design", "automated-test-design"]

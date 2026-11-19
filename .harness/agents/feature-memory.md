@@ -2,7 +2,7 @@
 
 ## Before starting or resuming feature work
 
-- Read `.agents/skills/build-harness/references/feature-memory.md` for the memory contract and script commands. Paths here are relative to the project root.
+- Read [the feature memory contract](../references/feature-memory.md) for the record format and commands. Paths here are relative to the project root.
 - Find the feature's `YYYY-MM-DD-<slug>` directory under `.harness/features/`. Read its `DEFINITION.toml`, `DESIGN.md`, and `WORKLOG.yaml` before continuing; use the worklog to identify decisions, evidence, blockers, and the next action.
 - Before implementing a new feature, pass its lowercase kebab-case slug to `.harness/.venv/bin/python .harness/scripts/create_feature.py`. The script adds the UTC date and prints the new path. Never overwrite or merge another feature's memory.
 
@@ -21,7 +21,7 @@
 ## Before marking a feature DONE
 
 - Update project documentation under `docs/` for changes to shared behavior, interfaces, or architecture.
-- Write or update the feature's closeout under `docs/agents/`. Capture decisions and their rationale, the checks that ran and their outcomes, and any unverified scope. Use durable repository references. Keep raw session artifacts in scratch.
+- Write or update the feature's closeout under `docs/agents/`. Capture decisions and their rationale, the checks that ran and their outcomes, and any unverified scope. Use durable repository references. Keep raw session artifacts in local workspace storage.
 - Link the closeout and relevant project docs from the feature definition. Include those docs and the feature record in the same change.
 
 ## When progress changes what a future agent needs to know

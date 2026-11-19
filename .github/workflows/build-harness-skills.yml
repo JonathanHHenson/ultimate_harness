@@ -1,0 +1,39 @@
+name: Build harness skills
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Check out source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Build and validate the skills
+        run: |
+          python3 .harness/scripts/init_venv.py
+          .harness/.venv/bin/python scripts/build_harness_skills.py
+          .harness/.venv/bin/python .harness/scripts/check_skill_packages.py skills_src
+          .harness/.venv/bin/python .harness/scripts/check_markdown_links.py skills_src/install-harness/SKILL.md skills_src/evolve-harness/SKILL.md
+          .harness/.venv/bin/python -m unittest discover -s .harness/scripts/tests -p test_build_harness_skills.py
+      - name: Archive both packages
+        run: |
+          mkdir -p "$RUNNER_TEMP/harness-skill-packages"
+          for skill in install-harness evolve-harness; do
+            tar -czf "$RUNNER_TEMP/harness-skill-packages/$skill.tar.gz" -C skills_src \
+              "$skill/SKILL.md" "$skill/assets/harness"
+          done
+      - name: Upload skill packages
+        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
+        with:
+          name: harness-skills
+          path: ${{ runner.temp }}/harness-skill-packages/*.tar.gz
+          if-no-files-found: error

@@ -18,7 +18,7 @@ description: Build, review, or maintain a programming agent harness. Use for AGE
 | Project instructions and complex contextual rules | Keep clear event or path triggers in `AGENTS.md` and place detailed contextual rules in `.harness/agents/`. Follow the [agent instructions standard](references/agents-md.md). |
 | Project facts, architecture, and rationale | Keep them under `docs/` and link from the work that needs them. |
 | Reusable workflow | Use `.agents/skills/<name>/SKILL.md`. Use [learn-and-build-skills](../learn-and-build-skills/SKILL.md) to create a skill or materially change its workflow. |
-| Feature definitions, designs, and progress | Track the records under `.harness/features/`. Put completion decisions and evidence for agents under `docs/agents/`. Follow the [feature memory contract](references/feature-memory.md). |
+| Feature definitions, designs, and progress | Track the records under `.harness/features/`. Put completion decisions and evidence for agents under `docs/agents/`. Follow the [feature memory contract](../../../.harness/references/feature-memory.md). |
 | Project validation | Route matching situations from `.harness/VALIDATE.md` to focused rulesets in `.harness/validation/`. Follow the [dynamic validation standard](references/validation.md) when authoring or changing rules. |
 | Local notes and session work | Use ignored `.scratch/` and unique `.scratch/agent_sessions/` workspaces. Follow the [scratch space contract](references/scratch-space.md) for provisioning and preservation. |
 | Isolated harness dependencies | Use `.harness/.venv/` and the harness manifest. Follow the [Python environment contract](references/python-environment.md) for setup and harness execution. |
