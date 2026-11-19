@@ -1,0 +1,61 @@
+- timestamp: '2026-11-19T00:14:45+00:00'
+  phase: RESEARCH
+  summary: Feature research opened
+  details: Give project agents a reusable software design workflow for changes of
+    any size. Help them select paradigms, apply SOLID, keep designs simple, and use
+    patterns where requirements justify them.
+- timestamp: '2026-11-19T00:14:45+00:00'
+  phase: DESIGN
+  summary: 'Feature phase: RESEARCH → DESIGN'
+  details: Reviewed paradigm selection, information hiding, behavioral subtyping,
+    SOLID, and evolutionary design. The sources support matching design mechanisms
+    to concrete behavior and change boundaries.
+- timestamp: '2026-11-19T00:14:45+00:00'
+  phase: DESIGN
+  summary: 'DES-1: TODO → WIP'
+  details: Define the project trigger and the installed skill's scope.
+- timestamp: '2026-11-19T00:14:45+00:00'
+  phase: DESIGN
+  summary: 'DES-2: TODO → WIP'
+  details: Translate the research into proportionate design decisions and examples.
+- timestamp: '2026-11-19T00:14:45+00:00'
+  phase: DESIGN
+  summary: 'DES-3: TODO → WIP'
+  details: Plan structural checks and representative software design cases.
+- timestamp: '2026-11-19T00:15:40+00:00'
+  phase: IMPLEMENT
+  summary: 'Feature phase: DESIGN → IMPLEMENT'
+  details: Designed a short workflow backed by conditional references, a project trigger,
+    and two behavior-focused examples.
+- timestamp: '2026-11-19T00:16:52+00:00'
+  phase: TEST
+  summary: 'Feature phase: IMPLEMENT → TEST'
+  details: The staged skill and both references pass package and link checks. An independent
+    forward test is applying the frozen draft to a local fix and an integration change.
+- timestamp: '2026-11-19T00:17:44+00:00'
+  phase: TEST
+  summary: Installed and checked the software design skill
+  details: The installed package matches the forward-tested draft. The skill validator
+    and 20-file Markdown link check passed. Reviewed applicable, unrelated, and overlapping
+    trigger scenarios. Four independent artifact checks passed across two Python tasks,
+    with evidence at docs/agents/feature-history.md.
+- timestamp: '2026-11-19T00:17:44+00:00'
+  phase: TEST
+  summary: 'DES-1: WIP → DONE'
+  details: Verified the installed skill, its discovery description, and the AGENTS.md
+    trigger for design and software changes.
+- timestamp: '2026-11-19T00:17:44+00:00'
+  phase: TEST
+  summary: 'DES-2: WIP → DONE'
+  details: Reviewed the workflow and both conditional references for actionable paradigm,
+    SOLID, KISS, and pattern choices tied to required behavior.
+- timestamp: '2026-11-19T00:17:45+00:00'
+  phase: TEST
+  summary: 'DES-3: WIP → DONE'
+  details: Validated structure and links, reviewed trigger scenarios, and passed four
+    public-behavior checks across two independent forward-test tasks.
+- timestamp: '2026-11-19T00:17:45+00:00'
+  phase: DONE
+  summary: 'Feature phase: TEST → DONE'
+  details: All three requirements are complete and the applicable harness guidance
+    checks passed.

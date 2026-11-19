@@ -1,0 +1,88 @@
+- timestamp: '2026-11-18T20:59:35+00:00'
+  phase: RESEARCH
+  summary: Feature research opened
+  details: Add persistent gitignored .scratch storage shared by the human and agent.
+    Agent ad hoc documents and scripts use a unique per-session directory beneath
+    .scratch/agent_sessions. Provision a focused creation helper and contextual instructions;
+    extend the harness skill and validation. Feature memory remains in .harness/features
+    and reusable automation in .harness/scripts.
+- timestamp: '2026-11-18T20:59:35+00:00'
+  phase: DESIGN
+  summary: 'Feature phase: RESEARCH → DESIGN'
+  details: Reviewed existing instructions, memory, validation, and ignore behavior.
+    Selected an ignored shared root, unique per-session directories, one standard-library
+    helper, and explicit preservation and reuse guidance.
+- timestamp: '2026-11-18T20:59:35+00:00'
+  phase: IMPLEMENT
+  summary: 'Feature phase: DESIGN → IMPLEMENT'
+  details: The design specifies shared ignored storage, collision-safe session creation,
+    preservation and reuse rules, skill/lifecycle discovery, and behavioral verification
+    using isolated project and Git fixtures.
+- timestamp: '2026-11-18T21:01:44+00:00'
+  phase: IMPLEMENT
+  summary: 'F-1: TODO → WIP'
+  details: Added /.scratch/ to the actual root ignore file and provisioned shared
+    scratch storage. Isolated Git tests already confirm root and nested session artifacts
+    are excluded while project paths stay trackable.
+- timestamp: '2026-11-18T21:01:44+00:00'
+  phase: IMPLEMENT
+  summary: 'F-2: TODO → WIP'
+  details: Implemented the standard-library session helper and used it to create a
+    dedicated session workspace. Focused tests verify usable absolute paths, distinct
+    sessions, and explicit project roots.
+- timestamp: '2026-11-18T21:01:44+00:00'
+  phase: IMPLEMENT
+  summary: 'F-3: TODO → WIP'
+  details: Added the session-start trigger, concise scratch lifecycle instructions,
+    and specialised validation rules. The staged skill extension and scratch contract
+    pass packaging and local-reference checks; installing them next.
+- timestamp: '2026-11-18T21:01:44+00:00'
+  phase: IMPLEMENT
+  summary: 'NF-1: TODO → WIP'
+  details: All six focused behavior tests pass, including preservation of human and
+    prior-session files and non-destructive failure for file or symlink storage conflicts.
+    Preparing the complete harness regression run.
+- timestamp: '2026-11-18T21:01:52+00:00'
+  phase: TEST
+  summary: 'Feature phase: IMPLEMENT → TEST'
+  details: Shared scratch storage, session creation, session-start/persistence rules,
+    installed skill guidance, and situational validation are implemented. Six focused
+    tests and staged packaging/reference checks pass; running the full suite and installed-guidance
+    checks.
+- timestamp: '2026-11-18T21:02:36+00:00'
+  phase: TEST
+  summary: 'F-1: WIP → DONE'
+  details: Provisioned .scratch and added the root ignore rule. Tests using the actual
+    .gitignore in an isolated Git repository confirm shared human notes and nested
+    agent scripts are ignored, while AGENTS.md, harness scripts, and application paths
+    remain trackable. Existing documents survive new workspace creation.
+- timestamp: '2026-11-18T21:02:36+00:00'
+  phase: TEST
+  summary: 'F-2: WIP → DONE'
+  details: The helper created a dedicated session workspace and returned an absolute
+    usable path. Behavioral tests confirm default-root creation,
+    distinct repeated sessions, and explicit-root operation from another directory.
+    Current session artifacts use the created workspace.
+- timestamp: '2026-11-18T21:02:36+00:00'
+  phase: TEST
+  summary: 'F-3: WIP → DONE'
+  details: Installed the scratch-space skill contract, conditional skill reference,
+    session-start route, contextual instructions, and specialised validation route.
+    The installed skill validates and all local inline links in 12 active Markdown
+    files resolve. Reviewed new-session creation, known-session reuse, persistence
+    on exit, and separation from feature memory; unrelated ad hoc notes do not trigger
+    provisioning checks.
+- timestamp: '2026-11-18T21:02:36+00:00'
+  phase: TEST
+  summary: 'NF-1: WIP → DONE'
+  details: All 27 harness behavior tests pass in 3.543 seconds, including six new
+    session/ignore tests. Existing human and session artifacts remain unchanged; unusable
+    file parents and symlinked storage fail without writing to their targets. The
+    helper uses only the standard library and has no cleanup operation.
+- timestamp: '2026-11-18T21:02:36+00:00'
+  phase: DONE
+  summary: 'Feature phase: TEST → DONE'
+  details: 'All four requirements are DONE. The guidance, scripts, and scratch-provisioning
+    validation rules are satisfied: 27 behavior tests, installed-skill packaging,
+    local links, actual ignore semantics, and semantic session-lifecycle reviews pass.
+    This session workspace and artifacts remain in place.'

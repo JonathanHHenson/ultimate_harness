@@ -4,14 +4,14 @@ Use this contract when building or maintaining feature memory in a programming h
 
 ## Storage and discovery
 
-Create `.harness/features/` and ignore the entire directory with `/.harness/features/` in the root `.gitignore`. Keep schemas, instructions, and scripts tracked separately; do not force-add feature memory or place tracked templates inside the ignored directory.
+Create `.harness/features/` and track its definitions, designs, and worklogs. Ignore the `.locks/` child directory and each feature's pending status and temporary write files. Keep raw working artifacts in the ignored scratch directory.
 
-Give each feature its own descriptive, unique, lowercase kebab-case directory, such as `incremental-build-cache`. Accept names matching `[a-z0-9]+(?:-[a-z0-9]+)*`; never overwrite an existing name. Reuse an existing directory only when resuming that same feature. Choose a distinct name for a different feature.
+Give each feature a directory in `YYYY-MM-DD-<slug>` format, such as `2026-11-19-incremental-build-cache`. The date is the UTC day of creation and the lowercase kebab-case slug matches `[a-z0-9]+(?:-[a-z0-9]+)*`. Reuse the full dated name when resuming a feature. Choose a descriptive slug for distinct work and never overwrite an existing directory.
 
 Each directory contains:
 
 ```text
-.harness/features/incremental-build-cache/
+.harness/features/2026-11-19-incremental-build-cache/
 ├── DEFINITION.toml
 ├── DESIGN.md
 └── WORKLOG.yaml
@@ -19,7 +19,7 @@ Each directory contains:
 
 Route starting and resuming feature work from a contextual `AGENTS.md` trigger to `.harness/agents/feature-memory.md`. Require reading the selected feature's three files before continuing. Find the relevant feature without loading unrelated feature histories. If several records could match and context cannot resolve them, ask which feature to resume.
 
-These records are local memory: gitignore prevents normal version-control sharing, so another checkout or machine needs a separate transfer to receive them. Promote durable shared contracts and decisions into tracked project documentation and link back to those documents from the feature definition.
+These records carry context across sessions and Git checkouts. Use durable repository paths and material that is suitable for version control.
 
 ## DEFINITION.toml
 
@@ -114,13 +114,13 @@ Requirements start in TODO and advance through:
 
 TODO and WIP may enter BLOCKED. Record `blocked_reason` and `blocked_from`. BLOCKED may remain blocked with an updated reason, or resume exactly its recorded prior state; it cannot jump directly to DONE. Clear the blocking fields on resume and retain the blocking event in the worklog. DONE is terminal for an individual requirement under this graph; newly discovered work belongs in a new TODO requirement. Feature phase changes do not automatically change requirement states.
 
-Before marking a requirement DONE, verify its definition of done and put the evidence in the transition reason. Before marking a feature DONE, complete the applicable rules in `.harness/VALIDATE.md` and review the design and validation evidence. The scripts enforce state and data invariants; they cannot judge whether a design is sufficiently detailed or acceptance evidence is convincing.
+Before marking a requirement DONE, verify its definition of done and put the evidence in the transition reason. Before marking a feature DONE, complete the applicable validation rules, review the evidence, and follow the feature closeout instructions. Update project-facing docs under `docs/`, put decisions and verification evidence for agents under `docs/agents/`, and link those docs from the definition. The status commands enforce state and data invariants. The closeout review assesses the adequacy of the evidence.
 
 ## Focused automation
 
 Set up [the harness Python environment](python-environment.md) before running these commands. Use its interpreter for feature memory scripts and tests.
 
-- `create_feature.py`: create the unique directory and its three files from an initial TOML definition. Refuse duplicates and invalid initial states.
+- `create_feature.py`: take a lowercase kebab-case slug, prepend the current UTC date, and create the directory and its three files from an initial TOML definition. Print the new path. Refuse duplicates and invalid initial states.
 - `set_feature_status.py`: enforce ordered forward phases, arbitrary backward phases, and the completion gate.
 - `set_requirement_status.py`: enforce requirement transitions and blocking metadata.
 - `append_worklog.py`: append substantive progress without changing definition or design.
@@ -129,13 +129,14 @@ Set up [the harness Python environment](python-environment.md) before running th
 Examples, from the project root:
 
 ```sh
-.harness/.venv/bin/python .harness/scripts/create_feature.py incremental-build-cache --definition /tmp/cache-definition.toml
-.harness/.venv/bin/python .harness/scripts/set_feature_status.py incremental-build-cache DESIGN --reason "Research identified all compiler inputs; linked findings in the definition."
-.harness/.venv/bin/python .harness/scripts/set_feature_status.py incremental-build-cache IMPLEMENT --reason "The technical design covers every requirement and its verification strategy."
-.harness/.venv/bin/python .harness/scripts/set_requirement_status.py incremental-build-cache F-1 WIP --reason "Cache-key design is complete; implementing source and compiler-option hashing."
-.harness/.venv/bin/python .harness/scripts/set_requirement_status.py incremental-build-cache F-1 BLOCKED --reason "Integration testing requires artifact-store access." --blocked-reason "The platform team must grant the build account read access to the test artifact store."
-.harness/.venv/bin/python .harness/scripts/set_requirement_status.py incremental-build-cache F-1 WIP --reason "The platform team granted access; integration checks can resume."
-.harness/.venv/bin/python .harness/scripts/append_worklog.py incremental-build-cache --summary "Compiler option inventory reconciled" --details "F-1 now covers output-affecting options; diagnostic-only flags are excluded. Next, verify the cache key against the compiler fixtures."
+feature_path=$(.harness/.venv/bin/python .harness/scripts/create_feature.py incremental-build-cache --definition /tmp/cache-definition.toml)
+feature_name=${feature_path##*/}
+.harness/.venv/bin/python .harness/scripts/set_feature_status.py "$feature_name" DESIGN --reason "Research identified all compiler inputs; linked findings in the definition."
+.harness/.venv/bin/python .harness/scripts/set_feature_status.py "$feature_name" IMPLEMENT --reason "The technical design covers every requirement and its verification strategy."
+.harness/.venv/bin/python .harness/scripts/set_requirement_status.py "$feature_name" F-1 WIP --reason "Cache-key design is complete; implementing source and compiler-option hashing."
+.harness/.venv/bin/python .harness/scripts/set_requirement_status.py "$feature_name" F-1 BLOCKED --reason "Integration testing requires artifact-store access." --blocked-reason "The platform team must grant the build account read access to the test artifact store."
+.harness/.venv/bin/python .harness/scripts/set_requirement_status.py "$feature_name" F-1 WIP --reason "The platform team granted access; integration checks can resume."
+.harness/.venv/bin/python .harness/scripts/append_worklog.py "$feature_name" --summary "Compiler option inventory reconciled" --details "F-1 now covers output-affecting options; diagnostic-only flags are excluded. Next, verify the cache key against the compiler fixtures."
 .harness/.venv/bin/python -m unittest discover -s .harness/scripts/tests -v
 ```
 
@@ -143,4 +144,4 @@ The first command requires a real source definition, such as the example adapted
 
 The commands serialize operations for the same feature using a lock under `.harness/features/.locks/`. Commands for different features can run independently. Coordinate direct edits with other writers. Each file update is atomic, and a status update spans two files.
 
-When applying the skill to another project, provision these focused helpers or equivalent scripts in its `.harness/scripts/` directory, with behavioral tests in `.harness/scripts/tests/`. Verify all lifecycle edges, blocked reasons, rejection without state changes, unique names, preservation of prior history, and the DONE gate. Keep the whole features directory ignored while scripts and instructions remain trackable.
+When applying the skill to another project, provision these focused helpers or equivalent scripts in its `.harness/scripts/` directory, with behavioral tests in `.harness/scripts/tests/`. Verify all lifecycle edges, blocked reasons, rejection without state changes, unique names, preservation of prior history, and the DONE gate. Place the vendor-neutral merge check in `scripts/` so the adopting project can invoke it in its own pull request workflow.

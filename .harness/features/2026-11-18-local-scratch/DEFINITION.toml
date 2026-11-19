@@ -1,0 +1,39 @@
+description = "Add persistent gitignored .scratch storage shared by the human and agent. Agent ad hoc documents and scripts use a unique per-session directory beneath .scratch/agent_sessions. Provision a focused creation helper and contextual instructions; extend the harness skill and validation. Feature memory remains in .harness/features and reusable automation in .harness/scripts."
+documentation = [".agents/skills/build-harness/references/agents-md.md", ".agents/skills/build-harness/references/feature-memory.md", ".agents/skills/build-harness/references/validation.md", ".harness/agents/scratch-space.md", ".harness/validation/scratch-space.md", ".agents/skills/build-harness/references/scratch-space.md", "docs/agents/feature-history.md"]
+status = "DONE"
+
+[[requirements]]
+id = "F-1"
+kind = "functional"
+description = "Provide project-root .scratch as shared persistent local storage for human and agent ad hoc documents and scripts. Ignore its complete contents in Git."
+definition_of_done = "The actual ignore rule excludes root and nested scratch artifacts while project files remain trackable; existing contents survive new sessions."
+status = "DONE"
+blocked_reason = ""
+blocked_from = ""
+
+[[requirements]]
+id = "F-2"
+kind = "functional"
+description = "Create a unique workspace per agent session beneath .scratch/agent_sessions and return its usable absolute path. The session reuses that workspace for its ad hoc artifacts."
+definition_of_done = "Repeated helper invocations create distinct directories under the requested project root, including when invoked from another working directory."
+status = "DONE"
+blocked_reason = ""
+blocked_from = ""
+
+[[requirements]]
+id = "F-3"
+kind = "functional"
+description = "Extend build-harness, session lifecycle instructions, and validation to support scratch space while retaining feature memory and reusable scripts in their existing locations."
+definition_of_done = "A minimal session-start trigger routes to contextual scratch instructions; the skill covers human sharing, per-session ownership, persistence, and artifact placement; scratch changes have validation rules."
+status = "DONE"
+blocked_reason = ""
+blocked_from = ""
+
+[[requirements]]
+id = "NF-1"
+kind = "non-functional"
+description = "Keep the workspace creation helper small, dependency-free, and non-destructive so humans and multiple agent sessions can coexist."
+definition_of_done = "Behavioral tests verify unique directories, preservation of human and other-session files, explicit-root support, and nonzero failure on unusable storage without overwriting data."
+status = "DONE"
+blocked_reason = ""
+blocked_from = ""

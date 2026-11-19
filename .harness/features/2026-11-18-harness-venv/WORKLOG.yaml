@@ -1,0 +1,66 @@
+- timestamp: '2026-11-18T21:07:36+00:00'
+  phase: RESEARCH
+  summary: Feature research opened
+  details: Provision a dedicated Python environment under .harness for harness dependencies,
+    scripts, and validation. Initialize it at session start, prefer uv, and support
+    standard Python or virtualenv fallback. Project Python workflows retain their
+    own environment.
+- timestamp: '2026-11-18T21:07:36+00:00'
+  phase: DESIGN
+  summary: 'Feature phase: RESEARCH → DESIGN'
+  details: Existing instructions ran harness scripts through host Python or temporary
+    uv environments. Verified uv can create .harness/.venv and install the existing
+    harness manifest offline. The bootstrap probe preceded the feature record because
+    feature-memory commands now use the harness interpreter.
+- timestamp: '2026-11-18T21:08:15+00:00'
+  phase: IMPLEMENT
+  summary: 'Feature phase: DESIGN → IMPLEMENT'
+  details: Defined an explicit interpreter path and setup sequence, the fallback behavior,
+    and verification for dependency isolation and reuse.
+- timestamp: '2026-11-18T21:10:06+00:00'
+  phase: IMPLEMENT
+  summary: 'F-1: TODO → WIP'
+  details: Implemented environment creation and reuse. Verified uv and the actual
+    virtualenv fallback after simulated standard venv failure. The standard venv integration
+    test runs in the full suite.
+- timestamp: '2026-11-18T21:10:06+00:00'
+  phase: IMPLEMENT
+  summary: 'F-2: TODO → WIP'
+  details: Converted session, feature-memory, and validation instructions to use the
+    harness interpreter. Verified both harness packages import from its own site-packages.
+- timestamp: '2026-11-18T21:10:06+00:00'
+  phase: IMPLEMENT
+  summary: 'NF-1: TODO → WIP'
+  details: Installed the skill extension and verified root ignore semantics with a
+    temporary Git repository. Finishing isolated reuse and dependency separation checks.
+- timestamp: '2026-11-18T21:10:06+00:00'
+  phase: TEST
+  summary: 'Feature phase: IMPLEMENT → TEST'
+  details: Bootstrap, local setup, session ordering, validation commands, and skill
+    guidance are in place. Running the full suite and installed skill checks.
+- timestamp: '2026-11-18T21:10:22+00:00'
+  phase: TEST
+  summary: 'F-1: WIP → DONE'
+  details: Verified fresh uv creation with the real manifest, repeat uv setup, standard
+    venv creation and reuse with uv removed from PATH, and real virtualenv recovery
+    after simulating a failed standard venv creation.
+- timestamp: '2026-11-18T21:10:22+00:00'
+  phase: TEST
+  summary: 'F-2: WIP → DONE'
+  details: Verified the session startup route sets up the environment before scratch
+    creation. All maintained harness Python commands point to the harness interpreter
+    except bootstrap itself. TOML and YAML import from harness site-packages. All
+    28 tests pass in the harness environment.
+- timestamp: '2026-11-18T21:10:22+00:00'
+  phase: TEST
+  summary: 'NF-1: WIP → DONE'
+  details: The isolated setup test preserves a neighboring project environment and
+    ignores an invalid project manifest. A temporary Git repository verifies the environment
+    and lock are ignored while the harness requirements stay trackable. The installed
+    skill validator and 14-file local link check pass.
+- timestamp: '2026-11-18T21:10:22+00:00'
+  phase: DONE
+  summary: 'Feature phase: TEST → DONE'
+  details: All requirements are complete. Verified all three creation paths, isolated
+    environment reuse and Git ignore behavior, 28 passing behavioral tests, installed
+    skill packaging, and contextual session/validation guidance.

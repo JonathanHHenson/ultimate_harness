@@ -1,0 +1,89 @@
+- timestamp: '2026-11-19T15:22:15+00:00'
+  phase: RESEARCH
+  summary: Feature research opened
+  details: Track feature records, carry decisions and verification into shared documentation,
+    and provide a vendor-neutral check for unfinished features in a pull request checkout.
+- timestamp: '2026-11-19T15:22:15+00:00'
+  phase: DESIGN
+  summary: 'Feature phase: RESEARCH → DESIGN'
+  details: Found fourteen existing completed records, several local-only artifact
+    references, and a Git ignore rule that hides the entire feature store. Keep the
+    structured state, add a documented closeout, and isolate CI checks from the optional
+    harness dependencies.
+- timestamp: '2026-11-19T15:22:15+00:00'
+  phase: IMPLEMENT
+  summary: 'Feature phase: DESIGN → IMPLEMENT'
+  details: The design preserves versioned feature records, adds a pre-DONE documentation
+    rule, and keeps merge readiness a standalone state check.
+- timestamp: '2026-11-19T15:22:15+00:00'
+  phase: IMPLEMENT
+  summary: 'TRACK: TODO → WIP'
+  details: Updating ignore rules and reviewing the legacy records before versioning.
+- timestamp: '2026-11-19T15:22:15+00:00'
+  phase: IMPLEMENT
+  summary: 'DOCS: TODO → WIP'
+  details: Updating the lifecycle and adding tracked engineering documentation.
+- timestamp: '2026-11-19T15:22:15+00:00'
+  phase: IMPLEMENT
+  summary: 'CI: TODO → WIP'
+  details: Implementing and exercising the CI-facing feature status command.
+- timestamp: '2026-11-19T15:29:19+00:00'
+  phase: TEST
+  summary: 'Feature phase: IMPLEMENT → TEST'
+  details: The feature records, closeout guidance, and CI command are in place. Verify
+    the final scripts, documentation, and repository tracking behavior.
+- timestamp: '2026-11-19T15:31:02+00:00'
+  phase: TEST
+  summary: 'TRACK: WIP → DONE'
+  details: Git reported all 45 authored files as eligible for tracking across 15 records
+    and excluded locks, pending writes, temporary files, and scratch. The historical
+    worklog chronology and shareable documentation paths passed the migration audit.
+- timestamp: '2026-11-19T15:31:02+00:00'
+  phase: TEST
+  summary: 'DOCS: WIP → DONE'
+  details: The feature instructions and validation index require closeout before DONE.
+    The technical guide and agent closeout record the policy, migration decisions,
+    and actual verification. All 45 Markdown files passed local link validation.
+- timestamp: '2026-11-19T15:31:02+00:00'
+  phase: TEST
+  summary: 'CI: WIP → DONE'
+  details: All 46 harness tests passed. The CLI returned one for this feature in TEST
+    and passed completed and empty test checkouts. Diagnostics and behavioral tests
+    covered other failure cases, and the type checker and language server reported
+    zero errors.
+- timestamp: '2026-11-19T15:31:02+00:00'
+  phase: DONE
+  summary: 'Feature phase: TEST → DONE'
+  details: All requirements and applicable validation passed. Decisions and evidence
+    are linked from the definition in tracked documentation.
+- timestamp: '2026-11-19T15:40:17+00:00'
+  phase: DESIGN
+  summary: 'Feature phase: DONE → DESIGN'
+  details: Reopen closeout to add UTC date prefixes to feature directories before
+    recommitting the feature changes.
+- timestamp: '2026-11-19T15:40:31+00:00'
+  phase: IMPLEMENT
+  summary: 'Feature phase: DESIGN → IMPLEMENT'
+  details: Use the first worklog date for existing records and add automatic UTC date
+    prefixes at the creation entry point.
+- timestamp: '2026-11-19T15:40:31+00:00'
+  phase: IMPLEMENT
+  summary: 'DATE: TODO → WIP'
+  details: Updating creation, lookup and documentation, then migrating the existing
+    feature directories.
+- timestamp: '2026-11-19T15:41:28+00:00'
+  phase: TEST
+  summary: 'Feature phase: IMPLEMENT → TEST'
+  details: The dated creation and lookup paths and the existing folder migration are
+    in place. Verify the final lifecycle, documentation and PR check.
+- timestamp: '2026-11-19T15:43:40+00:00'
+  phase: TEST
+  summary: 'DATE: WIP → DONE'
+  details: Verified automatic creation prefix, exact lookup of dated records, invalid
+    date handling, preserved migration history, and PR check discovery. All 47 tests
+    and local guidance checks passed.
+- timestamp: '2026-11-19T15:43:40+00:00'
+  phase: DONE
+  summary: 'Feature phase: TEST → DONE'
+  details: Dated naming and migration passed the applicable checks and the closeout
+    records the evidence.

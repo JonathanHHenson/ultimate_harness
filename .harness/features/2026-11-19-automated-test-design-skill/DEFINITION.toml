@@ -1,0 +1,30 @@
+description = "Give project agents a reusable way to design maintainable automated tests by observable behavior, choose appropriate test strategies, and retain fidelity when a dependency is difficult to isolate."
+documentation = ["AGENTS.md", "https://abseil.io/resources/swe-book/html/ch12.html", "https://abseil.io/resources/swe-book/html/ch13.html", "https://spark.apache.org/docs/latest/api/python/getting_started/testing_pyspark.html", "https://docs.docker.com/compose/how-tos/project-name/", "docs/agents/feature-history.md"]
+status = "DONE"
+
+[[requirements]]
+id = "TEST-1"
+kind = "functional"
+description = "Provide a discoverable project skill that chooses among unit, integration, regression, and other relevant strategies."
+definition_of_done = "The installed skill is routed from AGENTS.md and gives clear selection criteria and examples for testing strategies."
+status = "DONE"
+blocked_reason = ""
+blocked_from = ""
+
+[[requirements]]
+id = "TEST-2"
+kind = "functional"
+description = "Make behavior the default unit-test target and discourage assertions of code internals and incidental configuration."
+definition_of_done = "The skill identifies behavior assertions and false confidence, distinguishes public configuration semantics, and is verified on a representative behavior-preserving refactor and a real regression."
+status = "DONE"
+blocked_reason = ""
+blocked_from = ""
+
+[[requirements]]
+id = "TEST-3"
+kind = "functional"
+description = "Guide agents through safe choices for realistic testing of difficult dependencies, including Spark."
+definition_of_done = "Guidance covers suitable doubles, local or Compose-hosted services, and short-lived isolated dev deployments with fidelity, ownership, and cleanup checks. A fresh agent exercises dependency selection."
+status = "DONE"
+blocked_reason = ""
+blocked_from = ""

@@ -1,0 +1,92 @@
+- timestamp: '2026-11-19T11:46:57+00:00'
+  phase: RESEARCH
+  summary: Feature research opened
+  details: 'Review the security implications of session changes to code or configuration
+
+    before handing off or ending the session. Trace changed behavior and effective
+
+    configuration from entry points to the assets they can affect, verify relevant
+
+    controls, and communicate unresolved findings and verification gaps.
+
+    '
+- timestamp: '2026-11-19T11:46:57+00:00'
+  phase: DESIGN
+  summary: 'Feature phase: RESEARCH → DESIGN'
+  details: Compared threat modeling, risk checklists, automated analysis and behavioral
+    verification against first-party guidance. The review needs both changed trust
+    boundaries and effective configuration.
+- timestamp: '2026-11-19T11:47:13+00:00'
+  phase: IMPLEMENT
+  summary: 'Feature phase: DESIGN → IMPLEMENT'
+  details: Designed separate matching routes and a scoped workflow from changed trust
+    boundaries and runtime settings to verified controls and findings.
+- timestamp: '2026-11-19T11:47:13+00:00'
+  phase: IMPLEMENT
+  summary: 'ROUTING: TODO → WIP'
+  details: Implementing the root handoff trigger and validation index route.
+- timestamp: '2026-11-19T11:47:13+00:00'
+  phase: IMPLEMENT
+  summary: 'REVIEW: TODO → WIP'
+  details: Authoring threat modeling, config review, control verification and findings
+    instructions.
+- timestamp: '2026-11-19T11:47:13+00:00'
+  phase: IMPLEMENT
+  summary: 'SCOPE: TODO → WIP'
+  details: Keeping the detailed workflow in one contextual ruleset with existing tooling.
+- timestamp: '2026-11-19T11:47:37+00:00'
+  phase: TEST
+  summary: 'Feature phase: IMPLEMENT → TEST'
+  details: Added the context-specific security route and ruleset. Verifying routing,
+    source references and representative control checks.
+- timestamp: '2026-11-19T11:48:38+00:00'
+  phase: TEST
+  summary: 'ROUTING: WIP → DONE'
+  details: Walked through code-only, configuration-only, mixed and ordinary README
+    edits against the root and index. Code routes to both checks and configuration
+    alone routes to security.
+- timestamp: '2026-11-19T11:48:38+00:00'
+  phase: TEST
+  summary: 'REVIEW: WIP → DONE'
+  details: Confirmed five local synthetic visibility outcomes, including the deployment
+    override. Reviewed the mixed approval-policy case and the reporting path for unavailable
+    required evidence.
+- timestamp: '2026-11-19T11:48:38+00:00'
+  phase: TEST
+  summary: 'SCOPE: WIP → DONE'
+  details: Kept routing concise, checked local links across 27 Markdown files and
+    verified the walkthrough requires no new project tooling. The harness unit suite
+    passed all 33 tests.
+- timestamp: '2026-11-19T11:48:38+00:00'
+  phase: DONE
+  summary: 'Feature phase: TEST → DONE'
+  details: Completed the harness-guidance checks and all three requirements. The shared verification summary is in docs/agents/feature-history.md.
+- timestamp: '2026-11-19T12:16:54+00:00'
+  phase: DONE
+  summary: Completed matched local review comparison on a synthetic application
+  details: Both groups used the current code review rules on identical code and inert
+    rollout settings. In three paired static reviews, the security-guidance group
+    found 4 of 15 configuration opportunities and 0 of 12 code opportunities. The
+    control found 1 of 15 and 1 of 12. Hosted execution was rejected for possible
+    private benchmark egress, so cached local Qwen3.5 weights were used under a network-deny
+    profile. Static inference did not evaluate tool use or trigger discovery. See docs/agents/feature-history.md for the shareable summary.
+- timestamp: '2026-11-19T12:38:34+00:00'
+  phase: DONE
+  summary: Verified Codex review execution and found scope overreach
+  details: Eight authorized hosted Codex sessions finished. All three mixed B sessions
+    opened the security rules. All mixed A and B sessions opened code review, passed
+    six tests and configured type checking, rejected five effective venue-policy violations,
+    and reported all nine reference findings. The config-only probe correctly rejected
+    the override but also loaded code review. The docs-only probe loaded both reviews,
+    ran the suite and type check, and attempted to check a nonexistent rollout export.
+    Scope probes each represent one review-only handoff. Rule files were left unchanged.
+    See docs/agents/feature-history.md.
+- timestamp: '2026-11-19T12:56:23+00:00'
+  phase: DONE
+  summary: Compared observable framework application on six harder synthetic handoffs
+  details: All three runs per arm applied code review, passed both configured policy
+    checks and found all six prespecified rollout issues. The three security-review
+    runs demonstrated concrete STRIDE and OWASP-linked evidence checks, versus zero
+    documented applications in the code-review-only arm. The shared prompt requested
+    examples without naming either framework. Both arms reached the detection ceiling.
+    See docs/agents/feature-history.md for the shareable summary.

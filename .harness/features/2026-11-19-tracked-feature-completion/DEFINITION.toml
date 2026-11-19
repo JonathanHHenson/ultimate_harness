@@ -1,0 +1,39 @@
+description = "Track chronologically named feature records, carry decisions and verification into shared documentation, and provide a vendor-neutral check for unfinished features in a pull request checkout."
+documentation = ["docs/TECHNICAL.md", "docs/agents/tracked-feature-completion.md", ".harness/VALIDATE.md"]
+status = "DONE"
+
+[[requirements]]
+id = "TRACK"
+kind = "functional"
+description = "Make existing and new feature records eligible for Git while excluding temporary state and references to local-only artifacts."
+definition_of_done = "Record files pass repository reference and ignore checks. Locks, pending writes and scratch artifacts remain ignored."
+status = "DONE"
+blocked_reason = ""
+blocked_from = ""
+
+[[requirements]]
+id = "DOCS"
+kind = "functional"
+description = "Capture completed feature decisions and verification in tracked project and agent documentation before the done transition."
+definition_of_done = "The feature lifecycle and validation guide route to the shared documentation rule. Project docs are under docs and agent closeout notes are under docs/agents."
+status = "DONE"
+blocked_reason = ""
+blocked_from = ""
+
+[[requirements]]
+id = "CI"
+kind = "functional"
+description = "Provide a standalone Python command for CI systems to check every feature phase and requirement status without modifying the checkout."
+definition_of_done = "The CLI passes completed and empty sets and reports each unfinished, invalid or interrupted feature with a nonzero exit."
+status = "DONE"
+blocked_reason = ""
+blocked_from = ""
+
+[[requirements]]
+id = "DATE"
+kind = "functional"
+description = "Prefix every feature directory with its UTC creation date in YYYY-MM-DD format so filesystem sorting groups records chronologically."
+definition_of_done = "Existing folders use the first recorded worklog date. Creation automatically dates new slugs, update commands accept their full dated names, and the PR check still verifies all records."
+status = "DONE"
+blocked_reason = ""
+blocked_from = ""

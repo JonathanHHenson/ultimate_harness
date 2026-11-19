@@ -1,0 +1,30 @@
+description = "Audit all maintained harness scripts under the current code and security review rules. Improve consistency, local file boundaries, and readable diagnostics while preserving the supported CLI workflows and feature-memory files."
+documentation = ["README.md", ".harness/VALIDATE.md", ".harness/validation/code-review.md", ".harness/validation/security-review.md", "docs/agents/feature-history.md"]
+status = "DONE"
+
+[[requirements]]
+id = "FEATURE"
+kind = "functional"
+description = "Preserve feature and requirement transitions and their audit history across concurrent commands or interrupted writes. Reject unusable or redirected feature record files."
+definition_of_done = "Real commands pass lifecycle and concurrency tests. Interrupted paired updates recover consistently and invalid records leave existing data intact."
+status = "DONE"
+blocked_reason = ""
+blocked_from = ""
+
+[[requirements]]
+id = "LOCAL"
+kind = "functional"
+description = "Keep setup, scratch creation, and validators in their intended local scope, reject unsafe file types and configuration, and avoid including raw malformed structured input in diagnostics."
+definition_of_done = "Normal local bootstrap and validation commands pass. Focused cases show safe rejection of redirected inputs, ambiguous metadata, and isolated setup configuration."
+status = "DONE"
+blocked_reason = ""
+blocked_from = ""
+
+[[requirements]]
+id = "QUALITY"
+kind = "non-functional"
+description = "Review each maintained entry point and its behavioral tests for scope, types, complexity, organization and concrete security risks."
+definition_of_done = "The full suite, local validators and static checks complete. Record code and security evidence for all original script entry points and any shared helpers."
+status = "DONE"
+blocked_reason = ""
+blocked_from = ""

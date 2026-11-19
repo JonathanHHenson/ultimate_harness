@@ -1,0 +1,30 @@
+description = """
+Fix session-end review routing after the hosted synthetic review comparison found
+that Codex opened both reviews on configuration-only and documentation-only
+handoffs. Keep the existing review procedures and select them by the session's
+actual change types before agents open either ruleset.
+"""
+documentation = [
+  "AGENTS.md",
+  ".harness/VALIDATE.md",
+  "docs/agents/feature-history.md",
+]
+status = "DONE"
+
+[[requirements]]
+id = "SELECT"
+kind = "functional"
+description = "Select session-end reviews from one explicit decision based on the changed files. Keep other validation independent."
+definition_of_done = "Code and mixed changes select both reviews, configuration without code selects security only, and prose-only or no changes select neither."
+status = "DONE"
+blocked_reason = ""
+blocked_from = ""
+
+[[requirements]]
+id = "RETEST"
+kind = "functional"
+description = "Replay the original synthetic mixed, configuration-only, and documentation-only handoff scopes on fresh Codex sessions."
+definition_of_done = "The command traces confirm matching review files and check outcomes and exclude review execution for the documentation-only sessions."
+status = "DONE"
+blocked_reason = ""
+blocked_from = ""

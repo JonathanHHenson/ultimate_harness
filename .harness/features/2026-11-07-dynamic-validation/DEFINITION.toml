@@ -1,0 +1,48 @@
+description = "Add contextual dynamic validation to the programming harness and the build-harness skill. A concise .harness/VALIDATE.md selects situational Markdown rulesets from .harness/validation/. Rules specify concrete checks, completion criteria, and failure handling. Project lifecycle instructions expose the entry point; focused reference checking automates a repeatable validation task. This feature does not introduce a scheduler or an executable rule engine."
+documentation = [".agents/skills/build-harness/references/agents-md.md", ".agents/skills/build-harness/references/feature-memory.md", ".harness/VALIDATE.md", ".agents/skills/build-harness/references/validation.md", "docs/agents/feature-history.md"]
+status = "DONE"
+
+[[requirements]]
+id = "F-1"
+kind = "functional"
+description = "Store the main project validation instructions in .harness/VALIDATE.md with minimal actionable content and contextual second-level trigger headings."
+definition_of_done = "VALIDATE.md exists and its live sections identify concrete validation contexts and required actions without embedding long procedures."
+status = "DONE"
+blocked_reason = ""
+blocked_from = ""
+
+[[requirements]]
+id = "F-2"
+kind = "functional"
+description = "Keep each situational validation ruleset in a descriptive Markdown file under .harness/validation/ and reference it from a matching trigger in VALIDATE.md."
+definition_of_done = "Every situational ruleset has a reachable trigger, valid file link, concrete checks, and pass/failure instructions; no unrelated ruleset is loaded for an unmatched context."
+status = "DONE"
+blocked_reason = ""
+blocked_from = ""
+
+[[requirements]]
+id = "F-3"
+kind = "functional"
+description = "Teach build-harness how to establish and maintain dynamic validation and make the live project validation entry point discoverable from its lifecycle instructions."
+definition_of_done = "The skill links to a dedicated validation authoring standard; AGENTS.md routes to VALIDATE.md and feature completion uses applicable checks without duplicating their procedures."
+status = "DONE"
+blocked_reason = ""
+blocked_from = ""
+
+[[requirements]]
+id = "F-4"
+kind = "functional"
+description = "Automate local Markdown reference checks used by guidance validation in a small script and verify observable behavior through isolated tests."
+definition_of_done = "The reference checker succeeds on existing local links, skips examples and external links, fails on missing input or broken local links, and passes behavioral tests."
+status = "DONE"
+blocked_reason = ""
+blocked_from = ""
+
+[[requirements]]
+id = "NF-1"
+kind = "non-functional"
+description = "Keep validation focused, maintainable, and useful as project scenarios change. Existing commands remain authoritative and validation evidence distinguishes passed, failed, and unrun checks."
+definition_of_done = "Walkthroughs cover guidance-only, script-only, overlapping, and unrelated changes; skill/reference checks and the appropriate script suite pass; validation procedures have one maintained owner."
+status = "DONE"
+blocked_reason = ""
+blocked_from = ""

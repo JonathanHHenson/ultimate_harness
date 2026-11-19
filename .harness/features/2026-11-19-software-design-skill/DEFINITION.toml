@@ -1,0 +1,30 @@
+description = "Give project agents a reusable software design workflow for changes of any size. Help them select paradigms, apply SOLID, keep designs simple, and use patterns where requirements justify them."
+documentation = ["AGENTS.md", "https://webperso.info.ucl.ac.be/~pvr/VanRoyChapter.pdf", "https://doi.org/10.1145/361598.361623", "https://martinfowler.com/bliki/Yagni.html", "docs/agents/feature-history.md"]
+status = "DONE"
+
+[[requirements]]
+id = "DES-1"
+kind = "functional"
+description = "Provide a project skill and route software design and implementation work to it through the project instructions."
+definition_of_done = "The installed skill is discoverable and linked from a concise project instruction that matches software changes, including bug fixes and refactors."
+status = "DONE"
+blocked_reason = ""
+blocked_from = ""
+
+[[requirements]]
+id = "DES-2"
+kind = "functional"
+description = "Teach paradigm selection, proportional application of SOLID and KISS, and selection of design patterns based on concrete problems."
+definition_of_done = "The workflow and its references give actionable decision criteria for each topic, including when simpler approaches are sufficient."
+status = "DONE"
+blocked_reason = ""
+blocked_from = ""
+
+[[requirements]]
+id = "DES-3"
+kind = "non-functional"
+description = "Keep the guidance easy to follow for routine changes and support verification of correctness, scope, readability, and failure handling."
+definition_of_done = "Package and link checks pass, trigger behavior is reviewed, and representative tasks check both a small change and a design with a real boundary."
+status = "DONE"
+blocked_reason = ""
+blocked_from = ""

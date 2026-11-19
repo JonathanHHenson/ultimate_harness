@@ -1,0 +1,72 @@
+- timestamp: '2026-11-19T01:42:25+00:00'
+  phase: RESEARCH
+  summary: Feature research opened
+  details: Improve day-to-day harness reliability across session setup, local validation,
+    and feature collaboration. Keep the existing project conventions and give maintainers
+    a clear entry point.
+- timestamp: '2026-11-19T01:42:25+00:00'
+  phase: DESIGN
+  summary: 'Feature phase: RESEARCH → DESIGN'
+  details: Reproduced the default uv cache failure and concurrent worklog loss (12
+    commands succeeded, 5 entries remained). Confirmed the current validator dependency
+    and a package it incorrectly accepts.
+- timestamp: '2026-11-19T01:42:25+00:00'
+  phase: DESIGN
+  summary: 'H-1: TODO → WIP'
+  details: Designed the change and its behavioral acceptance checks.
+- timestamp: '2026-11-19T01:42:25+00:00'
+  phase: DESIGN
+  summary: 'H-2: TODO → WIP'
+  details: Designed the change and its behavioral acceptance checks.
+- timestamp: '2026-11-19T01:42:25+00:00'
+  phase: DESIGN
+  summary: 'H-3: TODO → WIP'
+  details: Designed the change and its behavioral acceptance checks.
+- timestamp: '2026-11-19T01:42:25+00:00'
+  phase: DESIGN
+  summary: 'H-4: TODO → WIP'
+  details: Designed the change and its behavioral acceptance checks.
+- timestamp: '2026-11-19T01:42:26+00:00'
+  phase: IMPLEMENT
+  summary: 'Feature phase: DESIGN → IMPLEMENT'
+  details: Defined compatible improvements to startup, project-owned validation and
+    per-feature CLI serialization.
+- timestamp: '2026-11-19T01:46:46+00:00'
+  phase: TEST
+  summary: 'Feature phase: IMPLEMENT → TEST'
+  details: Implemented and documented all changes. Baseline probes failed as expected,
+    and the active startup and concurrent append probes now pass.
+- timestamp: '2026-11-19T01:48:12+00:00'
+  phase: TEST
+  summary: Verified harness reliability improvements from setup through feature completion
+  details: The plain bootstrap succeeds with the local uv cache. The concurrent probe
+    retained 12 of 12 observations, up from five on the baseline. The repository-owned
+    package validator accepted five valid skills and rejected malformed packages.
+    All 33 tests and the 25-file link check passed. A disposable cold-start workflow
+    with local dependencies progressed a feature through validation and DONE. Evidence
+    is in docs/agents/feature-history.md.
+- timestamp: '2026-11-19T01:48:12+00:00'
+  phase: TEST
+  summary: 'H-1: WIP → DONE'
+  details: Plain startup, fresh setup with an inaccessible default cache, explicit
+    cache override, and the non-uv fallback all passed.
+- timestamp: '2026-11-19T01:48:12+00:00'
+  phase: TEST
+  summary: 'H-2: WIP → DONE'
+  details: Verified the repository-owned validator, malformed package cases, runtime
+    check, navigation and destination review, and the maintainer overview.
+- timestamp: '2026-11-19T01:48:12+00:00'
+  phase: TEST
+  summary: 'H-3: WIP → DONE'
+  details: The concurrent regression now retains all successful appends. The existing
+    feature lifecycle and file-preservation tests pass.
+- timestamp: '2026-11-19T01:48:12+00:00'
+  phase: TEST
+  summary: 'H-4: WIP → DONE'
+  details: All 33 tests passed. A disposable project completed cold setup, scratch
+    creation, the feature lifecycle, and local guidance checks using the isolated
+    harness environment.
+- timestamp: '2026-11-19T01:48:12+00:00'
+  phase: DONE
+  summary: 'Feature phase: TEST → DONE'
+  details: All four requirements and applicable validation checks passed.

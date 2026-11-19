@@ -1,0 +1,44 @@
+description = """
+Review the security implications of session changes to code or configuration
+before handing off or ending the session. Trace changed behavior and effective
+configuration from entry points to the assets they can affect, verify relevant
+controls, and communicate unresolved findings and verification gaps.
+"""
+documentation = [
+  ".harness/VALIDATE.md",
+  ".harness/validation/security-review.md",
+  "https://top10.owasp.org/",
+  "https://learn.microsoft.com/en-us/azure/security/develop/threat-modeling-tool-threats",
+  "https://cheatsheetseries.owasp.org/cheatsheets/Threat_Modeling_Cheat_Sheet.html",
+  "https://asvs.owasp.org/",
+  "https://csrc.nist.gov/pubs/sp/800/218/final",
+  "docs/agents/feature-history.md",
+]
+status = "DONE"
+
+[[requirements]]
+id = "ROUTING"
+kind = "functional"
+description = "Route code and configuration changes to a security review before handoff or session end. Apply code review when its existing trigger matches."
+definition_of_done = "Code-only, configuration-only, mixed, and documentation-only walkthroughs load exactly their applicable session-end checks."
+status = "DONE"
+blocked_reason = ""
+blocked_from = ""
+
+[[requirements]]
+id = "REVIEW"
+kind = "functional"
+description = "Provide a defensible, scoped review using trust boundaries, STRIDE and relevant OWASP risks. Verify changed controls and report findings and gaps."
+definition_of_done = "A walkthrough of a config-only change and overlapping code changes verifies defaults, effective settings, permit and deny behavior, and what to report when evidence is missing."
+status = "DONE"
+blocked_reason = ""
+blocked_from = ""
+
+[[requirements]]
+id = "SCOPE"
+kind = "non-functional"
+description = "Keep routing short and the effort proportional to the security impact. Reuse project tooling and keep evidence safe to share."
+definition_of_done = "The root rules route to a focused standalone file, local links resolve, and the workflow can be followed with existing tools and local synthetic fixtures."
+status = "DONE"
+blocked_reason = ""
+blocked_from = ""

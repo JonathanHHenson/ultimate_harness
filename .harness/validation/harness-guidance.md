@@ -2,7 +2,7 @@
 
 ## After changing agent instructions, skill packages, validation rules, or the harness overview
 
-- From the project root, run `.harness/.venv/bin/python .harness/scripts/check_markdown_links.py README.md TECHNICAL.md AGENTS.md .harness/agents .harness/VALIDATE.md .harness/validation .agents/skills`.
+- From the project root, run `.harness/.venv/bin/python .harness/scripts/check_markdown_links.py README.md AGENTS.md docs .harness/agents .harness/VALIDATE.md .harness/validation .agents/skills`.
 - Review each active `##` heading in `AGENTS.md`, `.harness/agents/`, `VALIDATE.md`, and `.harness/validation/`: require a concrete contextual trigger and relevant, concise instructions. Keep background in linked documentation.
 - Walk through a matching situation and an unrelated one. Confirm that the intended rules load, unrelated rules do not, and overlapping situations apply all matching rulesets. Ensure each situational validation file has a route from `VALIDATE.md`.
 - Confirm each validation action has the prerequisites, command or review steps, and observable completion criteria needed to run it. Check that its commands and targets exist; remove obsolete rules when their situations disappear.

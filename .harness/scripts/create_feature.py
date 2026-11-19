@@ -49,6 +49,6 @@ def create(args: CreateArguments, path: Path) -> None:
 
 
 if __name__ == "__main__":
-    arguments = parser(__doc__)
+    arguments = parser(__doc__, creating=True)
     _ = arguments.add_argument("--definition", type=Path, required=True, help="Initial DEFINITION.toml source")
     run(create, arguments, CreateArguments)

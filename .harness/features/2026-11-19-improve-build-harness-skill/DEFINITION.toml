@@ -1,0 +1,30 @@
+description = "Improve the build-harness skill so agents select relevant guidance, use the project's specialized skills for substantial work, and verify that project instructions reach the right actions."
+documentation = [".agents/skills/build-harness/SKILL.md", ".agents/skills/build-harness/references/agents-md.md", ".agents/skills/build-harness/references/validation.md", "docs/agents/feature-history.md"]
+status = "DONE"
+
+[[requirements]]
+id = "BH-1"
+kind = "functional"
+description = "Make the main workflow easier to navigate and delegate reusable work to the appropriate existing skills."
+definition_of_done = "The entry point routes to harness contracts and specialized skills by task. A routine edit calls for only the guidance that applies."
+status = "DONE"
+blocked_reason = ""
+blocked_from = ""
+
+[[requirements]]
+id = "BH-2"
+kind = "functional"
+description = "Require verification of affected instruction and validation routes, especially after moving guidance and where rules overlap."
+definition_of_done = "The skill explicitly checks destinations, applicable triggers together, and commands or reviews. It distinguishes a structural check from proof of behavior."
+status = "DONE"
+blocked_reason = ""
+blocked_from = ""
+
+[[requirements]]
+id = "BH-3"
+kind = "non-functional"
+description = "Preserve established harness requirements, keep changes focused, and measure the revised workflow on a realistic example."
+definition_of_done = "Skill and link checks pass, existing policy routes are retained, and the revision is evaluated against the frozen previous version in isolated scratch directories."
+status = "DONE"
+blocked_reason = ""
+blocked_from = ""

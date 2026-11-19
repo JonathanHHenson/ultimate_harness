@@ -1,0 +1,30 @@
+description = "Add a session-end review for code changes that combines available diagnostic tools, software design review, and a separate code cleanliness pass."
+documentation = ["AGENTS.md", ".harness/VALIDATE.md", ".agents/skills/software-design/SKILL.md", "https://google.github.io/eng-practices/review/reviewer/looking-for.html", "docs/agents/feature-history.md"]
+status = "DONE"
+
+[[requirements]]
+id = "CR-1"
+kind = "functional"
+description = "Route a code-writing session through code review before its handoff or end and apply any overlapping validation rules."
+definition_of_done = "The AGENTS.md route and VALIDATE.md trigger work for regular code, tests, and scripts. A documentation-only session does not load code review."
+status = "DONE"
+blocked_reason = ""
+blocked_from = ""
+
+[[requirements]]
+id = "CR-2"
+kind = "functional"
+description = "Use available diagnostics first and then apply the software-design skill to review architecture and behavior."
+definition_of_done = "The rules say how to find and run relevant tool checks, handle absent tools, review design, and record the results. A real checker reports a seeded diagnostic and passes the corrected example."
+status = "DONE"
+blocked_reason = ""
+blocked_from = ""
+
+[[requirements]]
+id = "CR-3"
+kind = "functional"
+description = "Review cyclomatic complexity, file size, and organization of related code on evidence-based criteria."
+definition_of_done = "Separate instructions cover excessive branching, large multi-purpose files, and grouping related files into cohesive modules. They distinguish useful decomposition from unnecessary churn and are exercised in walkthrough examples."
+status = "DONE"
+blocked_reason = ""
+blocked_from = ""

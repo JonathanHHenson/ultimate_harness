@@ -3,7 +3,7 @@
 import argparse
 from collections.abc import Callable, Mapping
 from dataclasses import dataclass
-from datetime import UTC, datetime
+from datetime import UTC, date, datetime
 from pathlib import Path
 import re
 from typing import TypeVar, cast
@@ -17,6 +17,8 @@ from _feature_store import DEFINITION, WORKLOG, commit_status, finish_status, pe
 from _local_files import exclusive_lock, read_text
 
 PHASES = ("RESEARCH", "DESIGN", "IMPLEMENT", "TEST", "DONE")
+FEATURE_SLUG = r"[a-z0-9]+(?:-[a-z0-9]+)*"
+FEATURE_DATE = r"[0-9]{4}-[0-9]{2}-[0-9]{2}"
 REQUIREMENT_STATES = ("TODO", "WIP", "BLOCKED", "DONE")
 Worklog = list[dict[str, object]]
 
@@ -28,8 +30,12 @@ def require_text(value: object, label: str) -> str:
 
 
 def feature_path(root: Path, name: str) -> Path:
-    if not re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+)*", name):
-        raise ValueError("Feature names must be lowercase kebab-case")
+    if not re.fullmatch(rf"{FEATURE_DATE}-{FEATURE_SLUG}", name):
+        raise ValueError("Use the full feature directory name in YYYY-MM-DD-<kebab-case-slug> format")
+    try:
+        _ = date.fromisoformat(name[:10])
+    except ValueError:
+        raise ValueError("The feature directory name must start with a valid calendar date") from None
     base = root.resolve(strict=True) / ".harness" / "features"
     path = base / name
     if path.is_symlink() or base.resolve() != base:
@@ -166,13 +172,22 @@ class FeatureArguments:
 Arguments = TypeVar("Arguments", bound=FeatureArguments)
 
 
-def parser(description: str | None) -> argparse.ArgumentParser:
+def parser(description: str | None, *, creating: bool = False) -> argparse.ArgumentParser:
     result = argparse.ArgumentParser(description=description)
-    _ = result.add_argument("feature", help="Unique kebab-case feature directory name")
+    if creating:
+        _ = result.add_argument("feature", type=dated_feature_name, help="Lowercase kebab-case slug without a date")
+    else:
+        _ = result.add_argument("feature", help="Full feature directory name (YYYY-MM-DD-<slug>)")
     _ = result.add_argument(
         "--root", type=Path, default=Path.cwd(), help="Project root (default: current directory)"
     )
     return result
+
+
+def dated_feature_name(slug: str) -> str:
+    if not re.fullmatch(FEATURE_SLUG, slug) or re.match(rf"{FEATURE_DATE}(?:-|$)", slug):
+        raise argparse.ArgumentTypeError("Supply a lowercase kebab-case feature slug without a date prefix")
+    return f"{datetime.now(UTC).date().isoformat()}-{slug}"
 
 
 def run(

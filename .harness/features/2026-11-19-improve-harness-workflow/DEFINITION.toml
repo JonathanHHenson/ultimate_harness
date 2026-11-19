@@ -1,0 +1,39 @@
+description = "Improve day-to-day harness reliability across session setup, local validation, and feature collaboration. Keep the existing project conventions and give maintainers a clear entry point."
+documentation = ["AGENTS.md", ".harness/VALIDATE.md", "https://docs.astral.sh/uv/concepts/cache/", "https://agentskills.io/specification", "docs/agents/feature-history.md"]
+status = "DONE"
+
+[[requirements]]
+id = "H-1"
+kind = "functional"
+description = "Initialize the isolated harness Python environment without relying on writable user-wide uv storage."
+definition_of_done = "The plain startup command succeeds in the current workspace. A fresh fixture succeeds with unavailable default cache storage, and the non-uv setup still passes."
+status = "DONE"
+blocked_reason = ""
+blocked_from = ""
+
+[[requirements]]
+id = "H-2"
+kind = "functional"
+description = "Provide a repository-owned validation check for all project skill packages and explain what structural checks cover."
+definition_of_done = "The declared guidance validation commands run with existing harness dependencies. Malformed or incomplete packages fail. The guidance includes checks for destination meaning when moving rules, and a human entry point explains setup and routine work."
+status = "DONE"
+blocked_reason = ""
+blocked_from = ""
+
+[[requirements]]
+id = "H-3"
+kind = "functional"
+description = "Prevent simultaneous feature-memory commands from silently losing worklog entries or making conflicting status transitions."
+definition_of_done = "Mutations for the same feature serialize and every successful concurrent append remains in its log. The existing file format and lifecycle tests continue to pass."
+status = "DONE"
+blocked_reason = ""
+blocked_from = ""
+
+[[requirements]]
+id = "H-4"
+kind = "non-functional"
+description = "Verify that setup, scratch, feature memory, and validation work together while preserving user files and existing contracts."
+definition_of_done = "The full harness suite passes along with a disposable project walkthrough for setup, scratch creation, feature lifecycle, and guidance checks."
+status = "DONE"
+blocked_reason = ""
+blocked_from = ""

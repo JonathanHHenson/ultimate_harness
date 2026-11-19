@@ -1,0 +1,51 @@
+- timestamp: '2026-11-19T10:42:52+00:00'
+  phase: RESEARCH
+  summary: Feature research opened
+  details: Require behavioral coverage review and a full unit-suite pass in session-end
+    code review, and prepare substantial paired benchmark tasks.
+- timestamp: '2026-11-19T10:42:52+00:00'
+  phase: DESIGN
+  summary: 'Feature phase: RESEARCH → DESIGN'
+  details: The existing review re-runs affected checks but omits a coverage review
+    and a final full-suite gate. Prior A/B tasks mostly required repairing small drafts,
+    so the next fixtures require new stateful workflows.
+- timestamp: '2026-11-19T10:42:52+00:00'
+  phase: DESIGN
+  summary: 'CV-1: TODO → WIP'
+  details: Defined behavioral risk review and the final full-suite acceptance gate.
+- timestamp: '2026-11-19T10:42:52+00:00'
+  phase: DESIGN
+  summary: 'CV-2: TODO → WIP'
+  details: Designed two new implementation workloads and independent grading.
+- timestamp: '2026-11-19T10:42:52+00:00'
+  phase: IMPLEMENT
+  summary: 'Feature phase: DESIGN → IMPLEMENT'
+  details: The scoped rule and task pack design is ready to implement.
+- timestamp: '2026-11-19T10:52:25+00:00'
+  phase: TEST
+  summary: 'Feature phase: IMPLEMENT → TEST'
+  details: The review rule is installed and the matched benchmark starters and independent
+    acceptance suites are assembled.
+- timestamp: '2026-11-19T10:52:25+00:00'
+  phase: TEST
+  summary: Verified behavioral review gate and prepared larger paired tasks
+  details: The active rule requires public-behavior coverage evaluation and a final
+    full unit suite. A focused test passed while full discovery found a regression,
+    then both passed after repair. The main 33 tests, links, and skill packages pass.
+    Eight matched starter workspaces preflight successfully. Six withheld acceptance
+    methods per project reject the unfinished feature. Worker runs are pending. See
+    docs/agents/feature-history.md.
+- timestamp: '2026-11-19T10:52:25+00:00'
+  phase: TEST
+  summary: 'CV-1: WIP → DONE'
+  details: Verified the session-end route, coverage review instructions and full-suite
+    gate with a focused-pass/full-fail example and passing project checks.
+- timestamp: '2026-11-19T10:52:25+00:00'
+  phase: TEST
+  summary: 'CV-2: WIP → DONE'
+  details: The two larger task packets, independent graders, matched prepared projects
+    and frozen scoring plan passed preflight. The requested task design is ready.
+- timestamp: '2026-11-19T10:52:25+00:00'
+  phase: DONE
+  summary: 'Feature phase: TEST → DONE'
+  details: Both requirements are complete and applicable validation passed.

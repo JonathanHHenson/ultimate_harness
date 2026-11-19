@@ -1,6 +1,7 @@
 """Behavior tests for feature memory, executed in isolated temporary projects."""
 
 from concurrent.futures import ThreadPoolExecutor
+from datetime import UTC, datetime
 from functools import cached_property
 from pathlib import Path
 import subprocess
@@ -39,6 +40,8 @@ blocked_reason = ""
 
 
 class FeatureMemoryTests(unittest.TestCase):
+    _created_feature: Path | None = None
+
     @cached_property
     def root(self) -> Path:
         return Path(self.enterContext(tempfile.TemporaryDirectory()))
@@ -49,14 +52,18 @@ class FeatureMemoryTests(unittest.TestCase):
 
     @property
     def feature(self) -> Path:
-        return self.root / ".harness/features/build-cache"
+        assert self._created_feature is not None, "Create the feature before using its record"
+        return self._created_feature
 
     def setUp(self) -> None:
         _ = self.source.write_text(DEFINITION)
 
-    def command(self, script: str, *arguments: str, success: bool = True) -> subprocess.CompletedProcess[str]:
+    def command(
+        self, script: str, *arguments: str, name: str | None = None, success: bool = True,
+    ) -> subprocess.CompletedProcess[str]:
+        feature_name = self.feature.name if name is None else name
         result = subprocess.run(
-            [sys.executable, str(SCRIPTS / script), "build-cache", "--root", str(self.root), *arguments],
+            [sys.executable, str(SCRIPTS / script), feature_name, "--root", str(self.root), *arguments],
             capture_output=True, text=True, timeout=30,
         )
         if success:
@@ -66,7 +73,8 @@ class FeatureMemoryTests(unittest.TestCase):
         return result
 
     def create(self) -> None:
-        self.command("create_feature.py", "--definition", str(self.source))
+        result = self.command("create_feature.py", "--definition", str(self.source), name="build-cache")
+        self._created_feature = Path(result.stdout.strip())
 
     def definition(self):
         return tomllib.loads((self.feature / "DEFINITION.toml").read_text())
@@ -88,7 +96,11 @@ class FeatureMemoryTests(unittest.TestCase):
         return {path.name: path.read_bytes() for path in self.feature.iterdir()}
 
     def test_creation_has_three_readable_files_and_research_history(self):
+        before = datetime.now(UTC).date()
         self.create()
+        after = datetime.now(UTC).date()
+        self.assertEqual(self.feature.parent, self.root.resolve() / ".harness/features")
+        self.assertIn(self.feature.name, {f"{day.isoformat()}-build-cache" for day in (before, after)})
         self.assertEqual(set(self.snapshot()), {"DEFINITION.toml", "DESIGN.md", "WORKLOG.yaml"})
         self.assertEqual(self.definition()["status"], "RESEARCH")
         for requirement in self.definition()["requirements"]:
@@ -98,11 +110,11 @@ class FeatureMemoryTests(unittest.TestCase):
     def test_duplicate_creation_preserves_all_existing_memory(self):
         self.create()
         before = self.snapshot()
-        self.command("create_feature.py", "--definition", str(self.source), success=False)
+        self.command("create_feature.py", "--definition", str(self.source), name="build-cache", success=False)
         self.assertEqual(self.snapshot(), before)
 
     def test_invalid_names_cannot_escape_feature_directory(self):
-        for name in ("Build-Cache", "../outside", "build_cache", "build--cache", "-build"):
+        for name in ("Build-Cache", "../outside", "build_cache", "build--cache", "-build", "2026-11-19-build-cache"):
             with self.subTest(name=name):
                 result = subprocess.run(
                     [sys.executable, str(SCRIPTS / "create_feature.py"), name,
@@ -111,6 +123,19 @@ class FeatureMemoryTests(unittest.TestCase):
                 )
                 self.assertNotEqual(result.returncode, 0)
         self.assertFalse((self.root / ".harness/features").exists())
+
+    def test_existing_record_uses_its_stored_date(self) -> None:
+        self.create()
+        self._created_feature = self.feature.rename(self.feature.with_name("2020-02-29-build-cache"))
+        self.command("set_feature_status.py", "DESIGN", "--reason", "Research completed")
+        self.assertEqual(self.definition()["status"], "DESIGN")
+        for invalid_name in ("build-cache", "2026-02-29-build-cache", "2026-2-09-build-cache"):
+            with self.subTest(name=invalid_name):
+                invalid_path = self.feature.rename(self.feature.with_name(invalid_name))
+                self.command("set_feature_status.py", "IMPLEMENT", "--reason", "Design complete",
+                             name=invalid_name, success=False)
+                _ = invalid_path.rename(self.feature)
+                self.assertEqual(self.definition()["status"], "DESIGN")
 
     def test_invalid_definitions_fail_before_creating_memory(self):
         cases = (
@@ -125,8 +150,8 @@ class FeatureMemoryTests(unittest.TestCase):
         for index, content in enumerate(cases):
             with self.subTest(index=index):
                 self.source.write_text(content)
-                self.command("create_feature.py", "--definition", str(self.source), success=False)
-                self.assertFalse(self.feature.exists())
+                self.command("create_feature.py", "--definition", str(self.source), name="build-cache", success=False)
+                self.assertEqual(list((self.root / ".harness/features").glob("*-build-cache")), [])
 
     def test_feature_transition_graph_all_pairs(self):
         self.create()
@@ -295,7 +320,7 @@ with patch.object(Path, "replace", replace_with_failure):
     runpy.run_path(str(script), run_name="__main__")
 """
         interrupted = subprocess.run(
-            [sys.executable, "-c", fail_worklog_replacement, str(transition), "build-cache",
+            [sys.executable, "-c", fail_worklog_replacement, str(transition), self.feature.name,
              "--root", str(self.root), "DESIGN", "--reason", "Research completed"],
             capture_output=True, text=True, timeout=30,
         )
@@ -334,20 +359,27 @@ with patch.object(Path, "replace", replace_with_failure):
         self.command("set_feature_status.py", "DESIGN", "--reason", "Confirmed the cache interface constraints")
         self.assertEqual(self.definition()["context"], {"owner": "build-team"})
 
-    def test_feature_memory_is_ignored_but_harness_scripts_remain_trackable(self):
+    def test_feature_records_are_trackable_and_temporary_state_is_ignored(self):
         self.create()
         (self.root / ".gitignore").write_text((SCRIPTS.parents[1] / ".gitignore").read_text())
         subprocess.run(["git", "init", "-q", str(self.root)], check=True, capture_output=True)
-        memory = subprocess.run(
-            ["git", "-C", str(self.root), "check-ignore", ".harness/features/build-cache/DEFINITION.toml"],
-            capture_output=True, text=True,
-        )
-        scripts = subprocess.run(
-            ["git", "-C", str(self.root), "check-ignore", ".harness/scripts/create_feature.py"],
-            capture_output=True, text=True,
-        )
-        self.assertEqual(memory.returncode, 0, memory.stderr)
-        self.assertEqual(scripts.returncode, 1, scripts.stderr)
+        record = self.feature.relative_to(self.root.resolve())
+        paths = {
+            record / "DEFINITION.toml": 1,
+            record / "DESIGN.md": 1,
+            record / "WORKLOG.yaml": 1,
+            record.parent / ".locks" / f"{record.name}.lock": 0,
+            record / ".status-pending.json": 0,
+            record / ".write-temporary": 0,
+            ".harness/scripts/create_feature.py": 1,
+        }
+        for path, expected in paths.items():
+            with self.subTest(path=path):
+                result = subprocess.run(
+                    ["git", "-C", str(self.root), "check-ignore", path],
+                    capture_output=True, text=True, timeout=30,
+                )
+                self.assertEqual(result.returncode, expected, result.stderr)
 
     def test_unchanged_blocking_reason_does_not_repeat_history(self):
         self.create()

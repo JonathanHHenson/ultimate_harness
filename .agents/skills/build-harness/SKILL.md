@@ -16,19 +16,19 @@ description: Build, review, or maintain a programming agent harness. Use for AGE
 | Concern | Destination and guidance |
 | --- | --- |
 | Project instructions and complex contextual rules | Keep clear event or path triggers in `AGENTS.md` and place detailed contextual rules in `.harness/agents/`. Follow the [agent instructions standard](references/agents-md.md). |
-| Project facts, architecture, and rationale | Keep them in project documentation and link from the work that needs them. |
+| Project facts, architecture, and rationale | Keep them under `docs/` and link from the work that needs them. |
 | Reusable workflow | Use `.agents/skills/<name>/SKILL.md`. Use [learn-and-build-skills](../learn-and-build-skills/SKILL.md) to create a skill or materially change its workflow. |
-| Feature definitions, designs, and progress | Use the ignored `.harness/features/` store and preserve its lifecycle and completion gates. Follow the [feature memory contract](references/feature-memory.md). |
+| Feature definitions, designs, and progress | Track the records under `.harness/features/`. Put completion decisions and evidence for agents under `docs/agents/`. Follow the [feature memory contract](references/feature-memory.md). |
 | Project validation | Route matching situations from `.harness/VALIDATE.md` to focused rulesets in `.harness/validation/`. Follow the [dynamic validation standard](references/validation.md) when authoring or changing rules. |
 | Local notes and session work | Use ignored `.scratch/` and unique `.scratch/agent_sessions/` workspaces. Follow the [scratch space contract](references/scratch-space.md) for provisioning and preservation. |
 | Isolated harness dependencies | Use `.harness/.venv/` and the harness manifest. Follow the [Python environment contract](references/python-environment.md) for setup and harness execution. |
-| Repeatable mechanical actions and their tests | Use focused scripts under `.harness/scripts/` and behavior tests under `.harness/scripts/tests/` when warranted. Use [software-design](../software-design/SKILL.md) for script changes and [automated-test-design](../automated-test-design/SKILL.md) when designing automated tests. |
+| Repeatable mechanical actions and their tests | Use `.harness/scripts/` for session and maintenance helpers, and `scripts/` for commands invoked by CI. Put harness behavior tests under `.harness/scripts/tests/`. Use [software-design](../software-design/SKILL.md) for script changes and [automated-test-design](../automated-test-design/SKILL.md) when designing tests. |
 
 ## Make the change
 
 - Keep one maintained source for each rule or procedure. Give a linked instruction an explicit trigger and a clear action. Keep judgment in concise instructions and automate repeatable mechanical checks with a clear success or failure result.
 - Reuse the project's existing components and structure. Add only what's needed for the requested behavior. When guidance moves, update its callers and remove superseded copies. When adding or changing automation, state the working directory, required inputs, expected result, and how to respond to failure.
-- Keep reusable guidance, scripts, and project documentation trackable. Preserve local feature memory, scratch data, and Python environment isolation. Follow the project's existing lifecycle and record substantive evidence where the project expects it.
+- Track reusable guidance, scripts, project documentation, and feature records. Keep raw scratch data, temporary feature state, and the harness Python environment local. Follow the project's lifecycle and record substantive evidence in the feature closeout.
 
 ## Verify that the change works
 

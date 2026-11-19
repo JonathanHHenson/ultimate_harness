@@ -1,0 +1,30 @@
+description = "Provision a dedicated Python environment under .harness for harness dependencies, scripts, and validation. Initialize it at session start, prefer uv, and support standard Python or virtualenv fallback. Project Python workflows retain their own environment."
+documentation = [".harness/VALIDATE.md", ".agents/skills/build-harness/SKILL.md", ".agents/skills/build-harness/references/python-environment.md", "docs/agents/feature-history.md"]
+status = "DONE"
+
+[[requirements]]
+id = "F-1"
+kind = "functional"
+description = "Create and reuse a gitignored Python virtual environment in .harness. Prefer uv, fall back to the standard venv module when uv is absent, and use virtualenv if the standard module cannot create the environment."
+definition_of_done = "Creation succeeds with uv and without uv, the fallback order is exercised, and running setup twice preserves the same environment."
+status = "DONE"
+blocked_reason = ""
+blocked_from = ""
+
+[[requirements]]
+id = "F-2"
+kind = "functional"
+description = "Initialize the harness before session startup and use its interpreter for harness scripts, feature memory, and validation. Install harness dependencies only in that environment."
+definition_of_done = "Session rules invoke setup first, harness commands explicitly select .harness/.venv/bin/python, and the suite passes in the isolated environment."
+status = "DONE"
+blocked_reason = ""
+blocked_from = ""
+
+[[requirements]]
+id = "NF-1"
+kind = "non-functional"
+description = "Keep setup reusable across projects, safe to repeat, and independent of the project Python environment."
+definition_of_done = "The skill carries the convention, the actual ignore rule excludes local environment artifacts, and isolated checks show setup uses only the harness dependency manifest and preserves a neighboring project environment."
+status = "DONE"
+blocked_reason = ""
+blocked_from = ""

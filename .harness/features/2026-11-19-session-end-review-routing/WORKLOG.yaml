@@ -1,0 +1,79 @@
+- timestamp: '2026-11-19T12:41:35+00:00'
+  phase: RESEARCH
+  summary: Feature research opened
+  details: 'Fix session-end review routing after the hosted synthetic review comparison found
+
+    that Codex opened both reviews on configuration-only and documentation-only
+
+    handoffs. Keep the existing review procedures and select them by the session''s
+
+    actual change types before agents open either ruleset.
+
+    '
+- timestamp: '2026-11-19T12:41:35+00:00'
+  phase: DESIGN
+  summary: 'Feature phase: RESEARCH → DESIGN'
+  details: Previous hosted traces show scope classification happened but agents still
+    treated adjacent rules as additive. Use one pre-read selection decision and replay
+    the same prompt and inputs.
+- timestamp: '2026-11-19T12:41:57+00:00'
+  phase: IMPLEMENT
+  summary: 'Feature phase: DESIGN → IMPLEMENT'
+  details: The design defines one exclusive decision, how to classify files by purpose,
+    and trace-based acceptance checks.
+- timestamp: '2026-11-19T12:41:57+00:00'
+  phase: IMPLEMENT
+  summary: 'SELECT: TODO → WIP'
+  details: Replacing overlapping headings with one pre-read selection table.
+- timestamp: '2026-11-19T12:41:57+00:00'
+  phase: IMPLEMENT
+  summary: 'RETEST: TODO → WIP'
+  details: Preparing fresh copies of the three original treatment scopes with the
+    same prompt and runner.
+- timestamp: '2026-11-19T12:42:38+00:00'
+  phase: TEST
+  summary: 'Feature phase: IMPLEMENT → TEST'
+  details: Implemented scope-first review selection. Six fresh projects match the
+    original fixtures except the two routing files.
+- timestamp: '2026-11-19T12:43:58+00:00'
+  phase: DESIGN
+  summary: 'Feature phase: TEST → DESIGN'
+  details: The first replay correctly skipped opening either ruleset on a documentation-only
+    handoff but still ran deployment checks. Scope the check execution as well as
+    the file reads.
+- timestamp: '2026-11-19T12:43:58+00:00'
+  phase: IMPLEMENT
+  summary: 'Feature phase: DESIGN → IMPLEMENT'
+  details: Add explicit check limits to the shared selection and to the configuration
+    and documentation rows.
+- timestamp: '2026-11-19T12:44:30+00:00'
+  phase: TEST
+  summary: 'Feature phase: IMPLEMENT → TEST'
+  details: The validation table now scopes both rule reads and check execution. Confirmation
+    fixtures differ from the original hosted run only in routing instructions.
+- timestamp: '2026-11-19T12:45:41+00:00'
+  phase: TEST
+  summary: First replay isolated check selection overreach
+  details: All six replay agents opened the intended review files. Both README-only
+    agents nevertheless ran the application suite and deployment checks and treated
+    the absent venue export as a failure. Both configuration-only agents also used
+    the untouched application suite and type checker. The revised selection table
+    now scopes execution as well as rule discovery. The confirmation uses the same
+    prompt and fixtures.
+- timestamp: '2026-11-19T12:47:45+00:00'
+  phase: TEST
+  summary: 'SELECT: WIP → DONE'
+  details: The session-end table gives distinct code, configuration, and neither routes
+    and applies the decision to rule reads and check execution. The guidance link
+    and trigger walkthroughs passed.
+- timestamp: '2026-11-19T12:47:45+00:00'
+  phase: TEST
+  summary: 'RETEST: WIP → DONE'
+  details: Each of two fresh Codex attempts per scope selected the expected rules
+    and checks. Config-only checked both exports, docs-only checked only the README,
+    and mixed ran both reviews, full application tests and policy checks. See docs/agents/feature-history.md for the shareable summary.
+- timestamp: '2026-11-19T12:47:45+00:00'
+  phase: DONE
+  summary: 'Feature phase: TEST → DONE'
+  details: The confirmation verified six independent handoffs against the original
+    fixtures. Guidance link validation and all 33 harness unit tests passed.

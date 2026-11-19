@@ -1,0 +1,108 @@
+- timestamp: '2026-11-07T20:40:10+00:00'
+  phase: RESEARCH
+  summary: Feature research opened
+  details: Add contextual dynamic validation to the programming harness and the build-harness
+    skill. A concise .harness/VALIDATE.md selects situational Markdown rulesets from
+    .harness/validation/. Rules specify concrete checks, completion criteria, and
+    failure handling. Project lifecycle instructions expose the entry point; focused
+    reference checking automates a repeatable validation task. This feature does not
+    introduce a scheduler or an executable rule engine.
+- timestamp: '2026-11-07T20:40:10+00:00'
+  phase: DESIGN
+  summary: 'Feature phase: RESEARCH → DESIGN'
+  details: Inspected the existing skill, contextual feature rules, scripts, and validation
+    commands. Selected a small validation entry point with separate guidance and script
+    situations, plus one local-reference checker for the repeatable link check.
+- timestamp: '2026-11-07T20:40:35+00:00'
+  phase: IMPLEMENT
+  summary: 'Feature phase: DESIGN → IMPLEMENT'
+  details: The design maps every requirement to the main validation index, two live
+    situational rulesets, skill/lifecycle discovery, a focused reference checker,
+    and concrete verification scenarios.
+- timestamp: '2026-11-07T20:43:24+00:00'
+  phase: IMPLEMENT
+  summary: 'F-1: TODO → WIP'
+  details: The minimal VALIDATE.md draft has contextual selection, guidance, script,
+    and feature-completion triggers. Reviewing the live entry point for concise actionable
+    routing.
+- timestamp: '2026-11-07T20:43:24+00:00'
+  phase: IMPLEMENT
+  summary: 'F-2: TODO → WIP'
+  details: Created separate harness-guidance.md and harness-scripts.md rulesets with
+    commands, semantic reviews, pass criteria, and failure handling. The reference
+    check finds both targets.
+- timestamp: '2026-11-07T20:43:24+00:00'
+  phase: IMPLEMENT
+  summary: 'F-3: TODO → WIP'
+  details: The staged skill includes a dedicated dynamic-validation authoring reference
+    and lifecycle integration; staging passes the skill-creator validator and local-reference
+    check. Installing the reviewed files next.
+- timestamp: '2026-11-07T20:43:24+00:00'
+  phase: IMPLEMENT
+  summary: 'F-4: TODO → WIP'
+  details: The focused standard-library link checker is implemented. Its five isolated
+    behavior tests pass for relative and encoded paths, missing targets, recursive
+    directories, examples, external links, and invalid input.
+- timestamp: '2026-11-07T20:43:24+00:00'
+  phase: IMPLEMENT
+  summary: 'NF-1: TODO → WIP'
+  details: The rules keep commands in their situational owners and specify all-matching
+    selection plus distinct failed/unrun reporting. Reviewing the four selection scenarios
+    before final regression checks.
+- timestamp: '2026-11-07T20:43:45+00:00'
+  phase: IMPLEMENT
+  summary: Validation selection walkthrough confirms contextual routing
+  details: Guidance-only work selects harness-guidance.md; script-only work selects
+    harness-scripts.md; a change affecting both selects both. An unrelated feature
+    selects neither specialised situation solely because the files exist, while feature
+    completion still verifies its definitions of done and applicable validation. Reviewed
+    all live instruction headings, prerequisites, command paths, and failure criteria.
+    Commands remain in their owning rulesets.
+- timestamp: '2026-11-07T20:43:45+00:00'
+  phase: TEST
+  summary: 'Feature phase: IMPLEMENT → TEST'
+  details: The installed skill, main validation file, two situational rulesets, discovery
+    routes, and reference checker are implemented. Five focused tests and staged packaging
+    checks pass; running the complete harness suite and installed-document checks.
+- timestamp: '2026-11-07T20:44:11+00:00'
+  phase: TEST
+  summary: 'F-1: WIP → DONE'
+  details: The 17-line .harness/VALIDATE.md contains only contextual trigger sections
+    and actionable routing or completion instructions. Reviewed its selection, guidance,
+    scripts, and feature-DONE events; long procedures remain in situational files.
+- timestamp: '2026-11-07T20:44:11+00:00'
+  phase: TEST
+  summary: 'F-2: WIP → DONE'
+  details: Both specialised rulesets are reachable through explicit matching trigger
+    links from VALIDATE.md. They contain runnable checks, semantic review steps, pass
+    criteria, and failure/blocker handling. The live local-reference check passes
+    across all nine instruction and skill Markdown files.
+- timestamp: '2026-11-07T20:44:11+00:00'
+  phase: TEST
+  summary: 'F-3: WIP → DONE'
+  details: Installed the build-harness extension and dynamic-validation authoring
+    reference. Skill-creator packaging validation passes. AGENTS.md routes feature
+    work to VALIDATE.md; feature-memory instructions and its contract refer to the
+    same completion rules rather than duplicating procedures.
+- timestamp: '2026-11-07T20:44:11+00:00'
+  phase: TEST
+  summary: 'F-4: WIP → DONE'
+  details: All five focused checker behavior tests pass within the complete 21-test
+    suite. Existing local/encoded/angle-wrapped links succeed; missing targets and
+    inputs fail; recursion catches broken nested links; fenced examples, inline examples,
+    external URLs, and anchor-only links are excluded as documented.
+- timestamp: '2026-11-07T20:44:11+00:00'
+  phase: TEST
+  summary: 'NF-1: WIP → DONE'
+  details: Completed guidance-only, script-only, overlapping, and unrelated-context
+    walkthroughs and recorded their selections in the worklog. The full 21-test harness
+    suite passes in 3.251 seconds; installed-skill packaging and all live local inline-reference
+    checks pass. Rules distinguish passed, failed, and unrun checks and retain commands
+    in their owners.
+- timestamp: '2026-11-07T20:44:11+00:00'
+  phase: DONE
+  summary: 'Feature phase: TEST → DONE'
+  details: 'All five requirements are DONE. Completed both matching VALIDATE.md rulesets:
+    21 behavior tests pass, local links and installed skill validate, and semantic
+    trigger/selection reviews pass. The design and worklog retain the implementation
+    approach and requirement-specific validation evidence.'

@@ -1,0 +1,61 @@
+- timestamp: '2026-11-19T01:13:22+00:00'
+  phase: RESEARCH
+  summary: Feature research opened
+  details: Give project agents a reusable way to design maintainable automated tests
+    by observable behavior, choose appropriate test strategies, and retain fidelity
+    when a dependency is difficult to isolate.
+- timestamp: '2026-11-19T01:13:22+00:00'
+  phase: DESIGN
+  summary: 'Feature phase: RESEARCH → DESIGN'
+  details: Reviewed primary engineering guidance for behavioral testing and fidelity,
+    as well as Spark and Compose documentation for service isolation.
+- timestamp: '2026-11-19T01:13:22+00:00'
+  phase: DESIGN
+  summary: 'TEST-1: TODO → WIP'
+  details: Draft a trigger and a strategy selection workflow.
+- timestamp: '2026-11-19T01:13:22+00:00'
+  phase: DESIGN
+  summary: 'TEST-2: TODO → WIP'
+  details: Draft observable assertions and design a refactor and defect check.
+- timestamp: '2026-11-19T01:13:22+00:00'
+  phase: DESIGN
+  summary: 'TEST-3: TODO → WIP'
+  details: Draft dependency isolation options and realistic selection cases.
+- timestamp: '2026-11-19T01:13:22+00:00'
+  phase: IMPLEMENT
+  summary: 'Feature phase: DESIGN → IMPLEMENT'
+  details: Designed one entry point with conditional behavior and dependency references,
+    and a behavior-focused validation protocol.
+- timestamp: '2026-11-19T01:15:00+00:00'
+  phase: TEST
+  summary: 'Feature phase: IMPLEMENT → TEST'
+  details: Candidate guidance passes structural and link checks. Prepared a hidden
+    refactor, two defects, and a dependency decision exercise for independent verification.
+- timestamp: '2026-11-19T01:16:58+00:00'
+  phase: TEST
+  summary: Installed the automated test design skill and validated the guidance
+  details: The skill validator, 23-file link check, and 28 harness tests passed. An
+    independent agent wrote five tests that passed on correct and equivalent code
+    and caught both seeded defects. Reviewed plans for HTTP stubbing, local Spark,
+    an isolated Compose service, and a temporary dev deployment. Results are in docs/agents/feature-history.md.
+- timestamp: '2026-11-19T01:16:59+00:00'
+  phase: TEST
+  summary: 'TEST-1: WIP → DONE'
+  details: Installed a discoverable testing skill with strategy selection and verified
+    the explicit AGENTS.md route.
+- timestamp: '2026-11-19T01:16:59+00:00'
+  phase: TEST
+  summary: 'TEST-2: WIP → DONE'
+  details: An independent agent's five behavior tests passed before and after a refactor
+    and detected both seeded behavioral regressions.
+- timestamp: '2026-11-19T01:16:59+00:00'
+  phase: TEST
+  summary: 'TEST-3: WIP → DONE'
+  details: Verified that the guidance routes dependency-specific behavior to a faithful
+    double, real local runtime, isolated Compose service, or temporary dev platform
+    as applicable. Independent service plans and the Compose walkthrough met the design
+    criteria.
+- timestamp: '2026-11-19T01:16:59+00:00'
+  phase: DONE
+  summary: 'Feature phase: TEST → DONE'
+  details: All requirements and applicable harness guidance checks are complete.

@@ -1,0 +1,17 @@
+# Tracked feature completion
+
+## Decisions
+
+- Version feature definitions, designs, and worklogs so a checkout can carry the same state into a new session or a pull request. Ignore locks, pending status updates, and temporary writes. The migration preserves the chronology of the original 14 feature records and gives readers a shared summary of the earlier evidence. [Feature history](feature-history.md) · [Ignore rules](../../.gitignore)
+- Require feature closeout before the `DONE` transition. Update shared behavior and architecture under `docs/` and capture agent decisions, their rationale, and verification under `docs/agents/`. Link those records from the feature definition. This keeps session evidence available alongside the change that it supports. [Closeout rule](../../.harness/agents/feature-memory.md#before-marking-a-feature-done)
+- Give CI a standalone, read-only checkout command that uses Python's standard library. It gates on the recorded feature and requirement states so every adopting project can run the same check in its own CI. The agent assesses the adequacy of the underlying verification when closing the feature. [Merge check](../TECHNICAL.md#feature-completion-and-merge-checks)
+- Prefix each feature folder with its UTC creation date so name sorting groups features by day. Use the first worklog entry for existing folders. Creation adds the date automatically, and later commands take the full folder name to address the same record across days. [Naming and lifecycle](../TECHNICAL.md#feature-memory)
+
+## Verification
+
+- All 46 harness tests passed. The CI command tests covered completed and empty checkouts, outstanding feature and requirement states, malformed or missing definitions, interrupted updates, and a symlinked definition. The Git behavior test verified that all three authored record files are eligible for tracking and temporary state stays ignored. [CI command tests](../../.harness/scripts/tests/test_check_features_done.py) · [Feature memory tests](../../.harness/scripts/tests/test_feature_memory.py)
+- The repository audit confirmed that Git exposes all 45 authored files across 15 feature records, legacy worklog timestamps and phases are preserved, and local documentation references target shareable files. The Markdown link and skill package checks passed. The live command returned exit code `1` while the feature was in `TEST` with outstanding requirements.
+- After closeout, the live command returned exit code `0` and reported all 15 features done, both from the repository root and when invoked from another directory.
+- BasedPyright and its language server reported zero errors across the three changed Python files. The security review traced the CI user's read access to checkout data and checked that the command rejects redirected definitions and avoids printing invalid TOML or unexpected status values. No dedicated repository security scanner was configured.
+- Runtime checks used Python 3.12. The type check targeted the documented Python 3.11 minimum. CI vendor setup and execution remain project-specific.
+- After adding date prefixes, all 47 tests passed. The tests verified automatic UTC dating, updates using a historical date, and rejection of missing or impossible dates. The migration audit matched all 15 prefixes to their first worklog entries and confirmed the 14 historical records retained identical contents. Type and language-server checks covered all four changed Python files and reported zero errors.

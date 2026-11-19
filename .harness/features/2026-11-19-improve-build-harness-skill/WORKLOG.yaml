@@ -1,0 +1,61 @@
+- timestamp: '2026-11-19T01:26:19+00:00'
+  phase: RESEARCH
+  summary: Feature research opened
+  details: Improve the build-harness skill so agents select relevant guidance, use
+    the project's specialized skills for substantial work, and verify that project
+    instructions reach the right actions.
+- timestamp: '2026-11-19T01:26:19+00:00'
+  phase: DESIGN
+  summary: 'Feature phase: RESEARCH → DESIGN'
+  details: The source audit found duplicate policy, missing specialization routes,
+    and incomplete integration checks. A previous experiment reproduced valid-looking
+    broken references.
+- timestamp: '2026-11-19T01:26:19+00:00'
+  phase: DESIGN
+  summary: 'BH-1: TODO → WIP'
+  details: Design a concise workflow with task-specific delegates.
+- timestamp: '2026-11-19T01:26:19+00:00'
+  phase: DESIGN
+  summary: 'BH-2: TODO → WIP'
+  details: Design verification for route selection and meaningful destinations.
+- timestamp: '2026-11-19T01:26:19+00:00'
+  phase: DESIGN
+  summary: 'BH-3: TODO → WIP'
+  details: Prepare frozen versions and an isolated matched case.
+- timestamp: '2026-11-19T01:26:19+00:00'
+  phase: IMPLEMENT
+  summary: 'Feature phase: DESIGN → IMPLEMENT'
+  details: Defined focused revisions and a comparison case drawn from an observed
+    failure mode.
+- timestamp: '2026-11-19T01:28:01+00:00'
+  phase: TEST
+  summary: 'Feature phase: IMPLEMENT → TEST'
+  details: The staged revision and all staged link paths validate. Frozen both skill
+    versions and prepared identical relocation fixtures and scoring criteria.
+- timestamp: '2026-11-19T01:30:03+00:00'
+  phase: TEST
+  summary: Installed the condensed Build Harness workflow and verified its behavior
+  details: The guide shrank from 997 to 633 words with all five contract files preserved.
+    It now routes to the specialized skills and explicitly verifies intended destinations
+    and overlapping triggers. Both matched relocation runs scored 6/6. The skill validator,
+    24-file project link check, and 28 harness tests passed. See docs/agents/feature-history.md.
+- timestamp: '2026-11-19T01:30:03+00:00'
+  phase: TEST
+  summary: 'BH-1: WIP → DONE'
+  details: Reviewed task-based routes for learning, skill authoring, design, testing,
+    and ordinary harness maintenance.
+- timestamp: '2026-11-19T01:30:03+00:00'
+  phase: TEST
+  summary: 'BH-2: WIP → DONE'
+  details: The revision specifies intended route and destination checks, including
+    overlap and the limits of structural tools. The revised worker verified those
+    cases in the fixture.
+- timestamp: '2026-11-19T01:30:04+00:00'
+  phase: TEST
+  summary: 'BH-3: WIP → DONE'
+  details: Confirmed the five existing contracts are preserved, project checks pass,
+    and a matched comparison with the previous version scored 6/6 in both arms.
+- timestamp: '2026-11-19T01:30:04+00:00'
+  phase: DONE
+  summary: 'Feature phase: TEST → DONE'
+  details: All three requirements and applicable validation checks are complete.

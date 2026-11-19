@@ -1,4 +1,6 @@
-/.harness/features/
+/.harness/features/.locks/
+/.harness/features/*/.status-pending.json
+/.harness/features/*/.write-*
 /.harness/.venv/
 /.harness/.venv.lock
 /.harness/.uv-cache/

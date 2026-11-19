@@ -1,0 +1,145 @@
+- timestamp: '2026-11-07T20:26:51+00:00'
+  phase: RESEARCH
+  summary: Feature research opened
+  details: Add local feature memory to the programming harness and its authoring skill.
+    Each feature retains a detailed definition, requirement-level technical design,
+    and useful chronological history. Focused commands enforce ordered feature and
+    requirement lifecycles and the completion gate. The initial design kept memory gitignored; the reusable
+    contract, rules, scripts, and tests remain shareable. This record was created
+    after the initial implementation and test pass; its worklog explicitly records
+    that timing rather than claiming contemporaneous earlier entries.
+- timestamp: '2026-11-07T20:26:51+00:00'
+  phase: RESEARCH
+  summary: Memory record created after the initial implementation
+  details: The schema, commands, skill extension, and first 14 behavior tests were
+    implemented before this record was created. Those tests pass. An initial YAML
+    serialization failure exposed TOML string wrapper values; converting worklog fields
+    to plain strings fixed it. Gitignore and unchanged-blocker-history checks were
+    then added and still need the final test pass. This entry records that sequence
+    explicitly.
+- timestamp: '2026-11-07T20:26:51+00:00'
+  phase: DESIGN
+  summary: 'Feature phase: RESEARCH → DESIGN'
+  details: The user supplied the storage and lifecycle contracts. Chose exact prior-state
+    resume for blocked requirements and terminal DONE requirements; feature phases
+    may regress freely and must advance sequentially again.
+- timestamp: '2026-11-07T20:27:32+00:00'
+  phase: IMPLEMENT
+  summary: 'Feature phase: DESIGN → IMPLEMENT'
+  details: The requirement-by-requirement design now specifies storage, schema, transition
+    edges, history preservation, discovery, ignore behavior, runtime dependencies,
+    and single-writer limits.
+- timestamp: '2026-11-07T20:27:32+00:00'
+  phase: IMPLEMENT
+  summary: 'F-1: TODO → WIP'
+  details: Initial implementation is present; reviewing the documented acceptance
+    criteria and completing final behavior and integration checks before marking this
+    requirement done.
+- timestamp: '2026-11-07T20:27:32+00:00'
+  phase: IMPLEMENT
+  summary: 'F-2: TODO → WIP'
+  details: Initial implementation is present; reviewing the documented acceptance
+    criteria and completing final behavior and integration checks before marking this
+    requirement done.
+- timestamp: '2026-11-07T20:27:32+00:00'
+  phase: IMPLEMENT
+  summary: 'F-3: TODO → WIP'
+  details: Initial implementation is present; reviewing the documented acceptance
+    criteria and completing final behavior and integration checks before marking this
+    requirement done.
+- timestamp: '2026-11-07T20:27:32+00:00'
+  phase: IMPLEMENT
+  summary: 'F-4: TODO → WIP'
+  details: Initial implementation is present; reviewing the documented acceptance
+    criteria and completing final behavior and integration checks before marking this
+    requirement done.
+- timestamp: '2026-11-07T20:27:32+00:00'
+  phase: IMPLEMENT
+  summary: 'F-5: TODO → WIP'
+  details: Initial implementation is present; reviewing the documented acceptance
+    criteria and completing final behavior and integration checks before marking this
+    requirement done.
+- timestamp: '2026-11-07T20:27:32+00:00'
+  phase: IMPLEMENT
+  summary: 'F-6: TODO → WIP'
+  details: Initial implementation is present; reviewing the documented acceptance
+    criteria and completing final behavior and integration checks before marking this
+    requirement done.
+- timestamp: '2026-11-07T20:27:32+00:00'
+  phase: IMPLEMENT
+  summary: 'NF-1: TODO → WIP'
+  details: Initial implementation is present; reviewing the documented acceptance
+    criteria and completing final behavior and integration checks before marking this
+    requirement done.
+- timestamp: '2026-11-07T20:27:32+00:00'
+  phase: IMPLEMENT
+  summary: 'NF-2: TODO → WIP'
+  details: Initial implementation is present; reviewing the documented acceptance
+    criteria and completing final behavior and integration checks before marking this
+    requirement done.
+- timestamp: '2026-11-07T20:27:32+00:00'
+  phase: TEST
+  summary: 'Feature phase: IMPLEMENT → TEST'
+  details: The skill extension, contextual rules, creation/status/worklog commands,
+    and requirement-complete design are implemented. Running the final 16 behavior
+    tests and installed-skill/reference checks.
+- timestamp: '2026-11-07T20:28:29+00:00'
+  phase: TEST
+  summary: 'F-1: WIP → DONE'
+  details: Creation tests verify exactly three readable files and requirement ids
+    in the design outline. Duplicate-name and invalid-name tests pass and demonstrate
+    that existing records are preserved.
+- timestamp: '2026-11-07T20:28:29+00:00'
+  phase: TEST
+  summary: 'F-2: WIP → DONE'
+  details: The installed memory contract documents all definition fields with a valid
+    TOML example. Malformed-definition tests reject invalid initial phases, non-TODO
+    initial requirements, duplicate ids, invalid kinds, missing descriptions, wrong
+    documentation types, and invalid TOML.
+- timestamp: '2026-11-07T20:28:29+00:00'
+  phase: TEST
+  summary: 'F-3: WIP → DONE'
+  details: DESIGN.md now covers F-1 through F-6 and NF-1 through NF-2 with technical
+    approaches and verification. Tests confirm YAML history survives appends, including
+    flow-style input, and reject empty or duplicate progress. The log explicitly identifies
+    its late creation relative to implementation.
+- timestamp: '2026-11-07T20:28:29+00:00'
+  phase: TEST
+  summary: 'F-4: WIP → DONE'
+  details: All 25 feature phase pairs were exercised by the behavior suite. Regression
+    from TEST to RESEARCH requires DESIGN, IMPLEMENT, and TEST again; completion rejects
+    TODO, WIP, and BLOCKED requirements and accepts all-DONE requirements.
+- timestamp: '2026-11-07T20:28:29+00:00'
+  phase: TEST
+  summary: 'F-5: WIP → DONE'
+  details: The behavior suite covers all requirement state pairs, blocking from both
+    TODO and WIP, exact prior-state recovery, rejected direct completion while blocked,
+    nonempty blocking reasons, cleared metadata on resume, and unchanged-blocker history
+    rejection.
+- timestamp: '2026-11-07T20:28:29+00:00'
+  phase: TEST
+  summary: 'F-6: WIP → DONE'
+  details: The installed build-harness skill passes the skill-creator validator. Local
+    Markdown reference targets and script targets resolve; its TOML and YAML examples
+    parse. Root and contextual AGENTS instructions use lifecycle-trigger headings
+    and route to one authoritative memory contract.
+- timestamp: '2026-11-07T20:28:29+00:00'
+  phase: TEST
+  summary: 'NF-1: WIP → DONE'
+  details: An isolated Git repository using the actual project .gitignore confirms
+    a sample feature definition was ignored under the original rule while .harness/scripts/create_feature.py
+    is not ignored. The live project was left without Git initialization.
+- timestamp: '2026-11-07T20:28:29+00:00'
+  phase: TEST
+  summary: 'NF-2: WIP → DONE'
+  details: All 16 CLI behavior tests pass in 4.109 seconds. Rejected requests leave
+    file contents unchanged; malformed worklogs prevent status writes, and unrelated
+    TOML context metadata survives updates. Single-writer and multi-file transaction
+    limits are documented in the contract and design.
+- timestamp: '2026-11-07T20:28:29+00:00'
+  phase: DONE
+  summary: 'Feature phase: TEST → DONE'
+  details: All eight requirements are DONE. The 16 behavior tests, installed-skill
+    validation, local reference checks, parsed examples, and isolated Git ignore check
+    pass. The local record includes the requirement-complete design, evidence, implementation-history
+    caveat, and known single-writer limits.

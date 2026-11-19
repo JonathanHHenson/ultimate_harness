@@ -1,0 +1,64 @@
+- timestamp: '2026-11-19T01:21:01+00:00'
+  phase: RESEARCH
+  summary: Feature research opened
+  details: Extract the learning workflow from learn-and-build-skills so agents can
+    independently research a topic or use that method when authoring skills, changing
+    the harness, and creating validation rules.
+- timestamp: '2026-11-19T01:21:01+00:00'
+  phase: DESIGN
+  summary: 'Feature phase: RESEARCH → DESIGN'
+  details: Inspected current research guidance, skill-authoring callers, harness rules,
+    and validation layout. The source audit found one maintained research reference
+    and one direct caller.
+- timestamp: '2026-11-19T01:21:01+00:00'
+  phase: DESIGN
+  summary: 'LEARN-1: TODO → WIP'
+  details: Extract the current research method and generalize its inputs and outcomes.
+- timestamp: '2026-11-19T01:21:01+00:00'
+  phase: DESIGN
+  summary: 'LEARN-2: TODO → WIP'
+  details: Route authoring and harness tasks through the standalone method.
+- timestamp: '2026-11-19T01:21:01+00:00'
+  phase: DESIGN
+  summary: 'LEARN-3: TODO → WIP'
+  details: Define structural, routing, and forward verification.
+- timestamp: '2026-11-19T01:21:01+00:00'
+  phase: IMPLEMENT
+  summary: 'Feature phase: DESIGN → IMPLEMENT'
+  details: Designed the sibling skill and contextual caller routes, with no changes
+    to project validation execution.
+- timestamp: '2026-11-19T01:21:56+00:00'
+  phase: TEST
+  summary: 'Feature phase: IMPLEMENT → TEST'
+  details: Staged three validated skill packages and prepared an isolated validation-authoring
+    forward test.
+- timestamp: '2026-11-19T01:23:43+00:00'
+  phase: TEST
+  summary: 'LEARN-1: WIP → DONE'
+  details: The installed standalone skill owns the general method and research reference.
+    Direct topic requests can conclude with evidence and limits without invoking skill
+    authoring.
+- timestamp: '2026-11-19T01:23:43+00:00'
+  phase: TEST
+  summary: 'LEARN-2: WIP → DONE'
+  details: Verified the authoring, harness, and validation routes share the same installed
+    skill. The superseded reference was moved out of the caller's directory.
+- timestamp: '2026-11-19T01:24:16+00:00'
+  phase: TEST
+  summary: Installed shared learning guidance and verified the validation authoring
+    route
+  details: All three skill packages validated, project links passed across 24 Markdown
+    files, and all 28 harness tests passed. An independent agent followed build-harness's
+    validation route, used learn-a-topic to test the link checker, and drafted a rule
+    scoped to its verified capabilities. Reproduced the six fixture outcomes. Evidence
+    is in docs/agents/feature-history.md.
+- timestamp: '2026-11-19T01:24:16+00:00'
+  phase: TEST
+  summary: 'LEARN-3: WIP → DONE'
+  details: The installed packages and reference paths passed checks. Reviewed contextual
+    routing and reproduced the behavioral outcomes of a successful independent validation-rule
+    drafting task.
+- timestamp: '2026-11-19T01:24:16+00:00'
+  phase: DONE
+  summary: 'Feature phase: TEST → DONE'
+  details: All three requirements and relevant guidance checks are complete.

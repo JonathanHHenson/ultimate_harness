@@ -1,0 +1,30 @@
+description = "Extract the learning workflow from learn-and-build-skills so agents can independently research a topic or use that method when authoring skills, changing the harness, and creating validation rules."
+documentation = [".agents/skills/learn-a-topic/SKILL.md", ".agents/skills/learn-and-build-skills/SKILL.md", ".agents/skills/build-harness/SKILL.md", ".agents/skills/build-harness/references/validation.md", "docs/agents/feature-history.md"]
+status = "DONE"
+
+[[requirements]]
+id = "LEARN-1"
+kind = "functional"
+description = "Provide a standalone skill for source assessment, Socratic inquiry, comparison of plausible explanations, and testing transfer to unfamiliar cases."
+definition_of_done = "The installed skill and its references own the general learning method and can be used without running a skill-authoring workflow."
+status = "DONE"
+blocked_reason = ""
+blocked_from = ""
+
+[[requirements]]
+id = "LEARN-2"
+kind = "functional"
+description = "Use the standalone method when creating skills, researching uncertain harness changes, or authoring a new validation rule."
+definition_of_done = "Both caller paths and the validation-authoring route link to the same skill. Skill-specific authoring continues to work and the old research reference has no active callers."
+status = "DONE"
+blocked_reason = ""
+blocked_from = ""
+
+[[requirements]]
+id = "LEARN-3"
+kind = "non-functional"
+description = "Keep routine changes lightweight and verify that splitting the skills preserves the reusable research behaviors and contextual routing."
+definition_of_done = "Validate the three skill packages and links, walk through relevant and unrelated routing cases, and forward-test the new validation authoring path in scratch."
+status = "DONE"
+blocked_reason = ""
+blocked_from = ""

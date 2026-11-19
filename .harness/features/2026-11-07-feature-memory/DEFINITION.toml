@@ -1,0 +1,75 @@
+description = "Add local feature memory to the programming harness and its authoring skill. Each feature retains a detailed definition, requirement-level technical design, and useful chronological history. Focused commands enforce ordered feature and requirement lifecycles and the completion gate. The initial design kept memory gitignored; the reusable contract, rules, scripts, and tests remain shareable. This record was created after the initial implementation and test pass; its worklog explicitly records that timing rather than claiming contemporaneous earlier entries."
+documentation = [".agents/skills/build-harness/references/feature-memory.md", ".agents/skills/build-harness/references/agents-md.md", "docs/agents/feature-history.md"]
+status = "DONE"
+
+[[requirements]]
+id = "F-1"
+kind = "functional"
+description = "Store each feature in a unique lowercase kebab-case directory with a TOML definition, Markdown design, and YAML history. Creating a duplicate must preserve existing memory."
+definition_of_done = "Creation produces exactly the three readable files, rejects invalid names, and refuses duplicate directories without changing prior memory."
+status = "DONE"
+blocked_reason = ""
+blocked_from = ""
+
+[[requirements]]
+id = "F-2"
+kind = "functional"
+description = "Capture a detailed feature description, relevant documentation links, feature status, and functional and non-functional requirements. Each requirement needs a stable id, detailed description, definition of done, and valid status."
+definition_of_done = "The documented TOML schema supports all requested fields; command validation rejects missing data, duplicate requirement ids, and invalid status or kind values."
+status = "DONE"
+blocked_reason = ""
+blocked_from = ""
+
+[[requirements]]
+id = "F-3"
+kind = "functional"
+description = "Maintain a requirement-complete technical design and substantive chronological progress entries. Preserve prior entries and avoid empty or repeated manual updates."
+definition_of_done = "The design covers every requirement by id; the worklog is a readable YAML list with timestamps, phase, summary, and details, and history-preservation and duplicate-entry tests pass."
+status = "DONE"
+blocked_reason = ""
+blocked_from = ""
+
+[[requirements]]
+id = "F-4"
+kind = "functional"
+description = "Advance feature phases through RESEARCH, DESIGN, IMPLEMENT, TEST, and DONE one step at a time. Permit arbitrary backward moves and require all requirements DONE before feature completion."
+definition_of_done = "All phase-pair behavior tests pass, backward movement requires ordered forward progression again, and incomplete requirements prevent TEST to DONE."
+status = "DONE"
+blocked_reason = ""
+blocked_from = ""
+
+[[requirements]]
+id = "F-5"
+kind = "functional"
+description = "Advance requirements through TODO, WIP, and DONE, with BLOCKED available for unfinished work. Record a detailed obstacle and the previous state; resume that state when the blocker clears."
+definition_of_done = "Requirement transition tests pass, blank blocking reasons are rejected, blocked work cannot jump to DONE, and unblocking clears the blocking fields while preserving history."
+status = "DONE"
+blocked_reason = ""
+blocked_from = ""
+
+[[requirements]]
+id = "F-6"
+kind = "functional"
+description = "Extend build-harness with discoverable memory guidance and keep live project lifecycle instructions concise. Route the relevant feature-work triggers through .harness/agents/."
+definition_of_done = "Skill validation and reference checks pass; AGENTS.md and contextual rules have event-based headings and route to the authoritative memory contract."
+status = "DONE"
+blocked_reason = ""
+blocked_from = ""
+
+[[requirements]]
+id = "NF-1"
+kind = "non-functional"
+description = "Keep local feature records outside normal version control while retaining the harness skill, instructions, scripts, and behavioral tests as shareable project files."
+definition_of_done = "An isolated Git check confirms feature records are ignored and script paths remain trackable; the actual root ignore rule targets the features directory."
+status = "DONE"
+blocked_reason = ""
+blocked_from = ""
+
+[[requirements]]
+id = "NF-2"
+kind = "non-functional"
+description = "Use focused commands that validate data and transitions before mutating memory, preserve unrelated definition metadata, and make failures visible through nonzero exit status."
+definition_of_done = "Behavioral tests verify invalid requests leave memory unchanged, malformed worklogs prevent updates, and unrelated TOML metadata survives status changes."
+status = "DONE"
+blocked_reason = ""
+blocked_from = ""

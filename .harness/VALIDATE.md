@@ -8,7 +8,7 @@
 
 - Follow [the harness guidance checks](validation/harness-guidance.md).
 
-## When changing harness scripts, tests, or runtime dependencies
+## When changing harness scripts, CI check scripts, tests, or runtime dependencies
 
 - Follow [the harness script checks](validation/harness-scripts.md).
 
@@ -30,4 +30,9 @@
 
 ## Before marking a feature DONE
 
-- Verify every requirement's definition of done and complete all matching checks above. Record evidence in feature memory; resolve failures and blockers before claiming validation passed.
+- Verify every requirement's definition of done and complete all matching checks above. Resolve failures and blockers before claiming validation passed.
+- Record the completion decisions and evidence in tracked documentation. Follow [the feature closeout instructions](agents/feature-memory.md#before-marking-a-feature-done).
+
+## When checking a feature branch for merge
+
+- Run `python3 scripts/check_features_done.py` with Python 3.11 or later. Require a successful exit. Resolve reported feature, requirement, or record problems before merging.

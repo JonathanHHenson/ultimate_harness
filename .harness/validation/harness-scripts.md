@@ -1,6 +1,6 @@
 # Harness Script Validation
 
-## After changing harness scripts, tests, or runtime dependencies
+## After changing harness scripts, CI check scripts, tests, or runtime dependencies
 
 - Set up [the harness Python environment](../agents/python-environment.md). From the project root, run `.harness/.venv/bin/python -m unittest discover -s .harness/scripts/tests -v`.
 - For changed behavior, exercise representative success and failure cases in an isolated temporary project. Use existing behavioral tests when they cover those cases; add coverage for uncovered behavior that warrants testing.

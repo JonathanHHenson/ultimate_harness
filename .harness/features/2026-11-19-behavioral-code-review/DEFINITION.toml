@@ -1,0 +1,21 @@
+description = "Require behavioral coverage review and a full unit-suite pass in session-end code review, and prepare substantial paired benchmark tasks."
+documentation = ["AGENTS.md", ".harness/VALIDATE.md", ".harness/validation/code-review.md", ".agents/skills/automated-test-design/SKILL.md", "docs/agents/feature-history.md"]
+status = "DONE"
+
+[[requirements]]
+id = "CV-1"
+kind = "functional"
+description = "Review tests against changed and relevant existing behavior, fix important gaps, and require the complete configured unit suite to pass against the final code."
+definition_of_done = "The active code review links to the existing test design workflow, specifies observable coverage criteria and the full-suite gate, and handles failed, skipped, and unavailable checks accurately."
+status = "DONE"
+blocked_reason = ""
+blocked_from = ""
+
+[[requirements]]
+id = "CV-2"
+kind = "functional"
+description = "Design substantial multi-file benchmark tasks that require new software and can distinguish implementation defects, coverage gaps, and design quality."
+definition_of_done = "The local task pack has two runnable starter projects, detailed behavioral contracts, independent acceptance suites, and an A/B plan frozen around the new validation change. Starter unit suites pass and acceptance catches unfinished work."
+status = "DONE"
+blocked_reason = ""
+blocked_from = ""

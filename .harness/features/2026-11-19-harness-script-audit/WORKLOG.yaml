@@ -1,0 +1,56 @@
+- timestamp: '2026-11-19T13:00:16+00:00'
+  phase: RESEARCH
+  summary: Feature research opened
+  details: Audit all maintained harness scripts under the current code and security
+    review rules. Improve consistency, local file boundaries, and readable diagnostics
+    while preserving the supported CLI workflows and feature-memory files.
+- timestamp: '2026-11-19T13:00:16+00:00'
+  phase: DESIGN
+  summary: 'Feature phase: RESEARCH → DESIGN'
+  details: Audited all nine scripts and baseline diagnostics. Priorities are recoverable
+    feature commits, local file boundaries, environment isolation and evidence-focused
+    validation.
+- timestamp: '2026-11-19T13:01:01+00:00'
+  phase: IMPLEMENT
+  summary: 'Feature phase: DESIGN → IMPLEMENT'
+  details: Designed recoverable status writes, a small shared file boundary, scoped
+    installer configuration, and behavior checks for the detected regressions.
+- timestamp: '2026-11-19T13:01:01+00:00'
+  phase: IMPLEMENT
+  summary: 'FEATURE: TODO → WIP'
+  details: Updating feature record validation, initialization and paired commits.
+- timestamp: '2026-11-19T13:01:01+00:00'
+  phase: IMPLEMENT
+  summary: 'LOCAL: TODO → WIP'
+  details: Updating the environment bootstrap, scratch and read-only validators.
+- timestamp: '2026-11-19T13:01:01+00:00'
+  phase: IMPLEMENT
+  summary: 'QUALITY: TODO → WIP'
+  details: Comparing static diagnostics and reviewing behavioral acceptance evidence.
+- timestamp: '2026-11-19T13:09:48+00:00'
+  phase: TEST
+  summary: 'Feature phase: IMPLEMENT → TEST'
+  details: Updated all nine entry and support scripts, exercised local validators,
+    and prepared final diagnostics and recovery checks.
+- timestamp: '2026-11-19T13:12:44+00:00'
+  phase: TEST
+  summary: 'FEATURE: WIP → DONE'
+  details: Verified lifecycle, concurrency, redirection rejection, interrupted update
+    recovery, and preservation of intervening edits with the full harness suite.
+- timestamp: '2026-11-19T13:12:44+00:00'
+  phase: TEST
+  summary: 'LOCAL: WIP → DONE'
+  details: Verified uv and stdlib venv setup, isolation rejection, scratch behavior,
+    metadata ambiguity and safe diagnostics. The optional virtualenv fallback is unavailable
+    here.
+- timestamp: '2026-11-19T13:12:44+00:00'
+  phase: TEST
+  summary: 'QUALITY: WIP → DONE'
+  details: All 41 tests passed. BasedPyright and the language server found zero errors
+    across 16 Python files. Five skill packages and the local guidance links passed.
+    Code and STRIDE review evidence is in docs/agents/feature-history.md.
+- timestamp: '2026-11-19T13:12:44+00:00'
+  phase: DONE
+  summary: 'Feature phase: TEST → DONE'
+  details: Completed the code and security review and the script, scratch-space and
+    guidance checks on the final code.
