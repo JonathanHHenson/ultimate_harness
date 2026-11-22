@@ -2,7 +2,7 @@
 
 ## Page JSON
 
-Write one UTF-8 JSON file per page. Set `title`, optional `submit_label`, optional `prologue`, and `fields`. The prologue is a Markdown file path relative to the JSON file. Put both files and any referenced images inside the interaction workspace.
+Write one UTF-8 JSON file per page. Set `title`, optional `submit_label`, optional `prologue`, and `fields`. The prologue is a Markdown file path relative to the JSON file. Put both files and any referenced images in the directory for the form session.
 
 ```json
 {
@@ -32,6 +32,8 @@ Write one UTF-8 JSON file per page. Set `title`, optional `submit_label`, option
 
 Use a unique `id` per answer field. Start IDs with a letter and use letters, digits, hyphens and underscores. All fields have a `label`. Use `help`, `placeholder` where the control supports one, `required`, `default` in the return type, and `wide` for a full-width field. Set `min_length` and `max_length` for text, `rows` for textarea, and `min`, `max` and optional browser `step` for number and range. Options are objects with `value` and `label`, and choice values are unique within a field. Pages can have up to 40 fields.
 
+Field labels allow up to 120 characters and option labels allow up to 200. Put longer context in the field's `help` or the Markdown prologue. Keep each required choice unanswered until the human selects it.
+
 ## Prologues
 
 Markdown supports paragraphs, headings, lists, block quotes, emphasis, inline and fenced code, HTTP(S) and mail links, and local raster images. Image paths are relative to the Markdown and stay inside the workspace. Use PNG, JPEG, GIF, WebP or AVIF. Image data on one page is limited to 1 MB. Use angle brackets to wrap destinations with spaces.
@@ -47,17 +49,20 @@ flowchart LR
 
 ## Commands
 
-Set `workspace` to a fresh directory beneath an ignored session scratch directory, or to a private temporary directory outside the project when setting up a harness. Resolve `form` from the human-interaction skill you opened. In the install and evolve packages, the script is under `assets/harness/.agents/skills/human-interaction/scripts/` relative to the package root. Use host Python 3.11 or later when a harness environment is unavailable. The examples use this project's paths.
+Set `workspace` to a fresh directory beneath the agent session's ignored scratch workspace, or to a private temporary directory outside the project when setting up a harness. Resolve `form` from the human-interaction skill you opened. In the portable harness package, the script is under `assets/harness/.agents/skills/human-interaction/scripts/` relative to the package root. Use host Python 3.11 or later when a harness environment is unavailable. The examples use this project's paths.
 
 ```sh
 python=.harness/.venv/bin/python
 form=.agents/skills/human-interaction/scripts/form.py
+"$python" "$form" check --workspace "$workspace" --page page-1.json
 "$python" "$form" serve --workspace "$workspace" --page page-1.json
 ```
 
-Run `serve` in a background tool session. It prints JSON with a loopback URL. Add `--multi` for an adaptive sequence. The server expires after one hour without a successful submission or a new page. Browser polling leaves that deadline in place. Use `--idle-timeout SECONDS` to change the idle interval or `--lifetime SECONDS` to set an additional hard limit on total runtime. Each option accepts 1–7200 seconds.
+Run `check` before serving or publishing each page. It validates the page and workspace assets, returns 0 for a valid page, and never starts a form session. Fix diagnostics before proceeding.
 
-An open tab polls for the session state and explains when the session expires. If it misses the final response and cannot reach the server past the last reported deadline, it shows the expiry message using that deadline. The server stops after the browser acknowledges expiry or a short grace period passes.
+Run `serve` in a background tool session. It prints JSON with a loopback URL ending in `/`. An HTTP GET to the exact URL with `page` appended should return JSON with `view` set to `form` and the current page number. Confirm readiness before sharing the browser URL. Add `--multi` for an adaptive sequence. The server expires after one hour without a successful submission or a new page. Browser polling leaves that deadline in place. Use `--idle-timeout SECONDS` to change the idle interval or `--lifetime SECONDS` to set an additional hard limit on total runtime. Each option accepts 1–7200 seconds.
+
+An open tab polls for the form session state and explains when it expires. If it misses the final response and cannot reach the server past the last reported deadline, it shows the expiry message using that deadline. The server stops after the browser acknowledges expiry or a short grace period passes.
 
 ```sh
 "$python" "$form" wait --workspace "$workspace" --page 1 --timeout 20
@@ -66,4 +71,18 @@ An open tab polls for the session state and explains when the session expires. I
 "$python" "$form" close --workspace "$workspace"
 ```
 
-`wait` exits 0 with the page number, timestamp and answers on stdout, 2 when the wait timed out, and 1 for an error. Saved results can be read again after server shutdown. `next` accepts a page only after the current multi-page submission. Use a separate `close` call to send the final confirmation in multi-page mode. The browser acknowledges the final view and the server exits. If the tab disconnects, the server exits after a short grace period. Use a fresh workspace for each form.
+`wait` exits 0 when an answer or clarification request is available, 2 when the wait timed out, and 1 for an error. An answer has the page number, timestamp and `answers`. Saved answers can be read again after shutdown. `next` accepts a page after the current multi-page submission. Use a separate `close` call to send the final confirmation in multi-page mode. The browser acknowledges the final view and the server exits. If the tab disconnects, the server exits after a short grace period. Use a fresh directory for each form session.
+
+## Clarification requests
+
+Every live form page has a **Wait.. What?** button. The user can include a short note or leave the field blank. The browser pauses the page and shows a waiting view. `wait` returns a distinct object, for example `{"kind":"clarification","page":1,"request":1,"feedback":""}`.
+
+Use [Wait What](../../wait-what/SKILL.md) to write a clearer explanation of the page. Rewrite the prologue, headings, question and option labels, or help text. Keep answer fields in the same order with the same IDs, types, option values, and answer constraints. Save the revised JSON and prologue in the same workspace. Run the following commands using the request number returned by `wait`.
+
+```sh
+"$python" "$form" check --workspace "$workspace" --page clarified.json
+"$python" "$form" revise --workspace "$workspace" --request 1 --page clarified.json
+"$python" "$form" wait --workspace "$workspace" --page 1 --timeout 20
+```
+
+The same page and URL resume with the browser's in-progress answers. `revise` accepts the pending request and keeps the page number and submission count. The agent can handle more clarification requests or advance after a real submission. Clarification activity refreshes the idle deadline and stays subject to the form session's hard lifetime.

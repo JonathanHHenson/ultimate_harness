@@ -10,17 +10,19 @@ from threading import Lock
 from time import monotonic, time
 from typing import cast
 
-from form_schema import MAX_REQUEST, Record, answers, record, validate_page
+from form_schema import MAX_REQUEST, Record, answers, decision_fields, record, text, validate_page
 
 ASSETS = Path(__file__).resolve().parent.parent / "assets"
 MEDIA = {
     "": ("index.html", "text/html; charset=utf-8"),
     "style.css": ("style.css", "text/css; charset=utf-8"),
     "app.js": ("app.js", "text/javascript; charset=utf-8"),
+    "clarification.js": ("clarification.js", "text/javascript; charset=utf-8"),
     "markdown.js": ("markdown.js", "text/javascript; charset=utf-8"),
     "mermaid.js": ("mermaid.js", "text/javascript; charset=utf-8"),
 }
 RUNTIME = ".form-session"
+CLARIFICATION = "clarification.json"
 GRACE = 15
 
 
@@ -46,6 +48,7 @@ class Interaction:
         self.multi = multi
         self.number = 1
         self.count = 0
+        self.revision: int = 0
         self.view = "form"
         started = monotonic()
         self.idle_timeout = idle_timeout
@@ -63,27 +66,62 @@ class Interaction:
             self.finish("expired")
 
     def state(self, *, include_form: bool = False) -> Record:
-        state: Record = {"view": self.view, "page": self.number, "multi": self.multi, "submitted": self.count}
-        if self.view in {"form", "waiting"}:
+        state: Record = {"view": self.view, "page": self.number, "revision": self.revision,
+                         "multi": self.multi, "submitted": self.count}
+        if self.view in {"form", "waiting", "clarifying"}:
             remaining = max(0, self.deadline - monotonic())
             state["expires_at_ms"] = round((time() + remaining) * 1000)
         if self.view == "form" and include_form:
             state["form"] = self.page
         return state
 
-    def submit(self, number: object, value: object) -> Record:
+    def show(self, view: str) -> None:
+        self.view = view
+        self.revision += 1
+
+    def require_current_page(self, payload: Record) -> None:
+        number = payload.get("page")
+        revision = payload.get("revision", self.revision)
         if self.view != "form" or type(number) is not int or number != self.number:
             raise Conflict("This page has already moved on.")
-        data = answers(self.page, value)
+        if type(revision) is not int or revision != self.revision:
+            raise Conflict("This page has been updated. Review it and try again.")
+
+    def submit(self, payload: Record) -> Record:
+        self.require_current_page(payload)
+        data = answers(self.page, payload.get("answers"))
         write_json(self.runtime / f"answers-{self.number}.json", {
             "page": self.number, "answers": data, "submitted_at": datetime.now(UTC).isoformat(),
         })
         self.count += 1
         if self.multi:
-            self.view = "waiting"
+            self.show("waiting")
             self.idle_until = monotonic() + self.idle_timeout
         else:
             self.finish("complete")
+        return self.state()
+
+    def request_clarification(self, payload: Record) -> Record:
+        self.require_current_page(payload)
+        feedback = text(payload.get("feedback", ""), "Clarification feedback", 2000, empty=True).strip()
+        write_json(self.runtime / CLARIFICATION, {
+            "kind": "clarification", "page": self.number, "request": self.revision + 1, "feedback": feedback,
+        })
+        self.show("clarifying")
+        self.idle_until = monotonic() + self.idle_timeout
+        return self.state()
+
+    def revise(self, payload: Record) -> Record:
+        request = payload.get("request")
+        if self.view != "clarifying" or type(request) is not int or request != self.revision:
+            raise Conflict("This clarification request is no longer active.")
+        page = validate_page(payload.get("form"))
+        if decision_fields(page) != decision_fields(self.page):
+            raise ValueError("Keep the same questions, choices, and answer constraints when clarifying a page.")
+        (self.runtime / CLARIFICATION).unlink()
+        self.page = page
+        self.show("form")
+        self.idle_until = monotonic() + self.idle_timeout
         return self.state()
 
     def next_page(self, payload: object) -> Record:
@@ -91,14 +129,15 @@ class Interaction:
             raise Conflict("Wait for the current multi-page form submission before sending another page.")
         self.page = validate_page(payload)
         self.number += 1
-        self.view = "form"
+        self.show("form")
         self.idle_until = monotonic() + self.idle_timeout
         return self.state()
 
     def finish(self, view: str) -> None:
         if self.view in {"complete", "expired"}:
             return
-        self.view = view
+        (self.runtime / CLARIFICATION).unlink(missing_ok=True)
+        self.show(view)
         self.stop_at = monotonic() + GRACE
 
 
@@ -185,11 +224,11 @@ class FormHandler(BaseHTTPRequestHandler):
         if not self.correct_host():
             return
         route = self.path.removeprefix(server.scope)
-        if self.path.startswith(server.scope) and route in {"submit", "ack"}:
+        if self.path.startswith(server.scope) and route in {"submit", "clarify", "ack"}:
             if self.headers.get("Origin") != server.origin:
                 self.send_json(403, {"error": "Submit from the local form."})
                 return
-        elif self.path in {"/control/next", "/control/close"}:
+        elif self.path in {"/control/next", "/control/revise", "/control/close"}:
             if not secrets.compare_digest(
                 self.headers.get("Authorization", "").encode(), f"Bearer {server.control}".encode()
             ):
@@ -214,9 +253,13 @@ class FormHandler(BaseHTTPRequestHandler):
         state = self.form_server.state
         state.expire_if_due()
         if route == "submit":
-            return state.submit(payload.get("page"), payload.get("answers"))
+            return state.submit(payload)
+        if route == "clarify":
+            return state.request_clarification(payload)
         if route == "/control/next":
             return state.next_page(payload)
+        if route == "/control/revise":
+            return state.revise(payload)
         if route == "/control/close":
             state.finish("complete")
         elif state.view in {"complete", "expired"}:

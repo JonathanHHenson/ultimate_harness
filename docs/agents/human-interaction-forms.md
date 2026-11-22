@@ -14,7 +14,7 @@
 
 ## Portable harness adoption
 
-Both portable skills route several open choices through their bundled copy of the form. They can collect preferences on one page or use another page to confirm an updated plan. They can use host Python and a private workspace outside the target, so the form is available before changing project files or creating a harness environment. [Install workflow](../../skills_src/install-harness/SKILL.md) · [Evolution workflow](../../skills_src/evolve-harness/SKILL.md)
+Install Harness routes open choices through the bundled form. It can collect preferences on one page or use another page to confirm an updated plan. It can use host Python and a private scratch workspace outside the target project, so the form is available before changing project files or creating a harness environment. [Adoption workflow](../../skills_src/install-harness/SKILL.md#when-agreeing-on-either-plan)
 
 The local archive step produced both packages. Smoke tests ran the installation package's one-page flow and the evolution package's adaptive flow from separate target fixtures. Both returned answers and exited, and both target fixtures retained their original files and contents. All 56 harness tests and the local package and link checks passed.
 

@@ -11,18 +11,18 @@
 - Keep the definition, documentation links, and functional and non-functional requirements current. Give each requirement a detailed description and definition of done.
 - Develop `DESIGN.md` to cover every requirement with a technical approach, interfaces, tradeoffs, failure handling, and verification strategy. Make unresolved questions explicit.
 
-## When changing feature or requirement status
+## When changing a feature phase or requirement status
 
 - Use `.harness/scripts/set_feature_status.py` or `.harness/scripts/set_requirement_status.py` from the project root. Pass the full dated directory name and an informative reason. Resolve validation failures before continuing.
 - Advance feature phases in order; return to an earlier phase when needed. Mark a feature DONE only after TEST, after every requirement is DONE, and after completing the applicable rules in [VALIDATE.md](../VALIDATE.md).
 - Move requirements through TODO, WIP, and DONE. Record a detailed blocking reason when entering BLOCKED; resume the recorded prior state when unblocking.
-- After an interrupted status update, run a feature command for that feature before editing its records by hand. The command recovers the pending definition and worklog. If recovery reports a conflict, preserve the records and reconcile the pending update before continuing.
+- After an interrupted feature phase or requirement status update, run a feature command for that feature before editing its record by hand. The command recovers the pending definition and worklog. If recovery reports a conflict, preserve the files and reconcile the pending update before continuing.
 
 ## Before marking a feature DONE
 
 - Update project documentation under `docs/` for changes to shared behavior, interfaces, or architecture.
-- Write or update the feature's closeout under `docs/agents/`. Capture decisions and their rationale, the checks that ran and their outcomes, and any unverified scope. Use durable repository references. Keep raw session artifacts in local workspace storage.
-- Link the closeout and relevant project docs from the feature definition. Include those docs and the feature record in the same change.
+- Write or update the feature closeout documentation under `docs/agents/`. Capture decisions and their rationale, the checks that ran and their outcomes, and any unverified scope. Use durable repository references. Keep raw agent session artifacts in the scratch workspace.
+- Link the closeout documentation and relevant project docs from the feature definition. Include those docs and the feature record in the same change.
 
 ## When progress changes what a future agent needs to know
 

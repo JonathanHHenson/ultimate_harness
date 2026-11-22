@@ -7,7 +7,7 @@ excludeAgent: "cloud-agent"
 
 ## When choosing the review scope
 
-- Review the whole pull request diff, including deletions and mixed changes. Use the project's [review selection table](../../.harness/VALIDATE.md#before-choosing-session-end-reviews). Classify files by what they do. Workflow files, dependency manifests and runtime settings are configuration.
+- Review the whole pull request diff, including deletions and mixed changes. Use the [session-end review table in the validation index](../../.harness/VALIDATE.md#before-choosing-session-end-reviews). Classify files by what they do. Workflow files, dependency manifests and runtime settings are configuration.
 - If the table is unavailable, apply [code review](../../.harness/validation/code-review.md) and [security review](../../.harness/validation/security-review.md) to source or test changes. For configuration-only changes, apply security review to the changed settings and controls. For prose-only changes, check changed guidance, links and inconsistencies relevant to the pull request.
 
 ## When reviewing the changes

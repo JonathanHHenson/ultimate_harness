@@ -118,6 +118,68 @@ class HumanInteractionTests(unittest.TestCase):
         self.assertEqual(process.wait(timeout=4), 0)
         self.assertEqual(cast(dict[str, str], self.cli("wait", "--page", "2")["answers"])["followup"], "Cache the results")
 
+    def test_blank_clarification_revises_single_page_before_submission(self) -> None:
+        self.page("page.json", "choice")
+        _ = (self.workspace / "clear.md").write_text("Start with a concrete example.")
+        self.page("clear.json", "choice", prologue="clear.md")
+        process, url = self.start()
+        old_revision = self.request(url, "page")[1]["revision"]
+        status, state = self.request(url, "clarify", {"page": 1, "revision": old_revision, "feedback": ""})
+        self.assertEqual(status, 200)
+        self.assertEqual((state["view"], state["submitted"]), ("clarifying", 0))
+        self.assertEqual(self.submit(url, 1, "choice", "Too early")[0], 409)
+        event = self.cli("wait")
+        self.assertEqual((event["kind"], event["page"], event["feedback"]), ("clarification", 1, ""))
+        result = self.cli("revise", "--request", str(event["request"]), "--page", "clear.json")
+        self.assertEqual((result["page"], result["submitted"]), (1, 0))
+        updated = cast(dict[str, str], self.request(url, "page")[1]["form"])
+        self.assertEqual(updated["markdown"], "Start with a concrete example.")
+        _ = self.cli("wait", "--timeout", "0", expect=2)
+        self.assertEqual(self.request(url, "clarify", {"page": 1, "revision": old_revision})[0], 409)
+        stale_answer = {"page": 1, "revision": old_revision, "answers": {"choice": "Stale", "rating": 3, "ok": False}}
+        self.assertEqual(self.request(url, "submit", stale_answer)[0], 409)
+        status, complete = self.submit(url, 1, "choice", "Answered")
+        self.assertEqual((status, complete["view"]), (200, "complete"))
+        self.assertEqual(self.request(url, "ack", {})[0], 200)
+        self.assertEqual(process.wait(timeout=4), 0)
+
+    def test_clarification_keeps_multistep_decisions_and_checks_authority(self) -> None:
+        self.page("page.json", "topic")
+        self.page("next.json", "followup")
+        process, url = self.start("--multi")
+        self.assertEqual(self.submit(url, 1, "topic", "Shared storage")[0], 200)
+        _ = self.cli("next", "--page", "next.json")
+        payload = {"page": 2, "revision": self.request(url, "page")[1]["revision"], "feedback": "What is retained?"}
+        self.assertEqual(self.request(url, "clarify", payload, origin="https://other.test")[0], 403)
+        oversize = {**payload, "feedback": "x" * 2001}
+        self.assertEqual(self.request(url, "clarify", oversize)[0], 400)
+        self.assertEqual(self.request(url, "clarify", payload)[0], 200)
+        self.assertEqual(self.request(url, "clarify", payload)[0], 409)
+        event = self.cli("wait", "--page", "2")
+        self.assertEqual(event["feedback"], "What is retained?")
+        self.assertEqual(self.request(url, "/control/revise", {})[0], 403)
+        _ = self.cli("revise", "--request", "0", "--page", "next.json", expect=1)
+        _ = self.cli("revise", "--request", str(event["request"]), "--page", "page.json", expect=1)
+        self.assertEqual(self.request(url, "state")[1]["view"], "clarifying")
+        _ = self.cli("revise", "--request", str(event["request"]), "--page", "next.json")
+        self.assertEqual(self.submit(url, 2, "followup", "Keep last week")[0], 200)
+        self.assertEqual(self.request(url, "state")[1]["submitted"], 2)
+        self.assertEqual(self.cli("close")["view"], "complete")
+        self.assertEqual(self.request(url, "ack", {})[0], 200)
+        self.assertEqual(process.wait(timeout=4), 0)
+
+    def test_hard_lifetime_expires_while_clarification_is_pending(self) -> None:
+        self.page("page.json", "choice")
+        process, url = self.start("--lifetime", "1")
+        self.assertEqual(self.request(url, "clarify", {"page": 1})[0], 200)
+        deadline = monotonic() + 4
+        while self.request(url, "state")[1]["view"] != "expired":
+            self.assertLess(monotonic(), deadline, "The clarification outlived the hard timeout")
+            sleep(0.05)
+        self.assertEqual(self.request(url, "ack", {})[0], 200)
+        self.assertEqual(process.wait(timeout=4), 0)
+        _ = self.cli("wait", expect=1)
+
     def test_public_url_cannot_control_session_or_read_scratch_files(self) -> None:
         self.page("page.json", "choice")
         process, url = self.start()
@@ -140,6 +202,21 @@ class HumanInteractionTests(unittest.TestCase):
             self.page("page.json", "choice", prologue="intro.md")
             self.cli("serve", "--page", "page.json", expect=1)
             self.assertFalse((self.workspace / ".form-session").exists())
+
+    def test_check_validates_page_without_starting_a_session(self) -> None:
+        self.page("valid.json", "choice")
+        valid = subprocess.run(self.arguments("check", "--page", "valid.json"),
+                               capture_output=True, text=True, timeout=5)
+        self.assertEqual(valid.returncode, 0, valid.stderr)
+        _ = (self.workspace / "invalid.json").write_text(json.dumps({
+            "title": "Invalid form",
+            "fields": [{"id": "choice", "type": "text", "label": "x" * 121}],
+        }))
+        invalid = subprocess.run(self.arguments("check", "--page", "invalid.json"),
+                                 capture_output=True, text=True, timeout=5)
+        self.assertEqual(invalid.returncode, 1)
+        self.assertIn("Field label", invalid.stderr)
+        self.assertEqual({path.name for path in self.workspace.iterdir()}, {"valid.json", "invalid.json"})
 
     def test_abandoned_form_expires_without_saving_a_response(self) -> None:
         self.page("page.json", "choice")

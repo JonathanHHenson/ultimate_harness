@@ -1,0 +1,135 @@
+description = "Make portable harness adoption comprehensive by default. Research the bundled harness and target, give the human control over each meaningful customization, and recommend additional project-specific skills and validations. Installation targets a project without an established harness. Evolution prioritizes compatible integrations with existing practices and deliberate replacements when needed."
+documentation = ["README.md", "docs/TECHNICAL.md", "docs/agents/comprehensive-harness-adoption.md"]
+status = "DONE"
+
+[[requirements]]
+id = "RESEARCH"
+kind = "functional"
+description = "Both workflows use the bundled Learn a Topic skill to investigate the base harness and technical and non-technical target details before proposing implementation."
+definition_of_done = "Both packaged entry points route to research and can perform it before target edits. Research distinguishes supported findings, meaningful unknowns, and target-specific opportunities."
+status = "DONE"
+blocked_reason = ""
+blocked_from = ""
+
+[[requirements]]
+id = "INSTALL"
+kind = "functional"
+description = "Start a first installation from the entire portable catalog and its required target-specific routing. Ask the human to decide exceptions, adaptations, and deliberate omissions."
+definition_of_done = "A fresh-project walkthrough accounts for every catalog component and gives separate supported choices for any feature that may not fit. It preserves unrelated project files and tests the installed entry point."
+status = "DONE"
+blocked_reason = ""
+blocked_from = ""
+
+[[requirements]]
+id = "EVOLVE"
+kind = "functional"
+description = "Pursue full practical coverage in an existing harness by integrating equivalent practices, merging overlapping behavior, or proposing controlled replacement when needed. Keep the human in control of trade-offs and existing state."
+definition_of_done = "An existing-harness walkthrough starts with the full catalog, distinguishes compatible, overlapping, and conflicting capabilities, and presents separate decisions with migration and recovery effects before any material replacement."
+status = "DONE"
+blocked_reason = ""
+blocked_from = ""
+
+[[requirements]]
+id = "DECISIONS"
+kind = "functional"
+description = "Use the bundled human interaction form for independent adoption decisions and propose new project-specific skills and validation rules grounded in the research."
+definition_of_done = "Extracted packages can present independent decisions on the form, preserve prior answers across conditional pages, and separately capture whether to author a tailored skill or validation."
+status = "DONE"
+blocked_reason = ""
+blocked_from = ""
+
+[[requirements]]
+id = "PORTABILITY"
+kind = "non-functional"
+description = "Share adoption instructions from one source and retain self-contained portable exports with project-specific data excluded."
+definition_of_done = "Both packages build, archive, extract and resolve to a shared guide and its tools. Catalog and builder tests pass. Example installations verify applicable routing and intact dependencies outside this checkout."
+status = "DONE"
+
+[[requirements]]
+id = "DECISION-COVERAGE"
+kind = "functional"
+description = "Require the full research procedure and reconcile the proposed changes with the decision fields before asking."
+definition_of_done = "Fresh agents open the detailed research instructions, map all capabilities to separate decisions or settled choices, and offer distinct CI and project-specific decisions."
+status = "DONE"
+blocked_reason = ""
+blocked_from = ""
+
+[[requirements]]
+id = "FORM-PREFLIGHT"
+kind = "functional"
+description = "Validate each generated form page before starting or updating a session."
+definition_of_done = "The CLI accepts a valid page and rejects invalid labels or workspace assets without starting a session or writing runtime files."
+status = "DONE"
+blocked_reason = ""
+blocked_from = ""
+
+[[requirements]]
+id = "LIVE-HANDOFF"
+kind = "functional"
+description = "Keep the agent and form live through the user handoff, response, optional follow-up and confirmation."
+definition_of_done = "An interactive Codex session for each package publishes a reachable form, consumes a synthetic browser submission and confirms it in the same session. The target fixture remains unchanged during evaluation."
+status = "DONE"
+
+[[requirements]]
+id = "FIRST-ROUND-CLARITY"
+kind = "functional"
+description = "Use the clarification trial evidence to make the first adoption proposal legible before the human needs clarification, while preserving independent decisions."
+definition_of_done = "Both packaged routes require the shared readability review. Representative install and evolution drafts show the scope, fixed constraints and a concrete project example up front, and make the effects of independent options and recommendations visible at the point of choice."
+status = "DONE"
+blocked_reason = ""
+blocked_from = ""
+
+[[requirements]]
+id = "OPTION-CONSEQUENCES"
+kind = "functional"
+description = "Require each adoption answer to identify the affected capability and the concrete effect of choosing it, including retaining existing behavior, deferring activation, and omitting a component. Catch repeated and known generic labels in both portable workflows before publishing a page."
+definition_of_done = "Both packages ship and invoke the option checker. Behavioral tests reject the generic labels seen in the previous sessions and accept concrete alternatives. Fresh interactive sessions for both workflows publish a first form and complete a browser handoff, and the closeout compares all visible labels with the prior forms."
+status = "DONE"
+
+blocked_reason = ""
+blocked_from = ""
+
+[[requirements]]
+id = "UNIFIED-ADOPTION"
+kind = "functional"
+description = "Use install-harness for both first installation and evolution. Select the route from observed target behavior and preserve the research, design interview, approval, integration, and verification requirements of both workflows."
+definition_of_done = "One skill can plan and apply a first installation or compatible existing-harness evolution. Its normal entry point selects the matching route. Target guards, atomic decisions, dependencies, data and integration checks remain covered."
+status = "DONE"
+blocked_reason = ""
+blocked_from = ""
+
+[[requirements]]
+id = "SINGLE-ARCHIVE"
+kind = "functional"
+description = "Build and distribute one install-harness package with the reusable harness payload. Update active build, release, validation, and documentation paths."
+definition_of_done = "The source, build and archive step produce one validated portable package. It contains the catalog payload and resolves its references after extraction. Builder tests and applicable reviews pass."
+status = "DONE"
+blocked_reason = ""
+blocked_from = ""
+
+[[requirements]]
+id = "UNIFIED-VERIFICATION"
+kind = "non-functional"
+description = "Compare the merged skill with the separate packages on matching first-install and evolution workflows using fresh interactive Codex sessions."
+definition_of_done = "Both routes meet the matched evaluation criteria for research, preservation, component scope, decisions, wording and live response handoff. Verify the applicable packaging and approved integration behavior, and record any differences and test limits."
+status = "DONE"
+blocked_reason = ""
+blocked_from = ""
+
+[[requirements]]
+id = "COMPACT-ADOPTION-FORMS"
+kind = "non-functional"
+description = "Keep both adoption routes' forms concise. Collect independent choices and known conditional preferences on the first page. Follow up only for material choices exposed by the answers."
+definition_of_done = "Fresh matched Codex comparisons on installation and evolution show shorter forms and a single page when the proposed choices are settled. Verify catalog coverage, separate material decisions, live answer handoff, and preservation of the target during planning."
+status = "DONE"
+blocked_reason = ""
+blocked_from = ""
+
+[[requirements]]
+id = "DIRECT-DESIGN-INTERVIEW"
+kind = "functional"
+description = "Invoke the bundled Grill With Docs skill directly on both adoption routes before drafting the plan or the first decision page, including planning-only sessions."
+definition_of_done = "Fresh interactive Codex runs show Grill With Docs and both supporting skills loaded before the first form, independent decisions presented on one page when the answers settle scope, and successful browser acknowledgement with the target unchanged."
+status = "DONE"
+blocked_reason = ""
+blocked_from = ""

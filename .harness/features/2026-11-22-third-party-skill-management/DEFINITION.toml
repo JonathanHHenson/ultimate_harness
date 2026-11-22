@@ -1,0 +1,21 @@
+description = "Standardize third-party skill management on the Vercel CLI with an exact CLI version, explicit upstream pins, and checked-in skill files and lock records. Make the policy available in both portable adoption packages."
+documentation = ["README.md", "docs/TECHNICAL.md", "docs/agents/third-party-skill-management.md"]
+status = "DONE"
+
+[[requirements]]
+id = "POLICY"
+kind = "functional"
+description = "Define a repository-scoped workflow for adding, updating, verifying, restoring, and removing reviewed third-party skills with an exact tool and upstream pin."
+definition_of_done = "The pinned public CLI command creates trackable skill files and a matching lock entry. A fresh Git checkout gets the files offline, and frozen restore reproduces the pinned copy in a disposable checkout."
+status = "DONE"
+blocked_reason = ""
+blocked_from = ""
+
+[[requirements]]
+id = "ADOPTION"
+kind = "functional"
+description = "Route both install and evolve workflows to the standard while preserving existing skills and human control over imports and migrations."
+definition_of_done = "Each rebuilt package contains and links to the guidance. An install walkthrough keeps setup separate from approving external content, and an evolution walkthrough preserves local customizations and verifies candidate provenance before switching managers."
+status = "DONE"
+blocked_reason = ""
+blocked_from = ""

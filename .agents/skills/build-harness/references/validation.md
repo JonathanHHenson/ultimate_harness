@@ -8,9 +8,9 @@ in the project's validation files.
 
 Use [learn-a-topic](../../learn-a-topic/SKILL.md) to establish what the rule must catch and what the available check actually verifies. Inspect existing checks and the contract for the behavior under test. When feasible, try the proposed check on a case that should pass and a case that should fail. Carry the pass criteria and any limits into the rule. Reuse research already done for this change.
 
-## Main validation instructions
+## Validation index
 
-Store the main validation instructions in `.harness/VALIDATE.md`. Keep it minimal,
+Store the validation index in `.harness/VALIDATE.md`. Keep it minimal,
 clear, and instructional, like `AGENTS.md`. Every `##` heading must describe a
 concrete situation or lifecycle event that requires validation. Under each heading,
 state which checks or review actions to perform and how to complete them, or
@@ -19,13 +19,13 @@ explicitly require following a linked situational ruleset.
 Use triggers such as `## After changing the database schema` or
 `## Before marking a feature DONE`. Avoid topic headings such as `## Database`
 or `## Tests`. Tie triggers to real project situations and affected behavior,
-not an expanding catalog of ad hoc tasks. Do not fill the main file with long
+not an expanding catalog of ad hoc tasks. Do not fill the index with long
 commands, schemas, rationale, or unused scenarios.
 
 ## Situational validation rulesets
 
-Put each specialised situation's validation instructions in its own descriptively
-named `.harness/validation/<situation>.md`. Add a matching `##` trigger to
+Put each situation-specific validation ruleset in a descriptively named
+`.harness/validation/<situation>.md`. Add a matching `##` trigger to
 `VALIDATE.md` that explicitly requires reading and following that file.
 Keep specialised files minimal and instructional, with contextual `##` headings
 and links to background documentation when needed. Do not load them unconditionally.
@@ -52,15 +52,14 @@ it in agent instructions, skills, or feature memory.
 Match the change and current lifecycle event against the triggers. Apply every
 matching ruleset; overlapping contexts may require multiple sets of checks.
 Unrelated situations should not load their specialised rules merely because
-the files exist. Common validation actions may stay in a short shared trigger
+the files exist. Shared checks may stay in a short shared trigger
 section of `VALIDATE.md` when they truly apply to all matching work.
 
-Before feature completion, verify its requirement definitions of done and complete
-the relevant validation actions. Record meaningful commands, results, acceptance
-evidence, and unresolved blockers in feature memory. Distinguish passed, failed,
+Before completing a feature, verify its requirements against their definitions of
+done and follow the applicable validation rulesets. Record meaningful commands,
+results, acceptance evidence, and unresolved blockers in the feature record. Distinguish passed, failed,
 and unrun checks. A missing prerequisite is an unrun check, not a successful one.
-Follow the existing feature lifecycle and completion gate without creating a
-second set of feature states in validation files.
+Use the existing feature phases and follow the feature closeout instructions.
 
 ## Maintaining the rules
 
@@ -69,7 +68,7 @@ changes, update the corresponding triggers and actions. Remove obsolete rules,
 repair callers when moving rulesets, and keep one maintained source for each
 procedure. Create specialised files only for actual project situations.
 
-Check that every situational file is reachable from `VALIDATE.md`, references and
+Check that every situation-specific ruleset is reachable from `VALIDATE.md`, references and
 commands resolve, and all live `##` headings express contextual triggers.
 Walk through a matching case, an unrelated case, and overlapping cases to verify
 selection. Run relevant scripts and behavioral tests; do not infer semantic

@@ -9,14 +9,14 @@ Provision `.scratch/` and ignore the entire directory with `/.scratch/` in the
 root `.gitignore`. Both the human and agent may use it for ad hoc documents and
 scripts that persist on the local machine without normal Git tracking or pushes.
 Humans can use the shared root or their own subdirectories; reserve
-`.scratch/agent_sessions/` for agent session workspaces.
+`.scratch/agent_sessions/` for agents' scratch workspaces.
 
 Keep provisioning instructions and the helper tracked outside `.scratch/` so a
 new checkout can recreate the structure. Do not force-add scratch artifacts or
 use tracked placeholder files inside the ignored tree. Verify scratch content is
 not already tracked; preserve local files if correcting existing Git tracking.
 
-## Per-session agent workspaces
+## Scratch workspaces for agent sessions
 
 Use a small script in `.harness/scripts/` to create a unique directory under
 `.scratch/agent_sessions/` and print its absolute path. In this project, run:
@@ -46,7 +46,7 @@ documents or another session's artifacts only when the user's task calls for it.
 Scratch files are local to this checkout; Git does not share them with another
 machine or recreate their contents.
 
-Use the current session directory for agent ad hoc work. Continue to maintain
+Use the current agent session's scratch workspace for ad hoc work. Continue to maintain
 feature definitions, technical designs, and progress history under
 `.harness/features/`. Put maintained reusable scripts under `.harness/scripts/`
 with appropriate tests rather than depending on ignored session artifacts.

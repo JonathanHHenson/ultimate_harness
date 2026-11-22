@@ -18,5 +18,5 @@ description: Research and learn a topic to answer a question, understand an unfa
 
 ## Return the findings
 
-- Record the consequential claim, source or check, what it establishes, where it applies, and what remains unresolved. Keep working notes in the session scratch space when available. A low-stakes question may only need a brief record.
+- Record the consequential claim, source or check, what it establishes, where it applies, and what remains unresolved. Keep working notes in the agent session's scratch workspace when available. A low-stakes question may only need a brief record.
 - Present the conclusion with the strongest evidence, the tradeoff or counterexample that matters, and any limitation that could change the answer. When another workflow requested the research, give it the findings and applicable conditions. Stop once further inquiry is unlikely to change the decision or the remaining evidence is unavailable.

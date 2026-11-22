@@ -1,25 +1,29 @@
-# Project Validation
+# Validation Index
 
 ## Before validating a feature or harness change
 
-- Select every matching situation below; follow its linked ruleset. Run commands from the project root.
+- Match the work to the triggers below. Run the applicable checks and follow the linked rulesets from the project root.
 
-## When changing agent instructions, skill packages, validation rules, or the harness overview
+## When changing agent instructions, skills, portable packages, validation rules, or the harness overview
 
-- Follow [the harness guidance checks](validation/harness-guidance.md).
+- Follow [the harness guidance ruleset](validation/harness-guidance.md).
+
+## When adding or updating skills, harness instructions, or project documentation
+
+- Run the [glossary check](validation/harness-guidance.md#after-adding-or-updating-skills-harness-instructions-or-project-documentation).
 
 ## When changing harness scripts, CI check scripts, tests, or runtime dependencies
 
-- Follow [the harness script checks](validation/harness-scripts.md).
+- Follow [the harness script ruleset](validation/harness-scripts.md).
 
-## When changing the portable skill sources, export catalog, or build workflow
+## When changing the portable package sources, export catalog, or build workflow
 
-- Run `.harness/.venv/bin/python scripts/build_harness_skills.py` and validate the two built packages with `.harness/.venv/bin/python .harness/scripts/check_skill_packages.py skills_src`. Use the [packaging workflow](../.github/workflows/build-harness-skills.yml) for entry point link, build test, and archive commands.
+- Run `.harness/.venv/bin/python scripts/build_harness_skills.py` and validate the built package with `.harness/.venv/bin/python .harness/scripts/check_skill_packages.py skills_src`. Use the [packaging workflow](../.github/workflows/build-harness-skills.yml) for entry point link, build test, and archive commands.
 - Check that the exported set excludes source-project files and that installing the selected components leaves their target paths and applicable checks usable.
 
 ## When changing scratch conventions, session creation, or the scratch ignore rule
 
-- Follow [the scratch space checks](validation/scratch-space.md).
+- Follow [the scratch workspace ruleset](validation/scratch-space.md).
 
 ## Before choosing session-end reviews
 
@@ -40,4 +44,4 @@
 
 ## When checking a feature branch for merge
 
-- Run `python3 scripts/check_features_done.py` with Python 3.11 or later. Require a successful exit. Resolve reported feature, requirement, or record problems before merging.
+- Run the feature merge check with `python3 scripts/check_features_done.py` and Python 3.11 or later. Require a successful exit. Resolve reported feature, requirement, or record problems before merging.

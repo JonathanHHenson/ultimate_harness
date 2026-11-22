@@ -1,0 +1,98 @@
+- timestamp: '2026-11-22T13:04:25+00:00'
+  phase: RESEARCH
+  summary: Feature research opened
+  details: Add pinned interview and clarification skills, use forms for design questions,
+    and let a human request a clearer explanation of any live form page with optional
+    feedback.
+- timestamp: '2026-11-22T13:05:29+00:00'
+  phase: DESIGN
+  summary: 'Feature phase: RESEARCH → DESIGN'
+  details: Reviewed the upstream skills and current server, browser, and agent contracts.
+    Grill With Docs requires Grilling and Domain Modeling at the same source revision.
+- timestamp: '2026-11-22T13:05:29+00:00'
+  phase: IMPLEMENT
+  summary: 'Feature phase: DESIGN → IMPLEMENT'
+  details: Designed the contextual interview route and a separate, revision-checked
+    clarification exchange that preserves page decisions and drafts.
+- timestamp: '2026-11-22T13:05:29+00:00'
+  phase: IMPLEMENT
+  summary: 'DESIGN-INTERVIEW: TODO → WIP'
+  details: Implement the designed route and verify its entry points.
+- timestamp: '2026-11-22T13:05:30+00:00'
+  phase: IMPLEMENT
+  summary: 'CLARIFICATION: TODO → WIP'
+  details: Implement the designed route and verify its entry points.
+- timestamp: '2026-11-22T13:13:05+00:00'
+  phase: TEST
+  summary: 'Feature phase: IMPLEMENT → TEST'
+  details: Installed and checked the upstream dependencies and implemented contextual
+    routing and the clarification round trip. The focused loopback suite passed; the
+    packaged browser flows and final validation are in progress.
+- timestamp: '2026-11-22T13:15:24+00:00'
+  phase: TEST
+  summary: 'DESIGN-INTERVIEW: WIP → DONE'
+  details: Verified all four locked directories against the pinned upstream release
+    and their MIT notice. Both extracted packages resolve the same design, form and
+    clarification guidance. The active repository routes codebase design and explicit
+    Grill With Docs use through the form.
+- timestamp: '2026-11-22T13:15:24+00:00'
+  phase: TEST
+  summary: 'CLARIFICATION: WIP → DONE'
+  details: Both packaged Chromium flows handled blank and written feedback, kept draft
+    values across two revisions and submitted successfully. All 68 harness tests passed,
+    including stale event, authorization, unchanged decision schema and hard timeout
+    checks.
+- timestamp: '2026-11-22T13:15:25+00:00'
+  phase: DONE
+  summary: 'Feature phase: TEST → DONE'
+  details: Completed package, language, behavioral and security checks. Recorded the
+    browser workflow and the scope of the agent-side verification in the closeout.
+- timestamp: '2026-11-22T15:10:20+00:00'
+  phase: RESEARCH
+  summary: 'Feature phase: DONE → RESEARCH'
+  details: The existing trigger is limited to design, leaving direct edits, automation
+    and harness maintenance open to bypass. Make every project change use the interview
+    workflow.
+- timestamp: '2026-11-22T15:12:06+00:00'
+  phase: DESIGN
+  summary: 'Feature phase: RESEARCH → DESIGN'
+  details: Define a common pre-change route at the root and in portable adoption.
+    Fit questions to unsettled decisions and keep read-only preparation available.
+- timestamp: '2026-11-22T15:12:06+00:00'
+  phase: IMPLEMENT
+  summary: 'Feature phase: DESIGN → IMPLEMENT'
+  details: Apply the shared instructions to current project routing and to the active
+    entry points produced by install and evolve.
+- timestamp: '2026-11-22T15:12:06+00:00'
+  phase: IMPLEMENT
+  summary: 'PROJECT-CHANGES: TODO → WIP'
+  details: Verify the changed routing in both packages and use synthetic Codex cases
+    to check when agents invoke the workflow.
+- timestamp: '2026-11-22T15:13:25+00:00'
+  phase: TEST
+  summary: 'Feature phase: IMPLEMENT → TEST'
+  details: Guidance and portable exports are updated. Repository links, package metadata
+    and builder tests passed; complete the routing walkthrough and fresh Codex checks.
+- timestamp: '2026-11-22T15:14:26+00:00'
+  phase: TEST
+  summary: Verified the pre-change interview trigger on the project and in both packages
+  details: Rebuilt and extracted both packages with matching contextual instructions
+    and verified metadata, links and four builder tests. Three fresh Codex one-shot
+    runs exercised a settled harness edit, unresolved policy choice and a read-only
+    near miss. The harness run read Grill With Docs and both dependencies before its
+    sole requested write. The policy run used Human Interaction guidance and asked
+    through its conversation fallback before any project write. Read-only did not
+    invoke the interview. File digests matched the expected outcomes. Walked through
+    newly expanded configuration scope returning to the interview and portable configuration
+    of the trigger. This turn changed guidance and records, so the session-end reviews
+    selected prose and package checks. Closeout is in docs/agents/design-interviews-and-form-clarification.md.
+- timestamp: '2026-11-22T15:14:26+00:00'
+  phase: TEST
+  summary: 'PROJECT-CHANGES: WIP → DONE'
+  details: Verified the universal root and portable triggers, settled and open choices,
+    scope expansion, and read-only behavior.
+- timestamp: '2026-11-22T15:14:27+00:00'
+  phase: DONE
+  summary: 'Feature phase: TEST → DONE'
+  details: Completed the guidance and portable checks and captured the routing evidence
+    in tracked project documentation.

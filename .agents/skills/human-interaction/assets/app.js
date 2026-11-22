@@ -1,3 +1,4 @@
+import { clarificationDialog, restoreDraft } from "./clarification.js";
 import { renderMarkdown } from "./markdown.js";
 
 const main = document.querySelector("main");
@@ -7,6 +8,8 @@ let terminal = false;
 let expiresAt = null;
 let pollTimer;
 let polling = false;
+let draftPage;
+let draft;
 
 function element(tag, properties = {}, ...children) {
   const node = Object.assign(document.createElement(tag), properties);
@@ -147,11 +150,18 @@ function focusHeading() {
 function renderForm(state) {
   const page = state.form;
   const form = element("form");
+  form.dataset.answerPage = state.page;
   const error = element("p", { className: "error", hidden: true });
   error.setAttribute("role", "alert");
   const button = element("button", { type: "submit", textContent: page.submit_label ?? "Submit answers" });
   const section = element("div", { className: "fields" }, ...page.fields.map(fieldNode));
-  form.append(section, error, button);
+  const { trigger, dialog } = clarificationDialog(element, async (feedback, modal) => {
+    const result = await request("clarify", { page: state.page, revision: state.revision, feedback });
+    modal.close();
+    render(result);
+  });
+  form.append(section, error, element("div", { className: "actions" }, button, trigger));
+  restoreDraft(form, draft);
   if (state.multi) main.append(element("p", { className: "page-label", textContent: "Page " + state.page }));
   main.append(element("h1", { textContent: page.title }));
   if (page.markdown) {
@@ -159,13 +169,15 @@ function renderForm(state) {
     renderMarkdown(prologue, page.markdown, page.images ?? {});
     main.append(prologue);
   }
-  main.append(form);
+  main.append(form, dialog);
   form.addEventListener("submit", async event => {
     event.preventDefault();
     button.disabled = true;
     error.hidden = true;
     try {
-      const result = await request("submit", { page: state.page, answers: readValues(form, page.fields) });
+      const result = await request("submit", {
+        page: state.page, revision: state.revision, answers: readValues(form, page.fields),
+      });
       render(result);
     } catch (failure) {
       error.textContent = failure.message;
@@ -188,28 +200,34 @@ function statusView(title, copy, waiting, success = false) {
   main.append(box);
 }
 
-function rankOf(state) {
-  return 4 * state.page + ({ form: 0, waiting: 1, complete: 2, expired: 2 }[state.view] ?? 0);
+function rememberDraft(state) {
+  if (draftPage !== state.page) draft = null;
+  const form = main.querySelector(`form[data-answer-page="${state.page}"]`);
+  if (form) draft = new FormData(form);
+  draftPage = state.page;
 }
 
 function rememberDeadline(state) {
-  if (rankOf(state) >= revision && Number.isFinite(state.expires_at_ms)) {
+  if (state.revision >= revision && Number.isFinite(state.expires_at_ms)) {
     expiresAt = state.expires_at_ms;
   }
 }
 
 function render(state) {
   rememberDeadline(state);
-  const rank = rankOf(state);
-  if (rank <= revision) return;
-  revision = rank;
+  if (state.revision <= revision) return;
+  rememberDraft(state);
+  revision = state.revision;
   main.replaceChildren();
   main.setAttribute("aria-busy", "false");
   if (state.view === "form") renderForm(state);
   else if (state.view === "waiting") {
     statusView("Answers received", "Please keep this tab open while the agent prepares the next questions.", true);
+  } else if (state.view === "clarifying") {
+    statusView("Clarification requested", "Keep this tab open while the agent explains this page again.", true);
   } else {
     terminal = true;
+    draft = null;
     const success = state.view === "complete" && state.submitted > 0;
     const title = success ? "Submission complete" : state.view === "expired" ? "Form expired" : "Form closed";
     const message = state.view === "expired"
@@ -229,11 +247,11 @@ async function refresh() {
   try {
     const state = await request("state");
     rememberDeadline(state);
-    if (rankOf(state) > revision) render(state.view === "form" ? await request("page") : state);
+    if (state.revision > revision) render(state.view === "form" ? await request("page") : state);
   } catch {
     if (expiresAt !== null && Date.now() >= expiresAt) {
       // A tab may resume after the server's final grace period has elapsed.
-      render({ view: "expired", page: Math.max(1, Math.floor(revision / 4)), submitted: 0 });
+      render({ view: "expired", page: draftPage, revision: revision + 1, submitted: 0 });
     } else if (revision < 0) {
       main.replaceChildren();
       main.setAttribute("aria-busy", "false");

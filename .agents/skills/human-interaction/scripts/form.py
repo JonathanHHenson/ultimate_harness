@@ -12,11 +12,19 @@ from urllib.parse import urlsplit
 
 from form_page import load_page
 from form_schema import MAX_REQUEST, Record, record
-from form_server import RUNTIME, serve
+from form_server import CLARIFICATION, RUNTIME, serve
 
 
 def read_json(path: Path) -> Record:
     return record(json.loads(path.read_text(encoding="utf-8")), "Session data")
+
+
+def pending_clarification(runtime: Path, page: int) -> Record | None:
+    try:
+        pending = read_json(runtime / CLARIFICATION)
+    except FileNotFoundError:
+        return None
+    return pending if pending.get("page") == page else None
 
 
 def wait_for_response(runtime: Path, page: int, timeout: int) -> int:
@@ -31,6 +39,10 @@ def wait_for_response(runtime: Path, page: int, timeout: int) -> int:
             if target.is_file():
                 continue
             raise ValueError("The form ended before this page was submitted.")
+        pending = pending_clarification(runtime, page)
+        if pending is not None:
+            print(json.dumps(pending))
+            return 0
         if monotonic() >= deadline:
             print("No submission yet.", file=sys.stderr)
             return 2
@@ -66,17 +78,20 @@ def control(runtime: Path, action: str, payload: Record) -> Record:
 def arguments() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     commands = parser.add_subparsers(dest="command", required=True)
+    check = commands.add_parser("check", help="Validate a page without starting a session.")
     start = commands.add_parser("serve", help="Start a form and print its browser URL.")
     next_page = commands.add_parser("next", help="Show the next page after a multi-page submission.")
-    wait = commands.add_parser("wait", help="Print a saved page response as JSON. Exit 2 if still waiting.")
+    revise = commands.add_parser("revise", help="Explain the current page again after a clarification request.")
+    wait = commands.add_parser("wait", help="Print a submission or clarification request. Exit 2 if still waiting.")
     close = commands.add_parser("close", help="Show the final confirmation and end the session.")
-    for command in (start, next_page, wait, close):
+    for command in (check, start, next_page, revise, wait, close):
         _ = command.add_argument("--workspace", type=Path, required=True, help="Local interaction directory.")
-    for command in (start, next_page):
+    for command in (check, start, next_page, revise):
         _ = command.add_argument("--page", type=Path, required=True, help="Page JSON path within the workspace.")
     _ = start.add_argument("--multi", action="store_true", help="Wait for the agent after each submission.")
     _ = start.add_argument("--idle-timeout", type=int, default=3600, help="Seconds allowed between pages or submissions.")
     _ = start.add_argument("--lifetime", type=int, help="Optional hard limit in seconds, including active sessions.")
+    _ = revise.add_argument("--request", type=int, required=True, help="Clarification request number from wait.")
     _ = wait.add_argument("--page", type=int, default=1, help="Page number to read.")
     _ = wait.add_argument("--timeout", type=int, default=20, help="Seconds to wait for the response (0–60).")
     return parser.parse_args()
@@ -93,6 +108,15 @@ def start_form(workspace: Path, args: argparse.Namespace) -> None:
     serve(workspace, page, cast(bool, args.multi), idle_timeout, lifetime)
 
 
+def control_payload(action: str, workspace: Path, args: argparse.Namespace) -> Record:
+    if action == "close":
+        return {}
+    page = load_page(workspace, cast(Path, args.page))
+    if action == "revise":
+        return {"request": cast(int, args.request), "form": page}
+    return page
+
+
 def main() -> int:
     args = arguments()
     try:
@@ -101,6 +125,10 @@ def main() -> int:
             raise ValueError("The workspace must be a directory.")
         action = cast(str, args.command)
         runtime = workspace / RUNTIME
+        if action == "check":
+            _ = load_page(workspace, cast(Path, args.page))
+            print("Page is valid.")
+            return 0
         if action == "serve":
             start_form(workspace, args)
             return 0
@@ -112,8 +140,7 @@ def main() -> int:
             if number < 1 or not 0 <= timeout <= 60:
                 raise ValueError("Use a positive page number and a timeout between 0 and 60 seconds.")
             return wait_for_response(runtime, number, timeout)
-        payload = load_page(workspace, cast(Path, args.page)) if action == "next" else {}
-        print(json.dumps(control(runtime, action, payload)))
+        print(json.dumps(control(runtime, action, control_payload(action, workspace, args))))
         return 0
     except (OSError, HTTPException, ValueError, RecursionError) as error:
         print(f"Form error: {error}", file=sys.stderr)

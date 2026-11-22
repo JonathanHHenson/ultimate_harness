@@ -1,0 +1,416 @@
+- timestamp: '2026-11-21T23:20:09+00:00'
+  phase: RESEARCH
+  summary: Feature research opened
+  details: Make portable harness adoption comprehensive by default. Research the bundled
+    harness and target, give the human control over each meaningful customization,
+    and recommend additional project-specific skills and validations. Installation
+    targets a project without an established harness. Evolution prioritizes compatible
+    integrations with existing practices and deliberate replacements when needed.
+- timestamp: '2026-11-21T23:20:40+00:00'
+  phase: DESIGN
+  summary: 'Feature phase: RESEARCH → DESIGN'
+  details: Traced both entry points, all 19 catalog components, and the bundled research
+    and form contracts. Target-owned entry points require adaptation even when all
+    portable components are considered.
+- timestamp: '2026-11-21T23:20:40+00:00'
+  phase: IMPLEMENT
+  summary: 'Feature phase: DESIGN → IMPLEMENT'
+  details: Defined shared research and form decisions, distinct installation and integration
+    strategies, and package and target-specific workflow checks.
+- timestamp: '2026-11-21T23:20:40+00:00'
+  phase: IMPLEMENT
+  summary: 'RESEARCH: TODO → WIP'
+  details: Implement and verify the adoption contract against the packaged entry points
+    and isolated target scenarios.
+- timestamp: '2026-11-21T23:20:40+00:00'
+  phase: IMPLEMENT
+  summary: 'INSTALL: TODO → WIP'
+  details: Implement and verify the adoption contract against the packaged entry points
+    and isolated target scenarios.
+- timestamp: '2026-11-21T23:20:40+00:00'
+  phase: IMPLEMENT
+  summary: 'EVOLVE: TODO → WIP'
+  details: Implement and verify the adoption contract against the packaged entry points
+    and isolated target scenarios.
+- timestamp: '2026-11-21T23:20:41+00:00'
+  phase: IMPLEMENT
+  summary: 'DECISIONS: TODO → WIP'
+  details: Implement and verify the adoption contract against the packaged entry points
+    and isolated target scenarios.
+- timestamp: '2026-11-21T23:20:41+00:00'
+  phase: IMPLEMENT
+  summary: 'PORTABILITY: TODO → WIP'
+  details: Implement and verify the adoption contract against the packaged entry points
+    and isolated target scenarios.
+- timestamp: '2026-11-21T23:22:29+00:00'
+  phase: TEST
+  summary: 'Feature phase: IMPLEMENT → TEST'
+  details: Both packages now start from the full catalog and share research, decision,
+    extension, and verification rules. Initial package, dependency, and link checks
+    passed.
+- timestamp: '2026-11-21T23:25:39+00:00'
+  phase: TEST
+  summary: 'RESEARCH: WIP → DONE'
+  details: Both extracted entry points reach the bundled learning skill and shared
+    read-only inventory. Three target scenarios distinguished observed team rules,
+    technical evidence, and an unresolved test command.
+- timestamp: '2026-11-21T23:25:39+00:00'
+  phase: TEST
+  summary: 'INSTALL: WIP → DONE'
+  details: The installation walkthrough assessed all 19 catalog capabilities and exercised
+    independent exceptions while preserving unrelated files. The fixture resolved
+    links, ran its test, and exercised feature and scratch helpers.
+- timestamp: '2026-11-21T23:25:39+00:00'
+  phase: TEST
+  summary: 'EVOLVE: WIP → DONE'
+  details: The incumbent workflow distinguishes equivalent, overlapping, and conflicting
+    capabilities. Its isolated walkthrough merged Finance review with the new routing
+    while preserving ledger data and the separate migration choice.
+- timestamp: '2026-11-21T23:25:39+00:00'
+  phase: TEST
+  summary: 'DECISIONS: WIP → DONE'
+  details: Both bundled forms rejected missing answers without target edits. Separate
+    skill and validation choices worked, and the adaptive evolution response preserved
+    earlier choices across pages.
+- timestamp: '2026-11-21T23:25:39+00:00'
+  phase: TEST
+  summary: 'PORTABILITY: WIP → DONE'
+  details: Both archives built and extracted with 61 catalogued files each. Checked
+    source and dependency closure, link targets, and export exclusions. All 64 harness
+    tests passed.
+- timestamp: '2026-11-21T23:25:39+00:00'
+  phase: DONE
+  summary: 'Feature phase: TEST → DONE'
+  details: Completed the isolated workflow and packaging checks, reviewed the changed
+    catalog and documented the evidence and remaining limits in the feature closeout.
+- timestamp: '2026-11-22T00:31:43+00:00'
+  phase: RESEARCH
+  summary: 'Feature phase: DONE → RESEARCH'
+  details: Fresh-agent trials found bundled adoption choices, an unread research reference,
+    form-label errors, and one-shot session teardown before browser submission.
+- timestamp: '2026-11-22T00:32:03+00:00'
+  phase: DESIGN
+  summary: 'Feature phase: RESEARCH → DESIGN'
+  details: Use the original four trials to target research routing, decision coverage
+    and the local session lifetime.
+- timestamp: '2026-11-22T00:32:03+00:00'
+  phase: IMPLEMENT
+  summary: 'Feature phase: DESIGN → IMPLEMENT'
+  details: Reuse page validation for preflight and verify the full browser handoff
+    in a persistent Codex conversation.
+- timestamp: '2026-11-22T00:32:03+00:00'
+  phase: IMPLEMENT
+  summary: 'DECISION-COVERAGE: TODO → WIP'
+  details: The design and observable acceptance criteria are recorded.
+- timestamp: '2026-11-22T00:32:03+00:00'
+  phase: IMPLEMENT
+  summary: 'FORM-PREFLIGHT: TODO → WIP'
+  details: The design and observable acceptance criteria are recorded.
+- timestamp: '2026-11-22T00:32:03+00:00'
+  phase: IMPLEMENT
+  summary: 'LIVE-HANDOFF: TODO → WIP'
+  details: The design and observable acceptance criteria are recorded.
+- timestamp: '2026-11-22T00:34:08+00:00'
+  phase: TEST
+  summary: 'Feature phase: IMPLEMENT → TEST'
+  details: Implemented the research and decision checklists, read-only form preflight,
+    and live handoff procedure. Rebuilt both packages for interactive verification.
+- timestamp: '2026-11-22T00:38:39+00:00'
+  phase: TEST
+  summary: Form preflight and local checks passed
+  details: The new check command reused the page loader. Its regression test passed
+    valid and overlong-label cases without creating session files. Ruff, the full
+    65-test suite, package and link checks passed. BasedPyright reported zero errors
+    after selecting each changed file’s module root. Interactive browser handoff runs
+    are in progress.
+- timestamp: '2026-11-22T00:46:34+00:00'
+  phase: TEST
+  summary: 'DECISION-COVERAGE: WIP → DONE'
+  details: Both fresh interactive agents read the detailed procedure before drafting,
+    used an exact field for each of 19 capabilities, and separately offered CI and
+    project-specific choices.
+- timestamp: '2026-11-22T00:46:34+00:00'
+  phase: TEST
+  summary: 'FORM-PREFLIGHT: WIP → DONE'
+  details: The regression test verified success and rejection without session files.
+    Both extracted workflows ran check before serving and updating the form. Ruff,
+    BasedPyright diagnostics and all 65 tests passed.
+- timestamp: '2026-11-22T00:46:34+00:00'
+  phase: TEST
+  summary: 'LIVE-HANDOFF: WIP → DONE'
+  details: Chromium submitted two pages per live turn. Both agents received the exact
+    choices, acknowledged the resulting plan and closed the forms successfully. All
+    32 target files matched the initial manifests.
+- timestamp: '2026-11-22T00:46:34+00:00'
+  phase: DONE
+  summary: 'Feature phase: TEST → DONE'
+  details: Completed local harness validation and two browser-driven interactive Codex
+    runs. Updated project and agent documentation with evidence and scope.
+- timestamp: '2026-11-22T13:24:50+00:00'
+  phase: RESEARCH
+  summary: 'Feature phase: DONE → RESEARCH'
+  details: The interactive clarification retrospective found that the first forms
+    required the human to translate generic labels and read policy before seeing a
+    project example.
+- timestamp: '2026-11-22T13:25:02+00:00'
+  phase: DESIGN
+  summary: 'Feature phase: RESEARCH → DESIGN'
+  details: Keep the successful form, skill routing and atomic decisions. Teach both
+    workflows to lead with a concrete change and explicit option effects.
+- timestamp: '2026-11-22T13:25:02+00:00'
+  phase: IMPLEMENT
+  summary: 'Feature phase: DESIGN → IMPLEMENT'
+  details: Put the presentation rules in the shared guide and trigger them at the
+    design-decision step in both portable skills.
+- timestamp: '2026-11-22T13:25:02+00:00'
+  phase: IMPLEMENT
+  summary: 'FIRST-ROUND-CLARITY: TODO → WIP'
+  details: Implement and verify the shared presentation review.
+- timestamp: '2026-11-22T13:26:50+00:00'
+  phase: TEST
+  summary: 'Feature phase: IMPLEMENT → TEST'
+  details: Both entry points now route to a shared decision-page review. Rebuilt packages,
+    walked through the two cases and checked representative pages with the packaged
+    CLI.
+- timestamp: '2026-11-22T13:27:02+00:00'
+  phase: TEST
+  summary: 'FIRST-ROUND-CLARITY: WIP → DONE'
+  details: Both extracted skill routes resolve to the shared readability review. Two
+    representative pages checked successfully and demonstrated scope and concrete
+    examples up front, plain option consequences and independently selectable questions.
+- timestamp: '2026-11-22T13:27:02+00:00'
+  phase: DONE
+  summary: 'Feature phase: TEST → DONE'
+  details: Completed the retrospective-based guidance changes, package checks and
+    draft walkthroughs. Recorded the observed causes, results and verification limits.
+- timestamp: '2026-11-22T13:38:19+00:00'
+  phase: RESEARCH
+  summary: 'Feature phase: DONE → RESEARCH'
+  details: The latest live install and evolve forms reused generic options despite
+    the readability guidance. Investigate and verify an option-specific preflight.
+- timestamp: '2026-11-22T13:38:39+00:00'
+  phase: DESIGN
+  summary: 'Feature phase: RESEARCH → DESIGN'
+  details: Observed the prior labels and selected a shared semantic review plus a
+    narrow reusable checker for stock wording and repetitions.
+- timestamp: '2026-11-22T13:38:39+00:00'
+  phase: IMPLEMENT
+  summary: 'Feature phase: DESIGN → IMPLEMENT'
+  details: Implement checker and route both portable skills through it before publishing
+    each decision page.
+- timestamp: '2026-11-22T13:38:39+00:00'
+  phase: IMPLEMENT
+  summary: 'OPTION-CONSEQUENCES: TODO → WIP'
+  details: Implement wording preflight and verify both skill routes.
+- timestamp: '2026-11-22T13:41:14+00:00'
+  phase: TEST
+  summary: 'Feature phase: IMPLEMENT → TEST'
+  details: Both portable packages include the wording check. Run the full checks and
+    compare two live forms with the previous versions.
+- timestamp: '2026-11-22T13:45:08+00:00'
+  phase: TEST
+  summary: Verified concrete choice labels in fresh interactive installation and evolution
+  details: Replayed the same two synthetic targets and prompts. The prior forms had
+    82 of 89 generic install options and 58 of 75 generic evolve options. Both new
+    first forms and both follow-ups passed the checker and a standalone wording review,
+    with no generic labels among 146 choices. Both browser handoffs recorded two submissions,
+    confirmed closure, and preserved target digests. The evidence is summarized in
+    docs/agents/comprehensive-harness-adoption.md. Ruff, BasedPyright, all 70 tests,
+    links, and both extracted package checks passed. Design and coverage review traced
+    success, rejection and duplicate wording through the CLI. Security review traced
+    the local schema-checked JSON read, stdout and exit status, and the export catalog.
+    The helper adds no writes, networking, privileges, or dependencies; local inputs
+    and build scope stay the same.
+- timestamp: '2026-11-22T13:45:08+00:00'
+  phase: TEST
+  summary: 'OPTION-CONSEQUENCES: WIP → DONE'
+  details: Verified both portable routes, concrete choices and failure diagnostics,
+    and completed both fresh browser handoffs with the prior-form comparison documented.
+- timestamp: '2026-11-22T13:45:08+00:00'
+  phase: DONE
+  summary: 'Feature phase: TEST → DONE'
+  details: Recorded the decisions and verification in tracked project documentation.
+    All applicable code, security, link, package and feature checks completed.
+- timestamp: '2026-11-22T19:25:14+00:00'
+  phase: RESEARCH
+  summary: 'Feature phase: DONE → RESEARCH'
+  details: The separate packages ship the same harness payload and share research,
+    interviews and approval. Merge their entry points while retaining both target-specific
+    routes.
+- timestamp: '2026-11-22T19:25:39+00:00'
+  phase: DESIGN
+  summary: 'Feature phase: RESEARCH → DESIGN'
+  details: Keep one entry point with two explicit routes and reuse the shared adoption
+    guide and export catalog.
+- timestamp: '2026-11-22T19:25:39+00:00'
+  phase: IMPLEMENT
+  summary: 'Feature phase: DESIGN → IMPLEMENT'
+  details: Merge the skill, build, and release paths and exercise both routes against
+    the separate versions.
+- timestamp: '2026-11-22T19:25:39+00:00'
+  phase: IMPLEMENT
+  summary: 'UNIFIED-ADOPTION: TODO → WIP'
+  details: Implement and verify the unified skill.
+- timestamp: '2026-11-22T19:25:39+00:00'
+  phase: IMPLEMENT
+  summary: 'SINGLE-ARCHIVE: TODO → WIP'
+  details: Implement and verify the unified skill.
+- timestamp: '2026-11-22T19:25:39+00:00'
+  phase: IMPLEMENT
+  summary: 'UNIFIED-VERIFICATION: TODO → WIP'
+  details: Implement and verify the unified skill.
+- timestamp: '2026-11-22T19:34:40+00:00'
+  phase: TEST
+  summary: 'Feature phase: IMPLEMENT → TEST'
+  details: The single package and updated rules are built. Final live comparison,
+    approved-scope application, and full validation are in progress.
+- timestamp: '2026-11-22T19:39:26+00:00'
+  phase: TEST
+  summary: Verified the merged adoption skill on matched installation and evolution
+    tasks
+  details: The build emits one package with the full catalog payload. Compared fresh
+    live Codex handoffs on matched synthetic targets. The first merge combined review
+    availability and activation in evolution. The final rule required separate routing
+    choices and both browser reruns passed, covering all 22 components, preserving
+    target hashes and completing acknowledgement. The final forms used two pages per
+    route versus one. Four approved-scope application trials installed the same five
+    components while retaining existing behavior and scope; project tests and installed
+    helpers passed independently. Reviewed archive and path handling and CI permissions.
+    All 70 harness tests, Ruff, BasedPyright, workflow parsing, metadata and links
+    passed. Tracked findings are in docs/agents/comprehensive-harness-adoption.md.
+- timestamp: '2026-11-22T19:39:26+00:00'
+  phase: TEST
+  summary: 'UNIFIED-ADOPTION: WIP → DONE'
+  details: One entry point selected both routes, preserved target constraints, and
+    applied approved scope.
+- timestamp: '2026-11-22T19:39:26+00:00'
+  phase: TEST
+  summary: 'SINGLE-ARCHIVE: WIP → DONE'
+  details: Validated the single archive, its complete payload, current documentation,
+    and local build checks.
+- timestamp: '2026-11-22T19:39:26+00:00'
+  phase: TEST
+  summary: 'UNIFIED-VERIFICATION: WIP → DONE'
+  details: Both routes matched the separate skills on the measured outcomes, with
+    additional form interactions recorded.
+- timestamp: '2026-11-22T19:39:26+00:00'
+  phase: DONE
+  summary: 'Feature phase: TEST → DONE'
+  details: Completed the matched comparisons and applicable code, security, guidance,
+    packaging and feature checks.
+- timestamp: '2026-11-22T19:59:54+00:00'
+  phase: RESEARCH
+  summary: 'Feature phase: DONE → RESEARCH'
+  details: The merged adoption forms used a second page for several choices that could
+    be made conditionally up front. Shorten the forms while keeping material decisions
+    independent.
+- timestamp: '2026-11-22T20:02:39+00:00'
+  phase: DESIGN
+  summary: 'Feature phase: RESEARCH → DESIGN'
+  details: Design a compact first page with explicit conditional choices and a matched
+    comparison.
+- timestamp: '2026-11-22T20:02:39+00:00'
+  phase: IMPLEMENT
+  summary: 'Feature phase: DESIGN → IMPLEMENT'
+  details: Update the portable entry point and shared decision-page guidance.
+- timestamp: '2026-11-22T20:02:39+00:00'
+  phase: IMPLEMENT
+  summary: 'COMPACT-ADOPTION-FORMS: TODO → WIP'
+  details: Rebuilt the compact form instructions and started fresh matched trials.
+- timestamp: '2026-11-22T20:02:39+00:00'
+  phase: TEST
+  summary: 'Feature phase: IMPLEMENT → TEST'
+  details: Compare both versions on both routes using fresh interactive agents and
+    browser submissions.
+- timestamp: '2026-11-22T20:11:17+00:00'
+  phase: TEST
+  summary: Refined both adoption routes to collect conditional choices on the first
+    page
+  details: The matched baseline used two pages on each route, postponing known imports
+    and plan acknowledgement. Compact drafts used one page. Review removed a fixed-policy
+    acknowledgement, disentangled ledger linkage from feature record availability,
+    and required a separate decision for each proposed language skill. Rebuilt and
+    extracted the 76-file package. The full 70-test harness suite passed with local
+    networking. Fresh trials of the final package are underway.
+- timestamp: '2026-11-22T20:17:24+00:00'
+  phase: TEST
+  summary: Verified one-page installation and evolution forms with fresh Codex agents
+  details: Compared the current package, previous merged package, and original separate
+    skills on matching targets. Final forms used 1,637 and 1,513 words versus 3,054
+    and 2,851, with all 22 components, distinct triggers and language skills, successful
+    preflight and browser handoff, and unchanged target digests. Direct Grill With
+    Docs use was verified on evolution. The install trace showed the design interview
+    instructions were opened. Recorded evidence in tracked agent documentation.
+- timestamp: '2026-11-22T20:17:24+00:00'
+  phase: TEST
+  summary: 'COMPACT-ADOPTION-FORMS: WIP → DONE'
+  details: Both matched fresh-agent trials produced shorter one-page forms with independent
+    choices and successful handoff.
+- timestamp: '2026-11-22T20:17:24+00:00'
+  phase: DONE
+  summary: 'Feature phase: TEST → DONE'
+  details: Verified the requirement and recorded key decisions and results in tracked
+    project documentation.
+- timestamp: '2026-11-22T20:40:10+00:00'
+  phase: RESEARCH
+  summary: 'Feature phase: DONE → RESEARCH'
+  details: The compact installation trial opened the design interview instructions
+    without directly loading Grill With Docs. Make the shared planning entry point
+    explicit and rerun both routes.
+- timestamp: '2026-11-22T20:40:26+00:00'
+  phase: DESIGN
+  summary: 'Feature phase: RESEARCH → DESIGN'
+  details: Place a direct bundled interview step before drafting on either route and
+    verify its ordering in fresh sessions.
+- timestamp: '2026-11-22T20:40:26+00:00'
+  phase: IMPLEMENT
+  summary: 'Feature phase: DESIGN → IMPLEMENT'
+  details: Update the shared adoption entry point, keeping the design interview instructions
+    and decision-page workflow in their existing locations.
+- timestamp: '2026-11-22T20:40:26+00:00'
+  phase: IMPLEMENT
+  summary: 'DIRECT-DESIGN-INTERVIEW: TODO → WIP'
+  details: Implement the direct invocation and prepare matched interactive runs.
+- timestamp: '2026-11-22T20:40:36+00:00'
+  phase: TEST
+  summary: 'Feature phase: IMPLEMENT → TEST'
+  details: Verify direct bundled skill loads, independent choices, and one-page browser
+    handoffs on both routes.
+- timestamp: '2026-11-22T20:44:00+00:00'
+  phase: IMPLEMENT
+  summary: 'Feature phase: TEST → IMPLEMENT'
+  details: Fresh trials loaded the interview skills directly. Tighten the choice review
+    after agents combined independently useful validation triggers on the first drafts.
+- timestamp: '2026-11-22T20:44:00+00:00'
+  phase: TEST
+  summary: 'Feature phase: IMPLEMENT → TEST'
+  details: Use fresh agents to verify that the explicit choice review preserves one-page
+    forms and independent validation decisions.
+- timestamp: '2026-11-22T20:44:42+00:00'
+  phase: TEST
+  summary: Confirmed direct interview loads and refined validation choices
+  details: Fresh installation and evolution agents opened Grill With Docs, Grilling,
+    and Domain Modeling before preparing their forms and submitted one page each.
+    The first runs combined some independent validation triggers. The shared entry
+    point now requires a draft review for separable effects, including proposed validation
+    rulesets. Rebuilt and extracted the package for a second pair of fresh runs.
+- timestamp: '2026-11-22T20:48:10+00:00'
+  phase: TEST
+  summary: Verified direct Grill With Docs invocation and separate one-page choices
+    on both routes
+  details: Fresh Codex agents each opened Grill With Docs and both supporting skills
+    directly before drafting. The final browser sessions submitted one page per route,
+    with 40 installation choices and 37 evolution choices. The forms kept separately
+    selectable checks and review triggers distinct. Both agents acknowledged the saved
+    selections and target digests matched. The rebuilt archive, local links and 70-test
+    harness suite passed.
+- timestamp: '2026-11-22T20:48:10+00:00'
+  phase: TEST
+  summary: 'DIRECT-DESIGN-INTERVIEW: WIP → DONE'
+  details: Final interactive traces show direct bundled skill reads before both forms,
+    independent choices on one submitted page per route, and successful acknowledgement.
+- timestamp: '2026-11-22T20:48:10+00:00'
+  phase: DONE
+  summary: 'Feature phase: TEST → DONE'
+  details: Completed the adoption checks and recorded evidence in the tracked agent
+    closeout.

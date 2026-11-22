@@ -23,4 +23,4 @@
 ## Before reporting the security review complete
 
 - Fix actionable findings within scope and rerun affected checks. Report unresolved findings with location, severity, conditions, impact, and suggested remediation. State what you verified, what you could not verify, and why. Keep secrets and sensitive data out of review output.
-- Report the review as incomplete if required evidence is missing or a material finding is unresolved. Record the review outcome and supporting evidence in feature memory when applicable.
+- Report the review as incomplete if required evidence is missing or a material finding is unresolved. Record the review outcome and supporting evidence in the feature record when applicable.

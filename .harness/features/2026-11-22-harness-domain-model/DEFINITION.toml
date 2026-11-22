@@ -1,0 +1,57 @@
+description = "Establish a shared vocabulary for Ultimate Harness and use it in the human documentation, agent guidance, and portable adoption entry points. Clarify the boundaries between project work, feature memory, validation, feedback forms, and portable adoption using the existing contracts."
+documentation = ["GLOSSARY.md", "docs/TECHNICAL.md", "docs/agents/harness-domain-model.md"]
+status = "DONE"
+
+[[requirements]]
+id = "DOMAIN-LANGUAGE"
+kind = "functional"
+description = "Define the harness concepts whose names affect how maintainers and agents interpret instructions, lifecycle states, recorded evidence, and adoption choices."
+definition_of_done = "A root glossary names and defines each core concept concisely, and the technical design explains relationships and boundary cases confirmed against current procedures and scripts."
+status = "DONE"
+blocked_reason = ""
+blocked_from = ""
+
+[[requirements]]
+id = "TERMINOLOGY-ROUTING"
+kind = "functional"
+description = "Make the glossary discoverable in the agent entry point and human documentation, and align common wording in the active feature and adoption guidance."
+definition_of_done = "Agents can find the glossary when working on harness terminology, and the updated guidance uses the same terms for feature phases, requirement statuses, validation selection, and catalog components. Both portable entry points build and their links resolve."
+status = "DONE"
+blocked_reason = ""
+blocked_from = ""
+
+[[requirements]]
+id = "TERMINOLOGY-AUDIT"
+kind = "functional"
+description = "Audit first-party skills, validation rulesets, and documentation against the glossary. Align project terms while preserving command interfaces, behavior, historical evidence, and pinned upstream text."
+definition_of_done = "Review the maintained Markdown across the harness, correct terms in context, and verify routing, links, and the two portable builds."
+status = "DONE"
+blocked_reason = ""
+blocked_from = ""
+
+[[requirements]]
+id = "GLOSSARY-VALIDATION"
+kind = "functional"
+description = "Require a glossary review when skills, harness instructions, or project documentation are added or updated. Compare changed prose with the glossary and check affected uses when a definition changes."
+definition_of_done = "The validation index routes additions and updates in all three categories to the glossary check, including documentation-only changes. Representative cases catch an outdated term and an incorrect use of an approved term while accepting a literal identifier. The new links and applicable guidance checks pass."
+status = "DONE"
+blocked_reason = ""
+blocked_from = ""
+
+[[requirements]]
+id = "GLOSSARY-MEANING"
+kind = "functional"
+description = "Make the glossary check verify what each term refers to and whether its actions, properties, and lifecycle match the glossary before searching for aliases."
+definition_of_done = "The ruleset requires separate meaning and naming passes. Two fresh sessions per prior fixture use the revised rule with the same patch and prompt. Report contextual detection, alias detection, protection of literal output, and validation routing against the previous six runs."
+status = "DONE"
+blocked_reason = ""
+blocked_from = ""
+
+[[requirements]]
+id = "GLOSSARY-SKILL-DESCRIPTIONS"
+kind = "functional"
+description = "Review each affected skill description as a separate prose field and make a verified scratch note part of passing the glossary check."
+definition_of_done = "The ruleset records a decision for each new or changed skill description and requires a saved note for every completed glossary check. Compare the previous and revised rules on fresh fixtures containing description meaning errors and valid controls. Record detection, false positives, and actual scratch-note creation."
+status = "DONE"
+blocked_reason = ""
+blocked_from = ""

@@ -23,5 +23,5 @@
 
 ## Before considering changed scripts validated
 
-- Resolve failures and repeat affected checks; broaden checks when new changes or failures justify it. If a dependency or environment prevents a check, record the specific blocker and unrun check in feature memory instead of claiming success.
+- Resolve failures and repeat affected checks; broaden checks when new changes or failures justify it. If a dependency or environment prevents a check, record the specific blocker and unrun check in the feature record instead of claiming success.
 - Record the commands, outcomes, and relevant acceptance evidence in the feature worklog without repeating evidence already captured by a requirement transition.

@@ -1,0 +1,30 @@
+description = "Add pinned interview and clarification skills, use forms for design questions, and let a human request a clearer explanation of any live form page with optional feedback."
+documentation = ["docs/TECHNICAL.md", "docs/agents/design-interviews-and-form-clarification.md"]
+status = "DONE"
+
+[[requirements]]
+id = "DESIGN-INTERVIEW"
+kind = "functional"
+description = "Install the two requested upstream skills and their necessary dependencies. Route design in this project and during portable adoption through the interview and the existing form."
+definition_of_done = "Exact pinned files and lock are present, provenance and redistribution notices are retained, and both extracted packages can resolve all design and clarification dependencies."
+status = "DONE"
+blocked_reason = ""
+blocked_from = ""
+
+[[requirements]]
+id = "CLARIFICATION"
+kind = "functional"
+description = "Every live form page offers an accessible clarification button with optional feedback. The agent receives a distinct request and can rephrase the same page via Wait What while keeping its decisions and any draft intact."
+definition_of_done = "A browser can request clarification with blank or written feedback, see the waiting state, receive a revised page and finish answering. Server tests verify state, stale requests, constraints, sequencing and timeout behavior."
+status = "DONE"
+blocked_reason = ""
+blocked_from = ""
+
+[[requirements]]
+id = "PROJECT-CHANGES"
+kind = "functional"
+description = "Require agents to apply Grill With Docs before all project changes, including routine edits, tool-driven changes, and maintenance to the harness. Route open decisions through the form and carry forward settled choices."
+definition_of_done = "Root guidance and both built adoption packages route applicable work through the same pre-change instructions. Verification covers settled edits, unresolved decisions, scope expansion, harness changes, and read-only work."
+status = "DONE"
+blocked_reason = ""
+blocked_from = ""

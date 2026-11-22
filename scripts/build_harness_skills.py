@@ -1,4 +1,4 @@
-"""Build both portable harness skill payloads from the checked-out harness."""
+"""Build the portable harness skill payload from the checked-out harness."""
 
 from pathlib import Path
 from shutil import copy2
@@ -7,7 +7,7 @@ from tempfile import TemporaryDirectory
 import tomllib
 from typing import cast
 
-SKILLS = ("install-harness", "evolve-harness")
+SKILL_ENTRY = "skills_src/install-harness/SKILL.md"
 
 
 def local_file(root: Path, name: str) -> Path:
@@ -21,7 +21,7 @@ def local_file(root: Path, name: str) -> Path:
 
 
 def payload_files(root: Path, catalog: Path) -> list[str]:
-    components = tomllib.loads(catalog.read_text(encoding="utf-8"))
+    components: dict[str, object] = tomllib.loads(catalog.read_text(encoding="utf-8"))
     files: set[str] = set()
     for component, entry in components.items():
         if not isinstance(entry, dict):
@@ -68,19 +68,15 @@ def main() -> int:
     try:
         catalog = local_file(root, "skills_src/harness-files.toml")
         files = payload_files(root, catalog)
-        destinations: list[Path] = []
-        for skill in SKILLS:
-            entry = local_file(root, f"skills_src/{skill}/SKILL.md")
-            destination = entry.parent / "assets/harness"
-            if destination.resolve() != destination or (destination.exists() and not destination.is_dir()):
-                raise ValueError(f"Expected a local generated asset directory for {skill}")
-            destinations.append(destination)
-        for destination in destinations:
-            publish_payload(root, catalog, files, destination)
+        entry = local_file(root, SKILL_ENTRY)
+        destination = entry.parent / "assets/harness"
+        if destination.resolve() != destination or (destination.exists() and not destination.is_dir()):
+            raise ValueError(f"Expected a local generated asset directory for {entry.parent.name}")
+        publish_payload(root, catalog, files, destination)
     except (OSError, ValueError, RuntimeError) as error:
         print(f"Could not build harness skills: {error}", file=sys.stderr)
         return 1
-    print(f"Built {len(destinations)} harness skills with {len(files)} exported files each.")
+    print(f"Built {entry.parent.name} with {len(files)} exported files.")
     return 0
 
 

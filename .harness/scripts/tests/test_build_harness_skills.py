@@ -11,7 +11,8 @@ from typing import cast
 import unittest
 
 REPO = Path(__file__).resolve().parents[3]
-SKILLS = ("install-harness", "evolve-harness")
+SKILL = "install-harness"
+ENTRY = f"skills_src/{SKILL}/SKILL.md"
 CATALOG = "skills_src/harness-files.toml"
 BUILDER = "scripts/build_harness_skills.py"
 
@@ -19,22 +20,23 @@ BUILDER = "scripts/build_harness_skills.py"
 class BuildHarnessSkillsTests(unittest.TestCase):
     @cached_property
     def checkout(self) -> Path:
-        return Path(self.enterContext(TemporaryDirectory()))
+        checkout = Path(self.enterContext(TemporaryDirectory()))
+        for name in self.exported | {ENTRY, CATALOG, BUILDER}:
+            target = checkout / name
+            target.parent.mkdir(parents=True, exist_ok=True)
+            _ = copy2(REPO / name, target)
+        return checkout
 
     @cached_property
     def exported(self) -> set[str]:
-        catalog = tomllib.loads((REPO / CATALOG).read_text(encoding="utf-8"))
-        return {name for component in catalog.values() for name in cast(list[str], component["files"])}
+        catalog = cast(
+            dict[str, dict[str, list[str]]],
+            tomllib.loads((REPO / CATALOG).read_text(encoding="utf-8")),
+        )
+        return {name for component in catalog.values() for name in component["files"]}
 
-    def setUp(self) -> None:
-        entrypoints = {f"skills_src/{skill}/SKILL.md" for skill in SKILLS}
-        for name in self.exported | entrypoints | {CATALOG, BUILDER}:
-            target = self.checkout / name
-            target.parent.mkdir(parents=True, exist_ok=True)
-            _ = copy2(REPO / name, target)
-
-    def payload(self, skill: str) -> Path:
-        return self.checkout / "skills_src" / skill / "assets/harness"
+    def payload(self) -> Path:
+        return self.checkout / "skills_src" / SKILL / "assets/harness"
 
     def build(self, *, successful: bool = True) -> subprocess.CompletedProcess[str]:
         result = subprocess.run(
@@ -44,7 +46,7 @@ class BuildHarnessSkillsTests(unittest.TestCase):
         self.assertEqual(result.returncode, 0 if successful else 1, result.stderr)
         return result
 
-    def test_both_skills_export_only_catalogued_files(self) -> None:
+    def test_install_harness_exports_only_catalogued_files(self) -> None:
         excluded = (
             "AGENTS.md", "README.md", ".gitignore", ".harness/VALIDATE.md",
             ".harness/features/2026-11-19-project-history/DEFINITION.toml",
@@ -58,37 +60,34 @@ class BuildHarnessSkillsTests(unittest.TestCase):
             source.parent.mkdir(parents=True, exist_ok=True)
             _ = source.write_text("Project-specific fixture\n", encoding="utf-8")
 
-        self.build()
+        _ = self.build()
 
-        for skill in SKILLS:
-            payload = self.payload(skill)
-            actual = {path.relative_to(payload).as_posix() for path in payload.rglob("*") if path.is_file()}
-            self.assertEqual(actual, self.exported | {"catalog.toml"})
-            self.assertTrue(actual.isdisjoint(excluded))
-            for name in self.exported:
-                self.assertEqual((payload / name).read_bytes(), (self.checkout / name).read_bytes())
-            self.assertEqual((payload / "catalog.toml").read_bytes(), (self.checkout / CATALOG).read_bytes())
+        payload = self.payload()
+        actual = {path.relative_to(payload).as_posix() for path in payload.rglob("*") if path.is_file()}
+        self.assertEqual(actual, self.exported | {"catalog.toml"})
+        self.assertTrue(actual.isdisjoint(excluded))
+        packages = {path.name for path in (self.checkout / "skills_src").iterdir() if path.is_dir()}
+        self.assertEqual(packages, {SKILL})
+        for name in self.exported:
+            self.assertEqual((payload / name).read_bytes(), (self.checkout / name).read_bytes())
+        self.assertEqual((payload / "catalog.toml").read_bytes(), (self.checkout / CATALOG).read_bytes())
 
     def test_rebuild_refreshes_sources_and_removes_stale_assets(self) -> None:
-        self.build()
+        _ = self.build()
         source = self.checkout / ".harness/validation/security-review.md"
         changed = b"# Updated guidance\n"
         _ = source.write_bytes(changed)
-        for skill in SKILLS:
-            _ = (self.payload(skill) / "obsolete.md").write_text("Old output", encoding="utf-8")
+        payload = self.payload()
+        _ = (payload / "obsolete.md").write_text("Old output", encoding="utf-8")
 
-        self.build()
+        _ = self.build()
 
-        for skill in SKILLS:
-            self.assertEqual((self.payload(skill) / source.relative_to(self.checkout)).read_bytes(), changed)
-            self.assertFalse((self.payload(skill) / "obsolete.md").exists())
-            self.assertEqual(
-                (self.payload(skill).parents[1] / "SKILL.md").read_bytes(),
-                (REPO / "skills_src" / skill / "SKILL.md").read_bytes(),
-            )
+        self.assertEqual((payload / source.relative_to(self.checkout)).read_bytes(), changed)
+        self.assertFalse((payload / "obsolete.md").exists())
+        self.assertEqual((self.checkout / ENTRY).read_bytes(), (REPO / ENTRY).read_bytes())
 
     def test_invalid_input_preserves_an_existing_build(self) -> None:
-        self.build()
+        _ = self.build()
         relative = ".harness/scripts/init_venv.py"
         source = self.checkout / relative
         original = source.read_bytes()
@@ -99,18 +98,16 @@ class BuildHarnessSkillsTests(unittest.TestCase):
         source.symlink_to(target)
         self.assertIn(relative, self.build(successful=False).stderr)
 
-        for skill in SKILLS:
-            self.assertEqual((self.payload(skill) / relative).read_bytes(), original)
+        self.assertEqual((self.payload() / relative).read_bytes(), original)
 
     def test_linked_destination_is_left_untouched(self) -> None:
-        destination = self.payload(SKILLS[1])
+        destination = self.payload()
         destination.parent.mkdir()
         unrelated = self.checkout / "unrelated"
         unrelated.mkdir()
         destination.symlink_to(unrelated, target_is_directory=True)
 
-        self.build(successful=False)
+        _ = self.build(successful=False)
 
         self.assertTrue(destination.is_symlink())
         self.assertEqual(list(unrelated.iterdir()), [])
-        self.assertFalse(self.payload(SKILLS[0]).exists())

@@ -7,9 +7,9 @@ description: Build, review, or maintain a programming agent harness. Use for AGE
 
 ## Establish the scope
 
-- Read the applicable `AGENTS.md`, project validation rules, and affected guidance or scripts. Identify the task or lifecycle event, the intended agent behavior, and the evidence that would show it works. For a maintenance change, trace the existing route from the trigger to the action before editing.
+- Read the applicable `AGENTS.md`, the validation index and matching rulesets, and the affected guidance or scripts. Identify the task or lifecycle event, the intended agent behavior, and the evidence that would show it works. For a maintenance change, trace the existing route from the trigger to the action before editing.
 - Use [learn-a-topic](../learn-a-topic/SKILL.md) when unfamiliar behavior, an uncertain assumption, or a consequential choice needs investigation. Start with the repository's current contracts and tooling. Scale the investigation to the decision.
-- Load the references for the affected areas. A small edit can proceed once the relevant contract and validation checks are clear.
+- Load the references for the affected areas. A small edit can proceed once the relevant contract and checks are clear.
 
 ## Choose the guidance and its home
 
@@ -19,9 +19,9 @@ description: Build, review, or maintain a programming agent harness. Use for AGE
 | Project facts, architecture, and rationale | Keep them under `docs/` and link from the work that needs them. |
 | Reusable workflow | Use `.agents/skills/<name>/SKILL.md`. Use [learn-and-build-skills](../learn-and-build-skills/SKILL.md) to create a skill or materially change its workflow. |
 | Language onboarding | Route each project language to its own skill. Use [Learn and Build Skills](../learn-and-build-skills/SKILL.md#when-authoring-a-language-skill) to create or update it. |
-| Feature definitions, designs, and progress | Track the records under `.harness/features/`. Put completion decisions and evidence for agents under `docs/agents/`. Follow the [feature memory contract](../../../.harness/references/feature-memory.md). |
+| Feature memory | Track feature records under `.harness/features/`. Put completion decisions and evidence for agents under `docs/agents/`. Follow the [feature memory contract](../../../.harness/references/feature-memory.md). |
 | Project validation | Route matching situations from `.harness/VALIDATE.md` to focused rulesets in `.harness/validation/`. Follow the [dynamic validation standard](references/validation.md) when authoring or changing rules. |
-| Local notes and session work | Use ignored `.scratch/` and unique `.scratch/agent_sessions/` workspaces. Follow the [scratch space contract](references/scratch-space.md) for provisioning and preservation. |
+| Scratch workspace | Use ignored `.scratch/` and a unique workspace under `.scratch/agent_sessions/` for each agent session. Follow the [scratch workspace contract](references/scratch-space.md) for provisioning and preservation. |
 | Isolated harness dependencies | Use `.harness/.venv/` and the harness manifest. Follow the [Python environment contract](references/python-environment.md) for setup and harness execution. |
 | Repeatable mechanical actions and their tests | Keep language helpers in their language skill. Use `.harness/scripts/` for session and maintenance helpers and `scripts/` for project CI commands. Put harness behavior tests under `.harness/scripts/tests/`. Use [software-design](../software-design/SKILL.md) for script changes and [automated-test-design](../automated-test-design/SKILL.md) when designing tests. |
 

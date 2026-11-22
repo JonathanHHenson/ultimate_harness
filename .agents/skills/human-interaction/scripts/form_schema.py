@@ -52,6 +52,19 @@ def choice_values(field: Record) -> list[str]:
     return [cast(str, option["value"]) for option in cast(list[Record], field["options"])]
 
 
+def decision_fields(page: Record) -> list[Record]:
+    """Compare what answers a page asks for, independently of its wording."""
+    decisions: list[Record] = []
+    for field in cast(list[Record], page["fields"]):
+        if field["type"] == "section":
+            continue
+        decision = {key: value for key, value in field.items() if key not in {"label", "help", "placeholder", "wide"}}
+        if "options" in field:
+            decision["options"] = choice_values(field)
+        decisions.append(decision)
+    return decisions
+
+
 def valid_date_or_time(kind: str, value: str) -> bool:
     separator = TEMPORAL_SEPARATORS.get(kind)
     if separator is not None and separator not in value:

@@ -1,0 +1,266 @@
+- timestamp: '2026-11-22T15:25:00+00:00'
+  phase: RESEARCH
+  summary: Feature research opened
+  details: Establish a shared vocabulary for Ultimate Harness and use it in the human
+    documentation, agent guidance, and portable adoption entry points. Clarify the
+    boundaries between project work, feature memory, validation, feedback forms, and
+    portable adoption using the existing contracts.
+- timestamp: '2026-11-22T15:25:00+00:00'
+  phase: DESIGN
+  summary: 'Feature phase: RESEARCH → DESIGN'
+  details: Primary repository contracts distinguish sessions, feature and requirement
+    lifecycles, validation obligations, and adoption units. Use one glossary and align
+    selected active call sites.
+- timestamp: '2026-11-22T15:25:15+00:00'
+  phase: IMPLEMENT
+  summary: 'Feature phase: DESIGN → IMPLEMENT'
+  details: Record the shared vocabulary and lifecycle boundaries, then align the selected
+    documentation and active guidance.
+- timestamp: '2026-11-22T15:25:15+00:00'
+  phase: IMPLEMENT
+  summary: 'DOMAIN-LANGUAGE: TODO → WIP'
+  details: Define the glossary from the repository contracts and test the distinctions
+    with concrete scenarios.
+- timestamp: '2026-11-22T15:25:15+00:00'
+  phase: IMPLEMENT
+  summary: 'TERMINOLOGY-ROUTING: TODO → WIP'
+  details: Link the glossary and align feature and adoption wording without changing
+    behavior.
+- timestamp: '2026-11-22T15:26:47+00:00'
+  phase: TEST
+  summary: 'Feature phase: IMPLEMENT → TEST'
+  details: The glossary, relationship examples and wording changes are ready. Verify
+    representative cases, references and both portable builds.
+- timestamp: '2026-11-22T15:27:56+00:00'
+  phase: TEST
+  summary: Defined shared terms and checked how they apply to real harness cases
+  details: Added GLOSSARY.md and technical relationship examples. Reopened a completed
+    feature copy and verified the phase changed, requirements retained their statuses,
+    and prior worklog entries survived. Traced handoff before feature completion,
+    configuration-only review, same-page clarification, and component packaging against
+    current contracts. Checked the terminology trigger for matching, unrelated, and
+    overlapping work. Repository links and skill metadata passed. Both archives rebuilt,
+    excluded the project glossary, and passed extracted entry point checks. The copied
+    feature memory guidance links resolved with a target-owned validation index. All
+    four builder tests passed and the merge check correctly reported the unfinished
+    feature.
+- timestamp: '2026-11-22T15:27:56+00:00'
+  phase: TEST
+  summary: 'DOMAIN-LANGUAGE: WIP → DONE'
+  details: Glossary definitions and technical relationships agree with the current
+    repository contracts and the observed reopening behavior.
+- timestamp: '2026-11-22T15:27:56+00:00'
+  phase: TEST
+  summary: 'TERMINOLOGY-ROUTING: WIP → DONE'
+  details: Verified incoming glossary links, consistent usage in updated guidance,
+    and package build, archive, metadata and target link checks.
+- timestamp: '2026-11-22T15:27:56+00:00'
+  phase: DONE
+  summary: 'Feature phase: TEST → DONE'
+  details: All documentation and packaging checks completed and the decisions and
+    evidence are recorded in docs/agents/harness-domain-model.md.
+- timestamp: '2026-11-22T15:57:48+00:00'
+  phase: RESEARCH
+  summary: 'Feature phase: DONE → RESEARCH'
+  details: Audit the rest of the harness for terminology drift after establishing
+    the glossary.
+- timestamp: '2026-11-22T15:58:06+00:00'
+  phase: DESIGN
+  summary: 'Feature phase: RESEARCH → DESIGN'
+  details: Apply the existing glossary by context, preserving distinct technical uses
+    of the same words.
+- timestamp: '2026-11-22T15:58:06+00:00'
+  phase: IMPLEMENT
+  summary: 'Feature phase: DESIGN → IMPLEMENT'
+  details: Edit first-party skills, validation rulesets, and supporting documentation.
+- timestamp: '2026-11-22T15:58:06+00:00'
+  phase: IMPLEMENT
+  summary: 'TERMINOLOGY-AUDIT: TODO → WIP'
+  details: Align maintained wording and verify that workflow routing and interface
+    names are preserved.
+- timestamp: '2026-11-22T16:02:06+00:00'
+  phase: TEST
+  summary: 'Feature phase: IMPLEMENT → TEST'
+  details: The terminology edits are ready for contextual routing, link, and portable
+    package checks.
+- timestamp: '2026-11-22T16:03:11+00:00'
+  phase: TEST
+  summary: Audited glossary terminology across first-party harness guidance and documentation
+  details: Aligned feature phases, requirement statuses, feature closeout, validation
+    rulesets and checks, agent and form sessions, scratch workspaces, skill lockfiles,
+    and portable components and packages. Reviewed renamed heading references, prose-only,
+    configuration-only and mixed routing, and the form examples. The session-end review
+    selection section and form command examples match the baseline. Pinned upstream
+    skill files and the lockfile show no new diff. Both extracted builds match the
+    catalog and current source files. Entry point links and the affected exported
+    documentation links passed, including target-specific references with a fixture
+    validation index. Repository links, metadata, and all four builder tests passed.
+- timestamp: '2026-11-22T16:03:11+00:00'
+  phase: TEST
+  summary: 'TERMINOLOGY-AUDIT: WIP → DONE'
+  details: Completed the contextual terminology audit and verified routing, literal
+    command examples, repository links, and both portable builds.
+- timestamp: '2026-11-22T16:03:11+00:00'
+  phase: DONE
+  summary: 'Feature phase: TEST → DONE'
+  details: Completed the applicable guidance and package checks and documented the
+    audit in docs/agents/harness-domain-model.md.
+- timestamp: '2026-11-22T16:18:28+00:00'
+  phase: RESEARCH
+  summary: 'Feature phase: DONE → RESEARCH'
+  details: Turn the terminology audit into a recurring validation check for changed
+    skills, harness instructions, and project documentation.
+- timestamp: '2026-11-22T16:18:44+00:00'
+  phase: DESIGN
+  summary: 'Feature phase: RESEARCH → DESIGN'
+  details: Use a contextual glossary review in the existing guidance ruleset. Route
+    it independently of the session-end code and security reviews.
+- timestamp: '2026-11-22T16:18:44+00:00'
+  phase: IMPLEMENT
+  summary: 'Feature phase: DESIGN → IMPLEMENT'
+  details: Add a trigger covering changes to skills, harness instructions, and project
+    documentation, plus observable review criteria.
+- timestamp: '2026-11-22T16:18:44+00:00'
+  phase: IMPLEMENT
+  summary: 'GLOSSARY-VALIDATION: TODO → WIP'
+  details: Implement the glossary check and test its routing and decisions on representative
+    changes.
+- timestamp: '2026-11-22T16:19:35+00:00'
+  phase: TEST
+  summary: 'Feature phase: IMPLEMENT → TEST'
+  details: The glossary check is routed from the validation index. Verify the new
+    links and representative scope and terminology decisions.
+- timestamp: '2026-11-22T16:20:11+00:00'
+  phase: TEST
+  summary: Verified the glossary check trigger and terminology decisions
+  details: Checked the anchor and links from the validation index through the guidance
+    ruleset to the glossary. Walked through six cases covering a new skill, updated
+    instructions, an updated README, a changed glossary definition, code-only work,
+    and mixed changes. The check flags outdated terms and approved terms with the
+    wrong meaning while accepting literal command output. The session-end review selection
+    matches the previous policy. The repository Markdown link and whitespace checks
+    passed. Closeout is in docs/agents/harness-domain-model.md.
+- timestamp: '2026-11-22T16:20:11+00:00'
+  phase: TEST
+  summary: 'GLOSSARY-VALIDATION: WIP → DONE'
+  details: Verified the trigger for all three content categories and walked through
+    alias, meaning, and literal command output examples.
+- timestamp: '2026-11-22T16:20:11+00:00'
+  phase: DONE
+  summary: 'Feature phase: TEST → DONE'
+  details: Completed the guidance checks and recorded the resulting glossary validation
+    rule and evidence in tracked documentation.
+- timestamp: '2026-11-22T18:10:49+00:00'
+  phase: RESEARCH
+  summary: 'Feature phase: DONE → RESEARCH'
+  details: Fresh Codex sessions caught all aliases but missed three uses of a glossary
+    term with the wrong meaning. Separate the meaning pass from the alias pass.
+- timestamp: '2026-11-22T18:11:09+00:00'
+  phase: DESIGN
+  summary: 'Feature phase: RESEARCH → DESIGN'
+  details: Verify the referent and its role in context before checking aliases. Keep
+    the existing validation route and interface exceptions.
+- timestamp: '2026-11-22T18:11:09+00:00'
+  phase: IMPLEMENT
+  summary: 'Feature phase: DESIGN → IMPLEMENT'
+  details: Revise the glossary check and repeat the six matched Codex cases.
+- timestamp: '2026-11-22T18:11:10+00:00'
+  phase: IMPLEMENT
+  summary: 'GLOSSARY-MEANING: TODO → WIP'
+  details: Measure contextual term detection and check for regressions in names, literal
+    output, and docs-only routing.
+- timestamp: '2026-11-22T18:12:27+00:00'
+  phase: TEST
+  summary: 'Feature phase: IMPLEMENT → TEST'
+  details: The updated glossary check is running on the six matched synthetic sessions.
+    Verify routing and repository links.
+- timestamp: '2026-11-22T18:13:31+00:00'
+  phase: IMPLEMENT
+  summary: 'Feature phase: TEST → IMPLEMENT'
+  details: The first revision found the same number of contextual errors as the baseline.
+    Strengthen coverage of skill metadata and make the close-concept comparison explicit.
+- timestamp: '2026-11-22T18:14:42+00:00'
+  phase: TEST
+  summary: 'Feature phase: IMPLEMENT → TEST'
+  details: Run the final glossary rule on the six matched cases and a different pair
+    of confused glossary terms.
+- timestamp: '2026-11-22T18:16:19+00:00'
+  phase: TEST
+  summary: Verified better detection of correct glossary terms used with the wrong
+    meaning
+  details: Retested the three synthetic patches twice per revision with fresh Codex
+    agents, the same prompts and permissions, and only the ruleset changed. The first
+    rewrite matched the original 3 of 6 contextual detections. Explicit metadata coverage,
+    a short scratch review and a worked example raised the final result to 6 of 6
+    contextual detections and 6 of 6 aliases. Both docs-only runs preserved quoted
+    command output and all six selected the right review scope. The extra ruleset/check
+    case corrected both uses. Link and whitespace checks passed. Tracked evidence
+    is in docs/agents/harness-domain-model.md.
+- timestamp: '2026-11-22T18:16:19+00:00'
+  phase: TEST
+  summary: 'GLOSSARY-MEANING: WIP → DONE'
+  details: The final ruleset caught all 12 seeded issues in the six matched cases
+    and both contextual errors in the separate case.
+- timestamp: '2026-11-22T18:16:19+00:00'
+  phase: DONE
+  summary: 'Feature phase: TEST → DONE'
+  details: Finished the matched comparison, verified applicable guidance checks, and
+    recorded the findings in tracked documentation.
+- timestamp: '2026-11-22T18:30:40+00:00'
+  phase: RESEARCH
+  summary: 'Feature phase: DONE → RESEARCH'
+  details: Unseen cases exposed repeated misses in skill descriptions and inconsistent
+    scratch notes. Require an explicit description review and saved evidence.
+- timestamp: '2026-11-22T18:31:04+00:00'
+  phase: DESIGN
+  summary: 'Feature phase: RESEARCH → DESIGN'
+  details: Separate the description review from the skill-body review and require
+    a scratch evidence file with a completeness check.
+- timestamp: '2026-11-22T18:31:04+00:00'
+  phase: IMPLEMENT
+  summary: 'Feature phase: DESIGN → IMPLEMENT'
+  details: Update the guidance rule and compare it with its previous version on unseen
+    skill metadata and valid controls.
+- timestamp: '2026-11-22T18:31:04+00:00'
+  phase: IMPLEMENT
+  summary: 'GLOSSARY-SKILL-DESCRIPTIONS: TODO → WIP'
+  details: Make description coverage and saved scratch notes observable and measure
+    both in fresh runs.
+- timestamp: '2026-11-22T18:33:26+00:00'
+  phase: TEST
+  summary: 'Feature phase: IMPLEMENT → TEST'
+  details: The updated rule is running in fresh sessions on the new matched fixtures.
+    Verify saved notes, scratch-note coverage, and the validity of the findings.
+- timestamp: '2026-11-22T18:35:08+00:00'
+  phase: IMPLEMENT
+  summary: 'Feature phase: TEST → IMPLEMENT'
+  details: The first pass made notes reliable, but paraphrasing hid a term in one
+    description. Record the written terms before interpreting them and tighten the
+    pass criteria for valid usage.
+- timestamp: '2026-11-22T18:36:50+00:00'
+  phase: TEST
+  summary: 'Feature phase: IMPLEMENT → TEST'
+  details: Validate the exact-wording revision on a second unseen set and recheck
+    the original miss in new skill metadata.
+- timestamp: '2026-11-22T18:40:03+00:00'
+  phase: TEST
+  summary: Verified exact skill terminology review and saved scratch notes on unseen
+    cases
+  details: Compared the preceding and revised rules in 16 fresh runs, followed by
+    12 held-out runs and four targeted repeats. The first revision saved notes in
+    all eight runs but paraphrased away a term once. The final rule records the written
+    term alongside its interpretation and requires the note before passing. Both held-out
+    arms found 8 of 8 errors and flagged 0 of 16 valid passages. The final rule saved
+    notes in 6 of 6, up from 4 of 6. It also caught both targeted rechecks and the
+    previous feature-store versus feature-record miss twice. Repository links and
+    whitespace checks passed. Tracked evidence is in docs/agents/harness-domain-model.md.
+- timestamp: '2026-11-22T18:40:03+00:00'
+  phase: TEST
+  summary: 'GLOSSARY-SKILL-DESCRIPTIONS: WIP → DONE'
+  details: Verified explicit description verdicts, complete saved notes, and matched
+    contextual detection and false-positive results.
+- timestamp: '2026-11-22T18:40:03+00:00'
+  phase: DONE
+  summary: 'Feature phase: TEST → DONE'
+  details: Completed the unseen comparison and targeted retests and recorded their
+    evidence in the project documentation.

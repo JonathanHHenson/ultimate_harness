@@ -113,6 +113,19 @@ button {
 }
 button:hover { background: #084e3b; }
 button:disabled { opacity: .65; cursor: wait; }
+.actions { display: flex; flex-wrap: wrap; gap: .65rem; }
+.secondary { background: #e8f2ec; color: #104b39; }
+.secondary:hover { background: #dcefe5; }
+.clarification-dialog {
+  width: min(100% - 2rem, 30rem);
+  padding: clamp(1.25rem, 4vw, 2rem);
+  border: 1px solid var(--line);
+  border-radius: 1rem;
+  background: var(--paper);
+  color: inherit;
+}
+.clarification-dialog::backdrop { background: #172a2680; }
+.clarification-dialog .actions { margin-top: 1rem; }
 :focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
 h1[tabindex="-1"]:focus { outline: none; }
 .error { color: #971c30; font-weight: 600; }

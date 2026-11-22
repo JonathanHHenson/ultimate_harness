@@ -1,0 +1,49 @@
+- timestamp: '2026-11-22T12:38:38+00:00'
+  phase: RESEARCH
+  summary: Feature research opened
+  details: Standardize third-party skill management on the Vercel CLI with an exact
+    CLI version, explicit upstream pins, and checked-in skill files and lock records.
+    Make the policy available in both portable adoption packages.
+- timestamp: '2026-11-22T12:39:01+00:00'
+  phase: DESIGN
+  summary: 'Feature phase: RESEARCH → DESIGN'
+  details: Verified Vercel skills 1.9.0 against the published package and a real pinned
+    project install. The generated lock records the source pin and installed content
+    hash.
+- timestamp: '2026-11-22T12:39:01+00:00'
+  phase: IMPLEMENT
+  summary: 'Feature phase: DESIGN → IMPLEMENT'
+  details: Use one contextual procedure and export it with both adoption skills. Keep
+    normal checkouts independent of a restore command.
+- timestamp: '2026-11-22T12:39:01+00:00'
+  phase: IMPLEMENT
+  summary: 'POLICY: TODO → WIP'
+  details: Implement the agreed policy and verify it through the packaged workflows.
+- timestamp: '2026-11-22T12:39:01+00:00'
+  phase: IMPLEMENT
+  summary: 'ADOPTION: TODO → WIP'
+  details: Implement the agreed policy and verify it through the packaged workflows.
+- timestamp: '2026-11-22T12:41:40+00:00'
+  phase: TEST
+  summary: 'Feature phase: IMPLEMENT → TEST'
+  details: Added the shared contextual policy, active trigger and install/evolution
+    routes. Verified the pinned CLI install, clone, drift detection, frozen restore,
+    removal and release archive import in disposable repositories.
+- timestamp: '2026-11-22T12:42:06+00:00'
+  phase: TEST
+  summary: 'POLICY: WIP → DONE'
+  details: A real pinned Git install produced an exact ref, commit, content hash and
+    trackable skill files. Verified ordinary checkout, drift detection, frozen recovery
+    without lock changes, scoped removal and versioned archive import.
+- timestamp: '2026-11-22T12:42:06+00:00'
+  phase: TEST
+  summary: 'ADOPTION: WIP → DONE'
+  details: Both rebuilt and extracted packages link to the current policy and exclude
+    fixture files and lock. Walked through first installation, existing locally customized
+    skills and unrelated work. All four builder tests passed.
+- timestamp: '2026-11-22T12:42:06+00:00'
+  phase: DONE
+  summary: 'Feature phase: TEST → DONE'
+  details: Completed repository guidance, portable routing and security review of
+    the package change. Recorded the disposable CLI and packaging verification in
+    the feature closeout.

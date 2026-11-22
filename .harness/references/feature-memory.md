@@ -4,7 +4,7 @@ Use this contract when building or maintaining feature memory in a programming h
 
 ## Storage and discovery
 
-Create `.harness/features/` and track its definitions, designs, and worklogs. Ignore the `.locks/` child directory and each feature's pending status and temporary write files. Keep raw working artifacts in local scratch storage where the project provides it.
+Create the feature store at `.harness/features/` and track its feature records. Ignore the `.locks/` child directory and each feature's pending status and temporary write files. Keep raw working artifacts in the scratch workspace where the project provides one.
 
 Give each feature a directory in `YYYY-MM-DD-<slug>` format, such as `2026-11-19-incremental-build-cache`. The date is the UTC day of creation and the lowercase kebab-case slug matches `[a-z0-9]+(?:-[a-z0-9]+)*`. Reuse the full dated name when resuming a feature. Choose a descriptive slug for distinct work and never overwrite an existing directory.
 
@@ -112,9 +112,9 @@ Requirements start in TODO and advance through:
 
 `TODO → WIP → DONE`
 
-TODO and WIP may enter BLOCKED. Record `blocked_reason` and `blocked_from`. BLOCKED may remain blocked with an updated reason, or resume exactly its recorded prior state; it cannot jump directly to DONE. Clear the blocking fields on resume and retain the blocking event in the worklog. DONE is terminal for an individual requirement under this graph; newly discovered work belongs in a new TODO requirement. Feature phase changes do not automatically change requirement states.
+TODO and WIP may enter BLOCKED. Record `blocked_reason` and `blocked_from`. BLOCKED may remain blocked with an updated reason, or resume exactly its recorded prior state; it cannot jump directly to DONE. Clear the blocking fields on resume and retain the blocking event in the worklog. DONE is terminal for an individual requirement under this graph; newly discovered work belongs in a new TODO requirement. Each requirement keeps its status when the feature changes phase.
 
-Before marking a requirement DONE, verify its definition of done and put the evidence in the transition reason. Before marking a feature DONE, complete the applicable validation rules, review the evidence, and follow the feature closeout instructions. Update project-facing docs under `docs/`, put decisions and verification evidence for agents under `docs/agents/`, and link those docs from the definition. The status commands enforce state and data invariants. The closeout review assesses the adequacy of the evidence.
+Before marking a requirement DONE, verify its definition of done and put the evidence in the transition reason. Before marking a feature DONE, complete the applicable checks and reviews, assess the evidence, and follow the feature closeout instructions. Update project-facing docs under `docs/`, put decisions and verification evidence for agents under `docs/agents/`, and link those docs from the definition. The phase and requirement status commands enforce lifecycle and data invariants. Feature closeout assesses the adequacy of the evidence.
 
 ## Focused automation
 
@@ -143,4 +143,4 @@ The first command requires a real source definition, such as the example adapted
 
 The commands serialize operations for the same feature using a lock under `.harness/features/.locks/`. Commands for different features can run independently. Coordinate direct edits with other writers. Each file update is atomic, and a status update spans two files.
 
-When changing the helpers or adopting equivalent commands, verify lifecycle edges, blocked reasons, rejection without state changes, unique names, history preservation, and the DONE gate. Put new harness behavior tests under `.harness/scripts/tests/`. If the project adopts a merge check, place it in `scripts/` so its pull request workflow can invoke it.
+When changing the helpers or adopting equivalent commands, verify lifecycle transitions, blocked reasons, rejection without state changes, unique names, history preservation, and the conditions for entering DONE. Put new harness behavior tests under `.harness/scripts/tests/`. If the project adopts a feature merge check, place it in `scripts/` so its pull request workflow can invoke it.

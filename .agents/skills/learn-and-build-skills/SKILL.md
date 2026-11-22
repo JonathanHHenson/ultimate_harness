@@ -5,7 +5,7 @@ description: Research an unfamiliar repeatable workflow and turn verified findin
 
 # Learn and Build Skills
 
-Produce a reusable workflow grounded in sources and observed outcomes. Keep research, prototypes, and evaluation artifacts in the session workspace under `.scratch/` when available. Otherwise use a separate writable staging directory. Respect the user's requested destination and scope.
+Produce a reusable workflow grounded in sources and observed outcomes. Keep research, prototypes, and evaluation artifacts in the agent session's scratch workspace when available. Otherwise use a separate writable staging directory. Respect the user's requested destination and scope.
 
 ## Learn the workflow
 

@@ -31,7 +31,7 @@ jobs:
         with:
           node-version: '24'
           package-manager-cache: false
-      - name: Build and validate the skills
+      - name: Build and validate the skill
         run: |
           python3 .harness/scripts/init_venv.py
           .agents/skills/javascript-development/scripts/check-complexity.sh '.agents/skills/**/*.{js,mjs,cjs}'
@@ -41,19 +41,17 @@ jobs:
           .harness/.venv/bin/python scripts/build_harness_skills.py
           .harness/.venv/bin/python .harness/scripts/check_skill_packages.py
           .harness/.venv/bin/python .harness/scripts/check_skill_packages.py skills_src
-          .harness/.venv/bin/python .harness/scripts/check_markdown_links.py skills_src/install-harness/SKILL.md skills_src/evolve-harness/SKILL.md
+          .harness/.venv/bin/python .harness/scripts/check_markdown_links.py skills_src/install-harness/SKILL.md
           .harness/.venv/bin/python -m unittest discover -s .harness/scripts/tests -p test_build_harness_skills.py
           .harness/.venv/bin/python -m unittest discover -s .harness/scripts/tests -p test_python_complexity.py
-      - name: Archive both packages
+      - name: Archive install-harness
         run: |
           mkdir -p "$RUNNER_TEMP/harness-skill-packages"
-          for skill in install-harness evolve-harness; do
-            tar -czf "$RUNNER_TEMP/harness-skill-packages/$skill.tar.gz" -C skills_src \
-              "$skill/SKILL.md" "$skill/assets/harness"
-          done
-      - name: Upload skill packages
+          tar -czf "$RUNNER_TEMP/harness-skill-packages/install-harness.tar.gz" -C skills_src \
+            install-harness/SKILL.md install-harness/assets/harness
+      - name: Upload skill package
         uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
         with:
           name: harness-skills
-          path: ${{ runner.temp }}/harness-skill-packages/*.tar.gz
+          path: ${{ runner.temp }}/harness-skill-packages/install-harness.tar.gz
           if-no-files-found: error

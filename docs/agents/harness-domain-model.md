@@ -1,0 +1,37 @@
+# Ultimate Harness domain model
+
+## Decisions
+
+- Use one glossary for the harness. Its instructions, feature memory, validation, feedback forms, and portable adoption share terms and refer to each other. Keep the definitions in the glossary and the relationships and lifecycle examples in the technical design. [Glossary](../../GLOSSARY.md) · [Domain relationships](../TECHNICAL.md#how-the-concepts-fit-together)
+- Use **feature phase** and **requirement status** in prose. The feature lifecycle can revisit earlier phases. Requirement statuses describe independent progress, and a completed requirement stays complete when the feature reopens. A handoff can happen during any phase. A feature closeout establishes and records the evidence for completion. [Feature memory contract](../../.harness/references/feature-memory.md)
+- Use **validation index** for the routing guide, **validation ruleset** for instructions that apply in a situation, and **check** for a concrete verification action. Use **portable component** for an entry in the export catalog and **portable package** for the distributable install or evolve skill. [Validation index](../../.harness/VALIDATE.md) · [Export catalog](../../skills_src/harness-files.toml)
+- Read the glossary from the agent entry point when naming or documenting harness concepts. The adopting team supplies its project terminology. Install Harness uses the shared component and feature vocabulary on both adoption routes. [Agent entry point](../../AGENTS.md#when-naming-or-documenting-harness-concepts) · [Install Harness](../../skills_src/install-harness/SKILL.md)
+
+## Verification
+
+- Reopened a copy of a completed feature through the phase command. The feature returned to research, its requirements kept their completed statuses, and its worklog preserved all previous entries and recorded the reopening. [Phase command](../../.harness/scripts/set_feature_status.py)
+- Walked through a handoff with pending verification, a configuration-only review, a clarification on a follow-up page, and adoption of the browser form. Matched each case to the current instructions, form contract, or export catalog. A standalone terminology task reaches the glossary, routine work follows its own rules, and an instruction change that names a concept uses both routes. [Form contract](../../.agents/skills/human-interaction/references/form-schema.md) · [Harness guidance checks](../../.harness/validation/harness-guidance.md)
+- Repository links, skill metadata, and all four builder tests passed. Both rebuilt archives contain the wording changes in the feature memory instructions and keep the source project's glossary outside the payload. Checked the portable entry point links and resolved the copied feature memory instructions after supplying a target validation index.
+
+## Terminology audit
+
+- Aligned the first-party skills, contextual instructions, validation index and rulesets, reviewer instructions, and project documentation. The wording distinguishes a feature phase from a requirement status, an agent session from a form session, a ruleset from its checks, and a portable component from its capability and package.
+- Walked through prose-only, configuration-only, and mixed changes using the validation index. The session-end review selection section matched the prior version exactly. Also traced form submission and clarification through the documented commands and checked that the literal CLI examples and response fields retained their meanings.
+- Both archives rebuilt and matched the export catalog and source files. Both portable entry points and all changed exported documents resolved their local links after supplying a target validation index. Repository links, skill metadata, the four builder tests, and the feature merge check passed. Pinned upstream skill files retain their upstream wording.
+
+## Glossary validation
+
+- The validation index now routes skill, harness instruction, and project documentation changes to the glossary check. The check compares both the term and its meaning in context. When a glossary definition changes, it also checks affected uses in existing prose. [Validation index](../../.harness/VALIDATE.md#when-adding-or-updating-skills-harness-instructions-or-project-documentation) · [Glossary check](../../.harness/validation/harness-guidance.md#after-adding-or-updating-skills-harness-instructions-or-project-documentation)
+- Walked through a skill using an outdated name for the validation index, a README confusing an agent session with a form session, and an instruction quoting literal feature merge check output. The first two examples require correction, and the literal output is valid. A glossary change reaches affected references, a prose-only change reaches the glossary check, and a mixed change includes both applicable session-end reviews. Repository links and the feature merge check passed.
+
+## Checking meanings in context
+
+- The glossary check now examines what a term refers to before searching for aliases. Agents read prose in skill metadata, record what each affected passage describes, and compare related glossary entries. They finish both passes before applying corrections or reporting a blocked edit. [Glossary check](../../.harness/validation/harness-guidance.md#after-adding-or-updating-skills-harness-instructions-or-project-documentation)
+- Repeated the same three synthetic patches twice per rule revision with fresh Codex sessions and the same prompts. The original rule and first rewrite each caught 3 of 6 contextual errors and 6 of 6 aliases. The final rule caught all 12 issues. All six final runs reached the glossary check and skipped code and security reviews. Both docs-only runs preserved the quoted command output. The two skill runs reported both findings because their skill directories were read-only.
+- A separate docs-only case used checks and rulesets in the wrong roles. The agent corrected both meanings and preserved the literal diagnostic. The matched comparison tests a specific confusion named in the final rule. The extra case checks whether the meaning pass also works on another pair.
+
+## Skill descriptions and scratch review notes
+
+- The glossary check now reviews each new or changed skill description before the body. The agent records each term as written, the meaning in context, and the verdict. The agent reopens the saved scratch note to verify coverage before passing and includes its path at handoff. [Glossary check](../../.harness/validation/harness-guidance.md#after-adding-or-updating-skills-harness-instructions-or-project-documentation)
+- In the first unseen comparison, saved notes rose from 5 of 8 runs to 8 of 8. The previous rule caught 12 of 12 errors, and the first revision caught 11. Both flagged one valid use. In the missed description, the agent paraphrased away the incorrect term. Requiring the written term fixed that miss in two fresh repeats.
+- On a second unseen set, each rule caught all 8 description errors and flagged none of the 16 valid passages. The final rule saved notes in all 6 runs, compared with 4 for the previous rule. Both final documentation-only runs saved notes and skipped code and security reviews. Two additional fresh sessions caught the earlier use of **feature store** for one **feature record**, which both preceding runs on that fixture missed. That distinction is now an explicit example in the rule.

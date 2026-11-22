@@ -40,6 +40,10 @@ files = [
 ]
 requires = ["python-environment"]
 
+[third-party-skills]
+files = [".harness/agents/third-party-skills.md"]
+requires = []
+
 [software-design]
 files = [
   ".agents/skills/software-design/SKILL.md",
@@ -108,6 +112,14 @@ files = [
 ]
 requires = []
 
+[wait-what]
+files = [
+  ".agents/skills/wait-what/SKILL.md",
+  ".agents/skills/wait-what/agents/openai.yaml",
+  "docs/licenses/matt-pocock.txt",
+]
+requires = ["third-party-skills"]
+
 [human-interaction]
 files = [
   ".agents/skills/human-interaction/SKILL.md",
@@ -119,10 +131,25 @@ files = [
   ".agents/skills/human-interaction/assets/index.html",
   ".agents/skills/human-interaction/assets/style.css",
   ".agents/skills/human-interaction/assets/app.js",
+  ".agents/skills/human-interaction/assets/clarification.js",
   ".agents/skills/human-interaction/assets/markdown.js",
   ".agents/skills/human-interaction/assets/mermaid.js",
 ]
-requires = []
+requires = ["wait-what"]
+
+[design-interview]
+files = [
+  ".harness/agents/design-interviews.md",
+  ".agents/skills/grill-with-docs/SKILL.md",
+  ".agents/skills/grill-with-docs/agents/openai.yaml",
+  ".agents/skills/grilling/SKILL.md",
+  ".agents/skills/grilling/agents/openai.yaml",
+  ".agents/skills/domain-modeling/SKILL.md",
+  ".agents/skills/domain-modeling/agents/openai.yaml",
+  ".agents/skills/domain-modeling/GLOSSARY-FORMAT.md",
+  ".agents/skills/domain-modeling/ADR-FORMAT.md",
+]
+requires = ["human-interaction"]
 
 [skill-authoring]
 files = [
@@ -135,11 +162,13 @@ requires = ["topic-learning"]
 
 [harness-maintenance]
 files = [
+  ".harness/scripts/check_adoption_options.py",
   ".agents/skills/build-harness/SKILL.md",
   ".agents/skills/build-harness/agents/openai.yaml",
+  ".agents/skills/build-harness/references/adoption.md",
   ".agents/skills/build-harness/references/agents-md.md",
   ".agents/skills/build-harness/references/python-environment.md",
   ".agents/skills/build-harness/references/scratch-space.md",
   ".agents/skills/build-harness/references/validation.md",
 ]
-requires = ["feature-memory", "skill-authoring", "software-design", "automated-test-design"]
+requires = ["feature-memory", "skill-authoring", "software-design", "automated-test-design", "human-interaction"]

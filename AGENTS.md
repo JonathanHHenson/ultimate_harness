@@ -5,14 +5,26 @@
 - Set up [the harness Python environment](.harness/agents/python-environment.md) before running harness scripts.
 - Follow [the scratch workspace instructions](.harness/agents/scratch-space.md).
 
+## Before making any project change or using Grill With Docs
+
+- Follow the [design interview instructions](.harness/agents/design-interviews.md) before editing or running a tool that changes the project.
+
 ## Before starting or resuming feature work
 
 - Follow the [feature memory instructions](.harness/agents/feature-memory.md) for the current lifecycle event.
-- Read [.harness/VALIDATE.md](.harness/VALIDATE.md) to identify the validation rules that apply to the work.
+- Read the [validation index](.harness/VALIDATE.md) to identify the applicable checks and rulesets.
 
 ## Before changing the programming harness
 
 - Use the [build-harness skill](.agents/skills/build-harness/SKILL.md).
+
+## When naming or documenting harness concepts
+
+- Use the terms in the [project glossary](GLOSSARY.md).
+
+## Before installing, updating, removing, or reviewing third-party skills
+
+- Follow the [third-party skill instructions](.harness/agents/third-party-skills.md).
 
 ## Before designing or changing software
 

@@ -7,7 +7,7 @@ description: Design, write, review, or improve automated software tests and deci
 
 ## Identify the behavior and risk
 
-- Read the requirement, supported entry points, existing tests, and project validation rules. Name the behavior or failure to detect and how a caller can observe it. Derive expected results independently from the specification or a small worked example.
+- Read the requirement, supported entry points, existing tests, and applicable validation rulesets. Name the behavior or failure to detect and how a caller can observe it. Derive expected results independently from the specification or a small worked example.
 - Choose the smallest scope that can detect the failure with realistic semantics. Use existing test tools and fixtures when they fit. Add broad tests only where the narrower checks leave a meaningful gap.
 
 | Goal | Strategy |
