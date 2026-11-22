@@ -171,3 +171,40 @@
   summary: 'Feature phase: TEST → DONE'
   details: Verified the recovery requirement and recorded decisions and results in
     tracked agent documentation.
+- timestamp: '2026-11-22T23:01:13+00:00'
+  phase: DESIGN
+  summary: 'Feature phase: DONE → DESIGN'
+  details: A transcript showed a validated adoption form was converted to chat because
+    the agent had a terminal tool without a dedicated background tool. Provide a supported
+    launch path and require an actual attempt.
+- timestamp: '2026-11-22T23:02:53+00:00'
+  phase: IMPLEMENT
+  summary: 'Feature phase: DESIGN → IMPLEMENT'
+  details: Add a terminal launcher and route the portable adoption forms through it.
+- timestamp: '2026-11-22T23:02:53+00:00'
+  phase: IMPLEMENT
+  summary: 'TERMINAL-LAUNCH: TODO → WIP'
+  details: Verify supported startup, error handling, and packaged delivery.
+- timestamp: '2026-11-22T23:02:53+00:00'
+  phase: TEST
+  summary: 'Feature phase: IMPLEMENT → TEST'
+  details: Run the form and packaging checks with the independent terminal launch
+    path.
+- timestamp: '2026-11-22T23:05:02+00:00'
+  phase: TEST
+  summary: Verified delivery from a terminal without a background tool
+  details: The bundled launcher returned before the form completed and the extracted
+    package accepted two pages across separate commands. The suite covered invalid
+    and repeated launches and passed all 72 tests. Ruff, type-checker error checks,
+    links and metadata passed. The global installed copy matched the tested package
+    after updating the four affected files. A fresh Zed agent run remains unverified.
+- timestamp: '2026-11-22T23:05:02+00:00'
+  phase: TEST
+  summary: 'TERMINAL-LAUNCH: WIP → DONE'
+  details: Verified launch through ordinary terminal calls, answer retention, and
+    startup failures. Both adoption routes invoke the launcher after form preflight.
+- timestamp: '2026-11-22T23:05:02+00:00'
+  phase: DONE
+  summary: 'Feature phase: TEST → DONE'
+  details: Recorded the behavior, verification, and remaining runtime scope in the
+    agent closeout.

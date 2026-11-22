@@ -29,3 +29,9 @@ Keep schema validation free of filesystem access. Split field definition checks 
 Use the existing live expiry state and final state record to tell expiry apart from an ordinary bounded wait. Keep unanswered page inputs and saved responses in their original workspace. Ask the human to signal when they are ready. Then create a fresh form session for the pending questions with the regular page checks and readiness probe. Carry forward earlier submissions from the original workspace. Reserve the conversational fallback for initial delivery limits or a human request to use chat. This changes agent guidance and uses the existing server interface.
 
 Exercise expiry on an unanswered follow-up page, serve that page from a new workspace, and confirm that a new URL can collect the remaining response while the original answer record stays available.
+
+## TERMINAL-LAUNCH
+
+The previous instructions required a managed background tool even when the editor could execute terminal commands. Add a short-lived launch command that starts the same form server as a child process with its own session and returns the server's published URL. Reuse page validation, workspace isolation, time limits, and access checks. Wait at most five seconds for the startup result and clean up the child on failure. Run a separate loopback readiness request before sharing the URL. Use the launch command on both adoption routes. If the form cannot be delivered, report the actual blocker and ask the human how to continue.
+
+Exercise launch through a terminal call that exits before the form is opened. Check a duplicate start, an invalid page, and completion with saved answers. Run the same flow from the extracted portable package.

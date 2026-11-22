@@ -64,3 +64,12 @@ definition_of_done = "The form skill and its adoption callers route confirmed ex
 status = "DONE"
 blocked_reason = ""
 blocked_from = ""
+
+[[requirements]]
+id = "TERMINAL-LAUNCH"
+kind = "functional"
+description = "Serve the local decision form from a terminal tool that returns after each command. Require a launch attempt before an adoption agent offers chat due to a delivery problem."
+definition_of_done = "The launch command returns a valid local URL while the form stays available for independent commands. A submitted answer is readable after the launch process exits. Invalid pages and repeated launches report errors. Both packaged adoption routes require the form launch when a terminal is available."
+status = "DONE"
+blocked_reason = ""
+blocked_from = ""

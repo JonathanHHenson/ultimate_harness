@@ -101,6 +101,25 @@ class HumanInteractionTests(unittest.TestCase):
         self.assertEqual(process.wait(timeout=4), 0)
         self.assertEqual(self.cli("wait")["answers"], {"choice": "Design", "rating": 3, "ok": False})
 
+    def test_terminal_launch_returns_while_the_form_can_still_receive_answers(self) -> None:
+        self.page("page.json", "choice")
+        launch = self.cli("launch", "--page", "page.json", "--lifetime", "10")
+        url = cast(str, launch["url"])
+        self.assertEqual(urlsplit(url).hostname, "127.0.0.1")
+        self.assertEqual(self.request(url, "page")[1]["view"], "form")
+        self.cli("launch", "--page", "page.json", "--lifetime", "10", expect=1)
+        self.assertEqual(self.submit(url, 1, "choice", "Design")[1]["view"], "complete")
+        self.assertEqual(self.request(url, "ack", {})[0], 200)
+        self.assertEqual(self.cli("wait")["answers"], {"choice": "Design", "rating": 3, "ok": False})
+
+    def test_terminal_launch_reports_an_invalid_page_without_starting_a_form(self) -> None:
+        _ = (self.workspace / "invalid.json").write_text("{}")
+        result = subprocess.run(self.arguments("launch", "--page", "invalid.json", "--lifetime", "10"),
+                                capture_output=True, text=True, timeout=5)
+        self.assertEqual(result.returncode, 1, result.stderr)
+        self.assertIn("title", result.stderr.lower())
+        self.assertEqual({path.name for path in self.workspace.iterdir()}, {"invalid.json"})
+
     def test_multi_page_uses_waiting_state_and_explicit_close(self) -> None:
         self.page("page.json", "topic")
         self.page("next.json", "followup")

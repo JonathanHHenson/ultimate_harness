@@ -30,6 +30,14 @@ Expiry pauses the exchange if questions remain open. The agent sends a short not
 
 Verified the procedure using the extracted portable package. An ordinary bounded wait left the first form active. After the first answer was submitted, the follow-up expired. Serving that follow-up from a fresh workspace collected the remaining answer at a distinct URL and preserved the first submission. Reviewed the agent instructions for the expiry notice and fallback. All 70 harness tests, package checks, and local links passed.
 
+## Opening a form from a terminal call
+
+An adoption transcript showed an agent passing both preflight checks and switching to chat because its terminal lacked a managed background tool. Both adoption routes now call `launch` after preflight and verify the link. This command starts the existing server and returns the URL from a short-lived process. If delivery fails, the agent reports the blocker and lets the human choose whether to retry or use chat. [Delivery instructions](../../.agents/skills/human-interaction/SKILL.md#when-the-form-cannot-be-delivered)
+
+All 72 harness tests passed. The new integration checks show that launch returns while the server still accepts answers, rejects invalid pages and duplicate starts, and leaves an existing form usable. The extracted portable package accepted both pages across separate commands, then closed and retained both submissions. The direct terminal flow was verified locally. A new editor-agent run was outside this check.
+
+Ruff, BasedPyright error checks, skill metadata, and local links passed. The launcher starts the existing interpreter and server without passing commands through a shell. It returns only the published form metadata. The server still binds to loopback and enforces its existing credentials, deadlines, and shutdown rules. Startup has a bounded wait and a failed launch stops its own child.
+
 ## Schema validation refactor
 
 Separate checks for display properties, choices, length settings, and numeric settings. Validate submitted values by field family and keep workspace reads in the page loader. The same local branch-count method measured `field_definition` at 30 before and 7 after, `field_value` at 28 before and 8 after, and `valid_text` at 14 before and 5 after. The largest remaining count across the two modules was 9. [Schema validation](../../.agents/skills/human-interaction/scripts/form_schema.py) · [Page loader](../../.agents/skills/human-interaction/scripts/form_page.py)

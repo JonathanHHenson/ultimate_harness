@@ -4,8 +4,11 @@ import argparse
 from http.client import HTTPConnection, HTTPException
 import json
 from pathlib import Path
+from queue import Empty, Queue
 import re
+import subprocess
 import sys
+from threading import Thread
 from time import monotonic, sleep
 from typing import cast
 from urllib.parse import urlsplit
@@ -75,22 +78,67 @@ def control(runtime: Path, action: str, payload: Record) -> Record:
         connection.close()
 
 
+def startup_result(process: subprocess.Popen[str]) -> Record:
+    output = process.stdout
+    assert output is not None
+    startup: Queue[str] = Queue()
+
+    def read_startup() -> None:
+        startup.put(output.readline())
+
+    Thread(target=read_startup, daemon=True).start()
+    try:
+        line = startup.get(timeout=5).strip()
+    except Empty as error:
+        raise ValueError("The local form did not start within five seconds.") from error
+    if not line.startswith("{"):
+        raise ValueError(line.removeprefix("Form error: ") or "The local form exited before publishing a URL.")
+    return record(json.loads(line), "Form startup")
+
+
+def launch_form(workspace: Path, args: argparse.Namespace, idle_timeout: int, lifetime: int | None) -> None:
+    command = [
+        sys.executable, str(Path(__file__).resolve()), "serve", "--workspace", str(workspace),
+        "--page", str(args.page), "--idle-timeout", str(idle_timeout),
+    ]
+    if args.multi:
+        command.append("--multi")
+    if lifetime is not None:
+        command.extend(("--lifetime", str(lifetime)))
+    process = subprocess.Popen(
+        command, stdin=subprocess.DEVNULL, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
+        start_new_session=True, creationflags=getattr(subprocess, "DETACHED_PROCESS", 0), text=True,
+    )
+    try:
+        result = startup_result(process)
+    except (OSError, ValueError, KeyboardInterrupt):
+        process.kill()
+        _ = process.wait()
+        raise
+    finally:
+        assert process.stdout is not None
+        process.stdout.close()
+    print(json.dumps(result))
+
+
 def arguments() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     commands = parser.add_subparsers(dest="command", required=True)
     check = commands.add_parser("check", help="Validate a page without starting a session.")
     start = commands.add_parser("serve", help="Start a form and print its browser URL.")
+    launch = commands.add_parser("launch", help="Start a local form and return its URL without holding the terminal.")
     next_page = commands.add_parser("next", help="Show the next page after a multi-page submission.")
     revise = commands.add_parser("revise", help="Explain the current page again after a clarification request.")
     wait = commands.add_parser("wait", help="Print a submission or clarification request. Exit 2 if still waiting.")
     close = commands.add_parser("close", help="Show the final confirmation and end the session.")
-    for command in (check, start, next_page, revise, wait, close):
+    for command in (check, start, launch, next_page, revise, wait, close):
         _ = command.add_argument("--workspace", type=Path, required=True, help="Local interaction directory.")
-    for command in (check, start, next_page, revise):
+    for command in (check, start, launch, next_page, revise):
         _ = command.add_argument("--page", type=Path, required=True, help="Page JSON path within the workspace.")
-    _ = start.add_argument("--multi", action="store_true", help="Wait for the agent after each submission.")
-    _ = start.add_argument("--idle-timeout", type=int, default=3600, help="Seconds allowed between pages or submissions.")
-    _ = start.add_argument("--lifetime", type=int, help="Optional hard limit in seconds, including active sessions.")
+    for command in (start, launch):
+        _ = command.add_argument("--multi", action="store_true", help="Wait for the agent after each submission.")
+        _ = command.add_argument("--idle-timeout", type=int, default=3600, help="Seconds allowed between pages or submissions.")
+        _ = command.add_argument("--lifetime", type=int, help="Optional hard limit in seconds, including active sessions.")
     _ = revise.add_argument("--request", type=int, required=True, help="Clarification request number from wait.")
     _ = wait.add_argument("--page", type=int, default=1, help="Page number to read.")
     _ = wait.add_argument("--timeout", type=int, default=20, help="Seconds to wait for the response (0–60).")
@@ -104,6 +152,9 @@ def start_form(workspace: Path, args: argparse.Namespace) -> None:
         raise ValueError("Use an idle timeout between 1 and 7200 seconds.")
     if lifetime is not None and not 1 <= lifetime <= 7200:
         raise ValueError("Use a lifetime between 1 and 7200 seconds.")
+    if args.command == "launch":
+        launch_form(workspace, args, idle_timeout, lifetime)
+        return
     page = load_page(workspace, cast(Path, args.page))
     serve(workspace, page, cast(bool, args.multi), idle_timeout, lifetime)
 
@@ -129,7 +180,7 @@ def main() -> int:
             _ = load_page(workspace, cast(Path, args.page))
             print("Page is valid.")
             return 0
-        if action == "serve":
+        if action in {"serve", "launch"}:
             start_form(workspace, args)
             return 0
         if not runtime.is_dir() or runtime.is_symlink():

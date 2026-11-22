@@ -55,12 +55,12 @@ Set `workspace` to a fresh directory beneath the agent session's ignored scratch
 python=.harness/.venv/bin/python
 form=.agents/skills/human-interaction/scripts/form.py
 "$python" "$form" check --workspace "$workspace" --page page-1.json
-"$python" "$form" serve --workspace "$workspace" --page page-1.json
+"$python" "$form" launch --workspace "$workspace" --page page-1.json
 ```
 
 Run `check` before serving or publishing each page. It validates the page and workspace assets, returns 0 for a valid page, and never starts a form session. Fix diagnostics before proceeding.
 
-Run `serve` in a background tool session. It prints JSON with a loopback URL ending in `/`. An HTTP GET to the exact URL with `page` appended should return JSON with `view` set to `form` and the current page number. Confirm readiness before sharing the browser URL. Add `--multi` for an adaptive sequence. The server expires after one hour without a successful submission or a new page. Browser polling leaves that deadline in place. Use `--idle-timeout SECONDS` to change the idle interval or `--lifetime SECONDS` to set an additional hard limit on total runtime. Each option accepts 1–7200 seconds.
+Run `launch` in a regular terminal call. It starts the loopback server and returns JSON with a URL ending in `/`. Use `serve` when the tool manages the long-running process. Either command starts the same server. An HTTP GET to the exact URL with `page` appended should return JSON with `view` set to `form` and the current page number. Confirm readiness before sharing the browser URL. Add `--multi` for an adaptive sequence. The server expires after one hour without a successful submission or a new page. Browser polling leaves that deadline in place. Use `--idle-timeout SECONDS` to change the idle interval or `--lifetime SECONDS` to set an additional hard limit on total runtime. Each option accepts 1–7200 seconds.
 
 An open tab polls for the form session state and explains when it expires. If it misses the final response and cannot reach the server past the last reported deadline, it shows the expiry message using that deadline. The server stops after the browser acknowledges expiry or a short grace period passes.
 
@@ -77,7 +77,7 @@ An open tab polls for the form session state and explains when it expires. If it
 
 When a bounded `wait` ends without a submission, check the live page state or, after shutdown, read `.form-session/finished.json`. A `view` of `expired` confirms expiry. Exit code 2 by itself means to keep waiting.
 
-Keep the latest page JSON, its prologue and assets, and earlier answer records in the original workspace. After the human signals readiness, copy the current unanswered page and its assets, or prepare the next page from the saved answers, in a fresh workspace with the same relative asset paths. Run `check` and `serve`, verify readiness, and share the new URL. The new form session starts at page 1. Continue from the earlier submissions and collect only the outstanding answers.
+Keep the latest page JSON, its prologue and assets, and earlier answer records in the original workspace. After the human signals readiness, copy the current unanswered page and its assets, or prepare the next page from the saved answers, in a fresh workspace with the same relative asset paths. Run `check` and `launch`, verify readiness, and share the new URL. The new form session starts at page 1. Continue from the earlier submissions and collect only the outstanding answers.
 
 ## Clarification requests
 
