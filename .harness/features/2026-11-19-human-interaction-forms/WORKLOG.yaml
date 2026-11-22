@@ -140,3 +140,34 @@
   phase: DONE
   summary: 'Feature phase: TEST → DONE'
   details: Recorded the behavior-preserving schema refactor and final validation evidence.
+- timestamp: '2026-11-22T22:02:46+00:00'
+  phase: DESIGN
+  summary: 'Feature phase: DONE → DESIGN'
+  details: Treat an expired form with unanswered decisions as a paused conversation
+    and resume the pending questions when the user is available.
+- timestamp: '2026-11-22T22:03:20+00:00'
+  phase: IMPLEMENT
+  summary: 'Feature phase: DESIGN → IMPLEMENT'
+  details: Route form expiry to a brief readiness prompt and document how to reopen
+    pending questions in a fresh form session.
+- timestamp: '2026-11-22T22:03:20+00:00'
+  phase: IMPLEMENT
+  summary: 'RESUME-AFTER-EXPIRY: TODO → WIP'
+  details: Update the form skill, the CLI reference, and both callers to use the expiry
+    procedure.
+- timestamp: '2026-11-22T22:03:20+00:00'
+  phase: TEST
+  summary: 'Feature phase: IMPLEMENT → TEST'
+  details: Exercise the existing server expiry and reopen flow, then verify skill
+    and package links.
+- timestamp: '2026-11-22T22:04:51+00:00'
+  phase: TEST
+  summary: 'RESUME-AFTER-EXPIRY: WIP → DONE'
+  details: The extracted package reopened an expired follow-up at a fresh URL with
+    the earlier submission intact. Reviewed expiry and initial fallback routing. All
+    70 harness tests passed.
+- timestamp: '2026-11-22T22:04:51+00:00'
+  phase: DONE
+  summary: 'Feature phase: TEST → DONE'
+  details: Verified the recovery requirement and recorded decisions and results in
+    tracked agent documentation.

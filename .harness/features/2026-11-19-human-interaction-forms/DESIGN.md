@@ -23,3 +23,9 @@ Use a monotonic one-hour inactivity deadline with an optional absolute cap. Exte
 ## CLEANLINESS
 
 Keep schema validation free of filesystem access. Split field definition checks by the properties they protect and submitted value checks by field family. Put page, prologue and local image reads behind the existing load operation in a dedicated module. Compare branch counts and behavior with the previous code, then verify the ordinary CLI, browser API, and portable packages.
+
+## RESUME-AFTER-EXPIRY
+
+Use the existing live expiry state and final state record to tell expiry apart from an ordinary bounded wait. Keep unanswered page inputs and saved responses in their original workspace. Ask the human to signal when they are ready. Then create a fresh form session for the pending questions with the regular page checks and readiness probe. Carry forward earlier submissions from the original workspace. Reserve the conversational fallback for initial delivery limits or a human request to use chat. This changes agent guidance and uses the existing server interface.
+
+Exercise expiry on an unanswered follow-up page, serve that page from a new workspace, and confirm that a new URL can collect the remaining response while the original answer record stays available.

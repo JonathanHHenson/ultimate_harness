@@ -73,6 +73,12 @@ An open tab polls for the form session state and explains when it expires. If it
 
 `wait` exits 0 when an answer or clarification request is available, 2 when the wait timed out, and 1 for an error. An answer has the page number, timestamp and `answers`. Saved answers can be read again after shutdown. `next` accepts a page after the current multi-page submission. Use a separate `close` call to send the final confirmation in multi-page mode. The browser acknowledges the final view and the server exits. If the tab disconnects, the server exits after a short grace period. Use a fresh directory for each form session.
 
+## When reopening after expiry
+
+When a bounded `wait` ends without a submission, check the live page state or, after shutdown, read `.form-session/finished.json`. A `view` of `expired` confirms expiry. Exit code 2 by itself means to keep waiting.
+
+Keep the latest page JSON, its prologue and assets, and earlier answer records in the original workspace. After the human signals readiness, copy the current unanswered page and its assets, or prepare the next page from the saved answers, in a fresh workspace with the same relative asset paths. Run `check` and `serve`, verify readiness, and share the new URL. The new form session starts at page 1. Continue from the earlier submissions and collect only the outstanding answers.
+
 ## Clarification requests
 
 Every live form page has a **Wait.. What?** button. The user can include a short note or leave the field blank. The browser pauses the page and shows a waiting view. `wait` returns a distinct object, for example `{"kind":"clarification","page":1,"request":1,"feedback":""}`.

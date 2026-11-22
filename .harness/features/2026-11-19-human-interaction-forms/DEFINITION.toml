@@ -55,3 +55,12 @@ definition_of_done = "Measured branch counts drop in the affected functions. Pag
 status = "DONE"
 blocked_reason = ""
 blocked_from = ""
+
+[[requirements]]
+id = "RESUME-AFTER-EXPIRY"
+kind = "functional"
+description = "When a live form expires with unanswered questions, pause the exchange and ask the human to signal readiness. Reopen the outstanding questions at a new URL and carry forward any submitted answers."
+definition_of_done = "The form skill and its adoption callers route confirmed expiry to a brief invitation to reopen. A local exercise verifies expiry, reopening the pending page, and keeping earlier submissions. Initial delivery failures retain the conversational fallback."
+status = "DONE"
+blocked_reason = ""
+blocked_from = ""

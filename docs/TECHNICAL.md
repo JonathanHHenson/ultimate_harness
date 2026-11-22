@@ -121,6 +121,8 @@ Every question page offers **Wait.. What?** with an optional note. The server fo
 
 The form expires after an hour without a successful submission or a new page. The browser polls for state without extending the deadline. It can show the expiry notice from the last reported deadline if it cannot reach the server after the grace period.
 
+If an expired form still has unanswered questions, the agent asks the human to say when they are ready. It then opens the pending questions at a fresh URL and carries forward any answers already submitted. [Expiry procedure](../.agents/skills/human-interaction/SKILL.md#when-a-form-expires)
+
 ## Feature completion and merge checks
 
 Before setting a feature to `DONE`, update project docs under `docs/` for any changed shared behavior, interfaces, or architecture. Put the enduring decisions, their rationale, and verification evidence for agents under `docs/agents/`. Record which checks ran and what they established, including any scope left unverified. The definition links readers to those documents. Include the records and docs in the same change. [Feature closeout rule](../.harness/agents/feature-memory.md#before-marking-a-feature-done)
