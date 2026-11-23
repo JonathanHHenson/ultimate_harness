@@ -5,12 +5,12 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 import json
 from pathlib import Path
 import secrets
-from tempfile import NamedTemporaryFile
 from threading import Lock
 from time import monotonic, time
 from typing import cast
 
-from form_schema import MAX_REQUEST, Record, answers, decision_fields, record, text, validate_page
+from form_events import CLARIFICATION, agent_status, write_json
+from form_schema import MAX_REQUEST, Record, answers, items, page_fields, record, text, validate_open_revision, validate_page
 
 ASSETS = Path(__file__).resolve().parent.parent / "assets"
 MEDIA = {
@@ -18,27 +18,40 @@ MEDIA = {
     "style.css": ("style.css", "text/css; charset=utf-8"),
     "app.js": ("app.js", "text/javascript; charset=utf-8"),
     "clarification.js": ("clarification.js", "text/javascript; charset=utf-8"),
+    "question-pages.js": ("question-pages.js", "text/javascript; charset=utf-8"),
     "markdown.js": ("markdown.js", "text/javascript; charset=utf-8"),
     "mermaid.js": ("mermaid.js", "text/javascript; charset=utf-8"),
 }
 RUNTIME = ".form-session"
-CLARIFICATION = "clarification.json"
 GRACE = 15
-
-
-def write_json(path: Path, value: Record) -> None:
-    with NamedTemporaryFile(mode="w", dir=path.parent, encoding="utf-8", delete=False) as stream:
-        temporary = Path(stream.name)
-        try:
-            json.dump(value, stream, ensure_ascii=True, allow_nan=False)
-            stream.close()
-            _ = temporary.replace(path)
-        finally:
-            temporary.unlink(missing_ok=True)
+CONTEXT_KEYS = ("title", "markdown", "images")
+QUESTION_KEYS = ("fields", "submit_label")
 
 
 class Conflict(ValueError):
     pass
+
+
+def validate_clarification(current: Record, revised: Record, scope: str) -> None:
+    fixed_keys = {"context": QUESTION_KEYS, "questions": CONTEXT_KEYS}.get(scope, ())
+    if any(revised.get(key) != current.get(key) for key in fixed_keys):
+        raise ValueError(f"Revise only the requested {scope}.")
+
+
+def clarification_questions(page: Record, payload: Record, scope: str) -> Record:
+    if scope != "questions" or "question_ids" not in payload:
+        return {}
+    number = payload.get("question_page")
+    if type(number) is not int or not 1 <= number <= 40:
+        raise ValueError("Use a valid browser question page number.")
+    ids = [text(item, "Question ID", 64) for item in items(payload["question_ids"], "Visible questions", 40)]
+    labels = {cast(str, field["id"]): field["label"] for field in page_fields(page) if field["type"] != "section"}
+    if not ids or len(ids) != len(set(ids)) or not labels.keys() >= set(ids):
+        raise ValueError("Visible questions must refer to distinct questions on the current form.")
+    return {
+        "question_page": number,
+        "visible_questions": [{"id": identifier, "label": labels[identifier]} for identifier in ids],
+    }
 
 
 class Interaction:
@@ -49,6 +62,7 @@ class Interaction:
         self.number = 1
         self.count = 0
         self.revision: int = 0
+        self.clarification_scope = "page"
         self.view = "form"
         started = monotonic()
         self.idle_timeout = idle_timeout
@@ -67,7 +81,8 @@ class Interaction:
 
     def state(self, *, include_form: bool = False) -> Record:
         state: Record = {"view": self.view, "page": self.number, "revision": self.revision,
-                         "multi": self.multi, "submitted": self.count}
+                         "multi": self.multi, "submitted": self.count,
+                         "agent_status": agent_status(self.runtime, self.number, self.view, self.revision)}
         if self.view in {"form", "waiting", "clarifying"}:
             remaining = max(0, self.deadline - monotonic())
             state["expires_at_ms"] = round((time() + remaining) * 1000)
@@ -103,10 +118,15 @@ class Interaction:
 
     def request_clarification(self, payload: Record) -> Record:
         self.require_current_page(payload)
+        scope = text(payload.get("scope", "page"), "Clarification scope", 20)
+        if scope not in {"context", "questions", "page"}:
+            raise ValueError("Choose context or questions for the clarification scope.")
         feedback = text(payload.get("feedback", ""), "Clarification feedback", 2000, empty=True).strip()
         write_json(self.runtime / CLARIFICATION, {
-            "kind": "clarification", "page": self.number, "request": self.revision + 1, "feedback": feedback,
+            "kind": "clarification", "page": self.number, "request": self.revision + 1,
+            "scope": scope, "feedback": feedback, **clarification_questions(self.page, payload, scope),
         })
+        self.clarification_scope = scope
         self.show("clarifying")
         self.idle_until = monotonic() + self.idle_timeout
         return self.state()
@@ -116,9 +136,20 @@ class Interaction:
         if self.view != "clarifying" or type(request) is not int or request != self.revision:
             raise Conflict("This clarification request is no longer active.")
         page = validate_page(payload.get("form"))
-        if decision_fields(page) != decision_fields(self.page):
-            raise ValueError("Keep the same questions, choices, and answer constraints when clarifying a page.")
+        validate_clarification(self.page, page, self.clarification_scope)
+        validate_open_revision(self.page, page)
         (self.runtime / CLARIFICATION).unlink()
+        return self.publish_page(page)
+
+    def update_page(self, payload: Record) -> Record:
+        revision = payload.get("revision")
+        if self.view != "form" or type(revision) is not int or revision != self.revision:
+            raise Conflict("Only the current open revision can be updated.")
+        page = validate_page(payload.get("form"))
+        validate_open_revision(self.page, page)
+        return self.publish_page(page)
+
+    def publish_page(self, page: Record) -> Record:
         self.page = page
         self.show("form")
         self.idle_until = monotonic() + self.idle_timeout
@@ -127,11 +158,9 @@ class Interaction:
     def next_page(self, payload: object) -> Record:
         if not self.multi or self.view != "waiting":
             raise Conflict("Wait for the current multi-page form submission before sending another page.")
-        self.page = validate_page(payload)
+        page = validate_page(payload)
         self.number += 1
-        self.show("form")
-        self.idle_until = monotonic() + self.idle_timeout
-        return self.state()
+        return self.publish_page(page)
 
     def finish(self, view: str) -> None:
         if self.view in {"complete", "expired"}:
@@ -228,7 +257,7 @@ class FormHandler(BaseHTTPRequestHandler):
             if self.headers.get("Origin") != server.origin:
                 self.send_json(403, {"error": "Submit from the local form."})
                 return
-        elif self.path in {"/control/next", "/control/revise", "/control/close"}:
+        elif self.path in {"/control/next", "/control/revise", "/control/update", "/control/close"}:
             if not secrets.compare_digest(
                 self.headers.get("Authorization", "").encode(), f"Bearer {server.control}".encode()
             ):
@@ -260,6 +289,8 @@ class FormHandler(BaseHTTPRequestHandler):
             return state.next_page(payload)
         if route == "/control/revise":
             return state.revise(payload)
+        if route == "/control/update":
+            return state.update_page(payload)
         if route == "/control/close":
             state.finish("complete")
         elif state.view in {"complete", "expired"}:

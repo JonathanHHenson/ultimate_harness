@@ -65,6 +65,21 @@ def decision_fields(page: Record) -> list[Record]:
     return decisions
 
 
+def preserves_question(current: Record, revised: Record) -> bool:
+    before = {key: value for key, value in current.items() if key != "options"}
+    after = {key: value for key, value in revised.items() if key != "options"}
+    options = cast(list[str], current.get("options", []))
+    updated = cast(list[str], revised.get("options", []))
+    return before == after and updated[:len(options)] == options
+
+
+def validate_open_revision(current: Record, revised: Record) -> None:
+    before = decision_fields(current)
+    after = decision_fields(revised)
+    if len(after) < len(before) or any(not preserves_question(old, new) for old, new in zip(before, after)):
+        raise ValueError("Keep existing questions, options, and answer constraints. Append new questions or choices.")
+
+
 def valid_date_or_time(kind: str, value: str) -> bool:
     separator = TEMPORAL_SEPARATORS.get(kind)
     if separator is not None and separator not in value:

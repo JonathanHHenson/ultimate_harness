@@ -38,6 +38,42 @@ All 72 harness tests passed. The new integration checks show that launch returns
 
 Ruff, BasedPyright error checks, skill metadata, and local links passed. The launcher starts the existing interpreter and server without passing commands through a shell. It returns only the published form metadata. The server still binds to loopback and enforces its existing credentials, deadlines, and shutdown rules. Startup has a bounded wait and a failed launch stops its own child.
 
+## Question navigation and recommended answers
+
+Put separate clarification controls by the context and questions. The user can attach an optional note to either. Preserve the other area and the answer constraints when revising. Long forms show up to five questions per browser page with Back, Next, and progress. Each round collects one submission. Agents can use `default` to prefill supported recommendations that the human can edit. [Form contract](../../.agents/skills/human-interaction/references/form-schema.md)
+
+Verified the extracted package in Chromium with 12 questions across three pages and a separate short form. The long form retained edited and prefilled values across navigation and both scoped clarifications, restored the current question page, blocked advancement on required fields, and sent all answers in the final submission. Checked 1200 px and 390 px layouts. The short form submitted its editable default directly.
+
+All 73 harness tests passed, including a scoped revision test that verifies preservation of the other area. Ruff, BasedPyright error checks, JavaScript complexity, HTML, CSS, package metadata, and links passed. The scope value is validated within the existing local origin, revision, and agent-control checks. Scoped revisions retain the original answer schema and recommended defaults.
+
+## Form layout
+
+Place the context clarification button below the prologue and the questions clarification button below the visible questions, alongside navigation. Keep questions in one column at every viewport width. Paint the gradient on the root so it spans the space above the form.
+
+Verified the 30-question demo in Chromium at 1200 px and 390 px. Both buttons followed their content, the questions aligned in one column, and the top margin shared the same background. Navigating to the next question page kept its clarification button below the questions. All 73 harness tests and the JavaScript, CSS, HTML, and package checks passed.
+
+## Live form updates
+
+Use authenticated `update` to revise an open form and `revise` to respond to clarification. Both can append options or questions. Preserve the existing controls, values and constraints, and reject stale revisions. New questions keep their defaults and can add browser pages. Use `next` to publish a follow-up round after submission. [Live update commands](../../.agents/skills/human-interaction/references/form-schema.md#updating-a-live-form)
+
+Verified the extracted package in Chromium. An open form gained a language option and an extra question page while retaining a typed answer, unchecked choice, and current position. A clarification added another language option at the same URL. A follow-up round kept the first round's answer record. All 74 harness tests passed, including API checks for unauthorized, stale, and destructive updates. Ruff, BasedPyright error checks, JavaScript complexity, links, and package metadata passed.
+
+## Listening and question context
+
+The form CLI provides a 30-minute `listen` window and can return sooner when an event arrives or the form ends. A short-lived record in the private session workspace indicates that a timed command is waiting. A receipt records that the command read the current clarification or submission. The browser distinguishes a waiting command, delivery, and a saved event that needs a chat message. [Listener](../../.agents/skills/human-interaction/references/form-schema.md#listening-for-feedback)
+
+The questions clarification includes the browser page and its visible question IDs and labels. The server validates the IDs against the active form and resolves the text there. The request contains neither draft answers nor questions from the other browser pages. [Clarification requests](../../.agents/skills/human-interaction/references/form-schema.md#clarification-requests)
+
+All 76 harness tests passed. Integration tests exercised both event types, listener shutdown and recovery, and rejection of a shorter listen window. In Chromium, a clarification from browser page three delivered just the two visible questions and kept the draft. The extracted package showed listening, receipt, and the chat prompt in the corresponding states. Verification exercised short runs rather than a full 30-minute quiet period. Ruff, BasedPyright error checks, JavaScript complexity, package metadata, and local links passed. Listener records and receipts use the existing private workspace and the scoped form status exposes only the resulting status.
+
+## Visual design
+
+Use a pale lavender masthead with a compact serif title, a warm context surface and clarification buttons, a coloured progress bar, and a tinted selected-choice state. Use stronger violet for primary actions and a visible outline for keyboard focus. Give dialogs and completion views the same palette. Forms retain a single column and native controls. The visual treatment uses local CSS and system fonts.
+
+Reviewed the extracted package at 1200 px and 390 px in Chromium. Verified the selected-choice treatment, keyboard focus, context button placement, pagination, the clarification dialog, and submission with a retained edit. All 76 harness tests and JavaScript, CSS, HTML, package, and link checks passed.
+
+After feedback on the initial styling, reduced the title size and softened the header, progress gradient, and dialog accents. Rechecked the extracted form at the same widths, including keyboard focus, question clarification, draft retention, and submission. CSS lint, package validation, and all 76 harness tests passed.
+
 ## Schema validation refactor
 
 Separate checks for display properties, choices, length settings, and numeric settings. Validate submitted values by field family and keep workspace reads in the page loader. The same local branch-count method measured `field_definition` at 30 before and 7 after, `field_value` at 28 before and 8 after, and `valid_text` at 14 before and 5 after. The largest remaining count across the two modules was 9. [Schema validation](../../.agents/skills/human-interaction/scripts/form_schema.py) · [Page loader](../../.agents/skills/human-interaction/scripts/form_page.py)

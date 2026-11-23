@@ -1,12 +1,16 @@
-export function clarificationDialog(element, send) {
-  const trigger = element("button", { type: "button", className: "secondary", textContent: "Wait.. What?" });
+export function clarificationDialog(element, scope, send) {
+  const trigger = element("button", {
+    type: "button", className: "secondary clarification-trigger", textContent: "Wait.. What?",
+  });
+  trigger.setAttribute("aria-label", "Wait.. What? about the " + scope);
   const dialog = element("dialog", { className: "clarification-dialog" });
-  dialog.setAttribute("aria-labelledby", "clarification-title");
-  dialog.setAttribute("aria-describedby", "clarification-help");
-  const title = element("h2", { id: "clarification-title", textContent: "Ask for a clearer explanation" });
-  const help = element("p", { id: "clarification-help", textContent: "Leave the box blank to ask about the whole page." });
-  const label = element("label", { htmlFor: "clarification-feedback", textContent: "What needs explaining? (optional)" });
-  const feedback = element("textarea", { id: "clarification-feedback", rows: 4, maxLength: 2000 });
+  const id = "clarification-" + scope;
+  dialog.setAttribute("aria-labelledby", id + "-title");
+  dialog.setAttribute("aria-describedby", id + "-help");
+  const title = element("h2", { id: id + "-title", textContent: "Clarify the " + scope });
+  const help = element("p", { id: id + "-help", textContent: `Leave the box blank to ask about all the ${scope}.` });
+  const label = element("label", { htmlFor: id + "-feedback", textContent: "What needs explaining? (optional)" });
+  const feedback = element("textarea", { id: id + "-feedback", rows: 4, maxLength: 2000 });
   const cancel = element("button", { type: "button", className: "secondary", textContent: "Cancel" });
   const submit = element("button", { type: "submit", textContent: "Ask for clarification" });
   const error = element("p", { className: "error", hidden: true });
@@ -46,7 +50,9 @@ function restoreControl(control, values) {
 export function restoreDraft(form, draft) {
   if (draft) {
     for (const control of form.elements) {
-      if (control.name) restoreControl(control, draft.getAll(control.name));
+      if (control.name && draft.names.has(control.name)) {
+        restoreControl(control, draft.answers.getAll(control.name));
+      }
     }
   }
 }

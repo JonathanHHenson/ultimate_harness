@@ -9,47 +9,13 @@ import re
 import subprocess
 import sys
 from threading import Thread
-from time import monotonic, sleep
 from typing import cast
 from urllib.parse import urlsplit
 
+from form_events import LISTEN_SECONDS, read_json, wait_for_response
 from form_page import load_page
 from form_schema import MAX_REQUEST, Record, record
-from form_server import CLARIFICATION, RUNTIME, serve
-
-
-def read_json(path: Path) -> Record:
-    return record(json.loads(path.read_text(encoding="utf-8")), "Session data")
-
-
-def pending_clarification(runtime: Path, page: int) -> Record | None:
-    try:
-        pending = read_json(runtime / CLARIFICATION)
-    except FileNotFoundError:
-        return None
-    return pending if pending.get("page") == page else None
-
-
-def wait_for_response(runtime: Path, page: int, timeout: int) -> int:
-    target = runtime / f"answers-{page}.json"
-    deadline = monotonic() + timeout
-    while True:
-        if target.is_file():
-            print(json.dumps(read_json(target)))
-            return 0
-        if (runtime / "finished.json").is_file():
-            # A response can be saved between the first read and the end marker.
-            if target.is_file():
-                continue
-            raise ValueError("The form ended before this page was submitted.")
-        pending = pending_clarification(runtime, page)
-        if pending is not None:
-            print(json.dumps(pending))
-            return 0
-        if monotonic() >= deadline:
-            print("No submission yet.", file=sys.stderr)
-            return 2
-        sleep(min(0.2, max(0, deadline - monotonic())))
+from form_server import RUNTIME, serve
 
 
 def control(runtime: Path, action: str, payload: Record) -> Record:
@@ -128,20 +94,25 @@ def arguments() -> argparse.Namespace:
     start = commands.add_parser("serve", help="Start a form and print its browser URL.")
     launch = commands.add_parser("launch", help="Start a local form and return its URL without holding the terminal.")
     next_page = commands.add_parser("next", help="Show the next page after a multi-page submission.")
-    revise = commands.add_parser("revise", help="Explain the current page again after a clarification request.")
+    revise = commands.add_parser("revise", help="Revise the current page after a clarification request.")
+    update = commands.add_parser("update", help="Update the open page without restarting the form session.")
     wait = commands.add_parser("wait", help="Print a submission or clarification request. Exit 2 if still waiting.")
+    listen = commands.add_parser("listen", help="Listen for a submission or clarification for at least 30 minutes.")
     close = commands.add_parser("close", help="Show the final confirmation and end the session.")
-    for command in (check, start, launch, next_page, revise, wait, close):
+    for command in (check, start, launch, next_page, revise, update, wait, listen, close):
         _ = command.add_argument("--workspace", type=Path, required=True, help="Local interaction directory.")
-    for command in (check, start, launch, next_page, revise):
+    for command in (check, start, launch, next_page, revise, update):
         _ = command.add_argument("--page", type=Path, required=True, help="Page JSON path within the workspace.")
     for command in (start, launch):
         _ = command.add_argument("--multi", action="store_true", help="Wait for the agent after each submission.")
         _ = command.add_argument("--idle-timeout", type=int, default=3600, help="Seconds allowed between pages or submissions.")
         _ = command.add_argument("--lifetime", type=int, help="Optional hard limit in seconds, including active sessions.")
     _ = revise.add_argument("--request", type=int, required=True, help="Clarification request number from wait.")
-    _ = wait.add_argument("--page", type=int, default=1, help="Page number to read.")
+    _ = update.add_argument("--revision", type=int, required=True, help="Current revision from the form state.")
+    for command in (wait, listen):
+        _ = command.add_argument("--page", type=int, default=1, help="Page number to read.")
     _ = wait.add_argument("--timeout", type=int, default=20, help="Seconds to wait for the response (0–60).")
+    _ = listen.add_argument("--timeout", type=int, default=LISTEN_SECONDS, help="Seconds to listen (1800–7200).")
     return parser.parse_args()
 
 
@@ -165,7 +136,21 @@ def control_payload(action: str, workspace: Path, args: argparse.Namespace) -> R
     page = load_page(workspace, cast(Path, args.page))
     if action == "revise":
         return {"request": cast(int, args.request), "form": page}
+    if action == "update":
+        return {"revision": cast(int, args.revision), "form": page}
     return page
+
+
+def wait_command(runtime: Path, action: str, args: argparse.Namespace) -> int:
+    page = cast(int, args.page)
+    timeout = cast(int, args.timeout)
+    minimum, maximum = (LISTEN_SECONDS, 7200) if action == "listen" else (0, 60)
+    if page < 1 or not minimum <= timeout <= maximum:
+        raise ValueError(f"Use a positive page number and a timeout between {minimum} and {maximum} seconds.")
+    if wait_for_response(runtime, page, timeout):
+        return 0
+    print("No submission yet.", file=sys.stderr)
+    return 2
 
 
 def main() -> int:
@@ -185,12 +170,8 @@ def main() -> int:
             return 0
         if not runtime.is_dir() or runtime.is_symlink():
             raise ValueError("No local form session found in this workspace.")
-        if action == "wait":
-            number = cast(int, args.page)
-            timeout = cast(int, args.timeout)
-            if number < 1 or not 0 <= timeout <= 60:
-                raise ValueError("Use a positive page number and a timeout between 0 and 60 seconds.")
-            return wait_for_response(runtime, number, timeout)
+        if action in {"wait", "listen"}:
+            return wait_command(runtime, action, args)
         print(json.dumps(control(runtime, action, control_payload(action, workspace, args))))
         return 0
     except (OSError, HTTPException, ValueError, RecursionError) as error:

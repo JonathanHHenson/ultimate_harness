@@ -13,7 +13,8 @@ Write one UTF-8 JSON file per page. Set `title`, optional `submit_label`, option
     {"type": "section", "label": "Scope"},
     {
       "id": "priority", "type": "radio", "label": "What should we prioritise?", "required": true,
-      "options": [{"value": "speed", "label": "Early feedback"}, {"value": "coverage", "label": "Broader coverage"}]
+      "options": [{"value": "speed", "label": "Early feedback"}, {"value": "coverage", "label": "Broader coverage"}],
+      "default": "coverage"
     },
     {"id": "confidence", "type": "range", "label": "Confidence", "min": 1, "max": 5, "default": 3, "step": 1},
     {"id": "feedback", "type": "textarea", "label": "What would change your choice?", "max_length": 1200}
@@ -32,7 +33,9 @@ Write one UTF-8 JSON file per page. Set `title`, optional `submit_label`, option
 
 Use a unique `id` per answer field. Start IDs with a letter and use letters, digits, hyphens and underscores. All fields have a `label`. Use `help`, `placeholder` where the control supports one, `required`, `default` in the return type, and `wide` for a full-width field. Set `min_length` and `max_length` for text, `rows` for textarea, and `min`, `max` and optional browser `step` for number and range. Options are objects with `value` and `label`, and choice values are unique within a field. Pages can have up to 40 fields.
 
-Field labels allow up to 120 characters and option labels allow up to 200. Put longer context in the field's `help` or the Markdown prologue. Keep each required choice unanswered until the human selects it.
+Field labels allow up to 120 characters and option labels allow up to 200. Put longer context in the field's `help` or the Markdown prologue. Set `default` to prefill a recommended answer the human can review and edit. For a radio or select field, use an option's value. For multi-select and checkbox groups, use an array of option values. Leave choices open where the evidence supports asking the human first. Defaults become answers only when the human submits.
+
+The browser displays up to five questions at a time. Section headings accompany their questions. Back and Next preserve edits, and the progress bar shows the current question page. All browser pages in a round share one submission. Use another agent-driven round only when earlier answers determine which questions to ask next.
 
 ## Prologues
 
@@ -73,6 +76,27 @@ An open tab polls for the form session state and explains when it expires. If it
 
 `wait` exits 0 when an answer or clarification request is available, 2 when the wait timed out, and 1 for an error. An answer has the page number, timestamp and `answers`. Saved answers can be read again after shutdown. `next` accepts a page after the current multi-page submission. Use a separate `close` call to send the final confirmation in multi-page mode. The browser acknowledges the final view and the server exits. If the tab disconnects, the server exits after a short grace period. Use a fresh directory for each form session.
 
+## Listening for feedback
+
+```sh
+"$python" "$form" listen --workspace "$workspace" --page 1
+```
+
+`listen` waits 30 minutes by default. Set `--timeout` to 1800–7200 seconds for a longer window. It returns as soon as an answer or clarification request is available, with the same output and exit codes as `wait`. A closed or expired form ends the wait. Keep the command running in a tool session that can survive while you wait. Use a new call for the same round after a clarification, or for the next round after `next`.
+
+The browser distinguishes an active waiter, an event read by the agent's command, and an event saved while the agent is away. A stopped command's listening status clears within a few seconds. When the form asks the human to message the agent in chat, read the queued event with `wait --timeout 0` and continue. Keep the form lifetime long enough for the intended wait.
+
+## Updating a live form
+
+To update an open round before submission, save an updated JSON file in the same workspace. You can edit wording, append options to an existing question, or append questions. Keep existing question IDs, order, option values, defaults, and validation constraints. Read the current `revision` from the form's `state` endpoint. Run:
+
+```sh
+"$python" "$form" check --workspace "$workspace" --page updated.json
+"$python" "$form" update --workspace "$workspace" --revision "$revision" --page updated.json
+```
+
+The command uses the authenticated `/control/update` endpoint. If the revision changed before publication, read the latest state and reconcile the update. The browser picks up the change at the same URL, maintains the draft and position, and applies defaults for newly added questions. Appending enough questions creates another browser page automatically. Use `next` after a submission to send a new adaptive round.
+
 ## When reopening after expiry
 
 When a bounded `wait` ends without a submission, check the live page state or, after shutdown, read `.form-session/finished.json`. A `view` of `expired` confirms expiry. Exit code 2 by itself means to keep waiting.
@@ -81,9 +105,11 @@ Keep the latest page JSON, its prologue and assets, and earlier answer records i
 
 ## Clarification requests
 
-Every live form page has a **Wait.. What?** button. The user can include a short note or leave the field blank. The browser pauses the page and shows a waiting view. `wait` returns a distinct object, for example `{"kind":"clarification","page":1,"request":1,"feedback":""}`.
+Every live form has a **Wait.. What?** button below the context and another below the visible questions. The user can include a short note or leave the field blank. The browser pauses the form and shows a waiting view. `wait` returns a distinct object, for example `{"kind":"clarification","page":1,"request":1,"scope":"questions","feedback":""}`.
 
-Use [Wait What](../../wait-what/SKILL.md) to write a clearer explanation of the page. Rewrite the prologue, headings, question and option labels, or help text. Keep answer fields in the same order with the same IDs, types, option values, and answer constraints. Save the revised JSON and prologue in the same workspace. Run the following commands using the request number returned by `wait`.
+For the questions button, `question_page` identifies the browser page the human was viewing, and `visible_questions` lists its question IDs and labels. For example, the second browser page of the first round reports `page: 1` and `question_page: 2`. Use the listed questions and any note to target the explanation. The context button reports its scope without question details.
+
+Use [Wait What](../../wait-what/SKILL.md) to explain the requested area. For `context`, revise the title or prologue and its images. For `questions`, revise question wording and help or append requested options or questions while preserving the context. Legacy requests with scope `page` allow both. Apply the same rules for preserving earlier answers as for [live updates](#updating-a-live-form). Save the revised JSON and any prologue in the same workspace. Run the following commands using the request number returned by `wait`.
 
 ```sh
 "$python" "$form" check --workspace "$workspace" --page clarified.json
@@ -91,4 +117,4 @@ Use [Wait What](../../wait-what/SKILL.md) to write a clearer explanation of the 
 "$python" "$form" wait --workspace "$workspace" --page 1 --timeout 20
 ```
 
-The same page and URL resume with the browser's in-progress answers. `revise` accepts the pending request and keeps the page number and submission count. The agent can handle more clarification requests or advance after a real submission. Clarification activity refreshes the idle deadline and stays subject to the form session's hard lifetime.
+The same URL resumes at the current question page with the browser's in-progress answers. `revise` accepts the pending request and keeps the round number and submission count. The agent can handle more clarification requests or advance after a submission. Clarification activity refreshes the idle deadline and stays subject to the form session's hard lifetime.

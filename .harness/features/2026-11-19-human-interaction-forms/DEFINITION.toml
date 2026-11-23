@@ -73,3 +73,66 @@ definition_of_done = "The launch command returns a valid local URL while the for
 status = "DONE"
 blocked_reason = ""
 blocked_from = ""
+
+[[requirements]]
+id = "FORM-NAVIGATION"
+kind = "functional"
+description = "Let users clarify the context and questions independently, navigate long forms a few questions at a time, and review editable recommended defaults before submitting."
+definition_of_done = "A browser session uses both clarification scopes, preserves draft answers and position, shows pagination progress, validates required fields, and submits default and edited answers together only at the end."
+status = "DONE"
+blocked_reason = ""
+blocked_from = ""
+
+[[requirements]]
+id = "FORM-LAYOUT"
+kind = "functional"
+description = "Place clarification controls after the context and visible questions, stack questions in one column at every width, and keep the page background continuous."
+definition_of_done = "A browser check of the 30-question demo at desktop and mobile widths verifies both control positions, a single question column, and a continuous background."
+status = "DONE"
+blocked_reason = ""
+blocked_from = ""
+
+[[requirements]]
+id = "LIVE-FORM-UPDATES"
+kind = "functional"
+description = "Let the agent append options or questions through the local API on an open form or after a clarification request. Preserve the URL, current question page, existing answers and constraints, and previous submissions."
+definition_of_done = "Verify live options and questions appear at the same URL, drafts and new defaults coexist, earlier rounds stay intact, and stale, destructive, or unauthorized updates are rejected."
+status = "DONE"
+blocked_reason = ""
+blocked_from = ""
+
+[[requirements]]
+id = "FORM-LISTENER"
+kind = "functional"
+description = "Offer an agent command that listens for a submission or clarification for at least thirty minutes while the form stays open. Distinguish listening, received, and away in the browser."
+definition_of_done = "A live listener returns each event without a chat message. Verify that the form shows receipt when the command reads the event, offers chat when the listener is absent or stops, and preserves saved responses."
+status = "DONE"
+blocked_reason = ""
+blocked_from = ""
+
+[[requirements]]
+id = "QUESTION-CONTEXT"
+kind = "functional"
+description = "Include the visible browser question page and its question identifiers and labels in question clarification requests."
+definition_of_done = "A request from a later browser question page returns that page and its questions to the listener, excludes questions on other pages, and continues to preserve the draft."
+status = "DONE"
+blocked_reason = ""
+blocked_from = ""
+
+[[requirements]]
+id = "FORM-VISUAL-DESIGN"
+kind = "functional"
+description = "Use a distinct colour palette and clear visual hierarchy for the context, questions, choices, progress, dialogs, and status views. Keep the single-column form readable on desktop and mobile."
+definition_of_done = "Verify the visual hierarchy, selected and focused controls, pagination, clarification, and completion in a browser at desktop and mobile widths. Keep the package self-contained."
+status = "DONE"
+blocked_reason = ""
+blocked_from = ""
+
+[[requirements]]
+id = "FORM-VISUAL-TONE"
+kind = "non-functional"
+description = "Use a quieter visual treatment while keeping the form easy to scan. Give the title modest scale and use pale surfaces for the header, context, and status views."
+definition_of_done = "Inspect the updated form at desktop and phone widths and verify that progress, focus, and selected choices remain distinguishable. Exercise clarification and submission from the portable package."
+status = "DONE"
+blocked_reason = ""
+blocked_from = ""

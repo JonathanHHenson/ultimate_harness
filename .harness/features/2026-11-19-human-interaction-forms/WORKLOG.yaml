@@ -208,3 +208,202 @@
   summary: 'Feature phase: TEST → DONE'
   details: Recorded the behavior, verification, and remaining runtime scope in the
     agent closeout.
+- timestamp: '2026-11-22T23:36:43+00:00'
+  phase: DESIGN
+  summary: 'Feature phase: DONE → DESIGN'
+  details: Separate context and question clarification, paginate long question sets
+    in the browser, and expose editable recommended defaults.
+- timestamp: '2026-11-22T23:39:10+00:00'
+  phase: IMPLEMENT
+  summary: 'Feature phase: DESIGN → IMPLEMENT'
+  details: Add scoped clarification and browser pagination and route recommendations
+    through editable field defaults.
+- timestamp: '2026-11-22T23:39:10+00:00'
+  phase: IMPLEMENT
+  summary: 'FORM-NAVIGATION: TODO → WIP'
+  details: Verify both clarification scopes, multi-page navigation, editable defaults,
+    and packaged assets.
+- timestamp: '2026-11-22T23:39:11+00:00'
+  phase: TEST
+  summary: 'Feature phase: IMPLEMENT → TEST'
+  details: Run the integration suite, language checks, and browser walkthrough.
+- timestamp: '2026-11-22T23:43:46+00:00'
+  phase: TEST
+  summary: Verified contextual clarification, question pagination, and editable defaults
+  details: The extracted package passed Chromium desktop and mobile walkthroughs for
+    a 12-question form and a short form. Context and question revisions retained edits
+    and position, required checks blocked navigation, and only final Submit saved
+    the round. All 73 harness tests and language, package, and link checks passed.
+- timestamp: '2026-11-22T23:43:46+00:00'
+  phase: TEST
+  summary: 'FORM-NAVIGATION: WIP → DONE'
+  details: Verified both clarification scopes, one submission across browser pages,
+    and preserved edits and defaults.
+- timestamp: '2026-11-22T23:43:46+00:00'
+  phase: DONE
+  summary: 'Feature phase: TEST → DONE'
+  details: Completed form navigation and recorded evidence in the tracked agent closeout.
+- timestamp: '2026-11-23T00:12:45+00:00'
+  phase: DESIGN
+  summary: 'Feature phase: DONE → DESIGN'
+  details: Apply demo feedback to clarification placement, question columns, and the
+    page background.
+- timestamp: '2026-11-23T00:13:17+00:00'
+  phase: IMPLEMENT
+  summary: 'Feature phase: DESIGN → IMPLEMENT'
+  details: Place clarification beneath the relevant content and use a single-column
+    grid with a root background.
+- timestamp: '2026-11-23T00:13:18+00:00'
+  phase: IMPLEMENT
+  summary: 'FORM-LAYOUT: TODO → WIP'
+  details: Verify the new layout on the 30-question demo at wide and narrow widths.
+- timestamp: '2026-11-23T00:13:18+00:00'
+  phase: TEST
+  summary: 'Feature phase: IMPLEMENT → TEST'
+  details: Run browser and language checks for the updated layout.
+- timestamp: '2026-11-23T00:14:43+00:00'
+  phase: TEST
+  summary: 'FORM-LAYOUT: WIP → DONE'
+  details: Verified positions, single-column layout, and continuous background in
+    the 30-question demo at desktop and mobile widths. All 73 tests passed.
+- timestamp: '2026-11-23T00:14:43+00:00'
+  phase: DONE
+  summary: 'Feature phase: TEST → DONE'
+  details: Recorded browser verification and layout decisions in tracked documentation.
+- timestamp: '2026-11-23T00:22:57+00:00'
+  phase: DESIGN
+  summary: 'Feature phase: DONE → DESIGN'
+  details: Support live changes to the open form through the local API while preserving
+    existing drafts and submitted rounds.
+- timestamp: '2026-11-23T00:24:08+00:00'
+  phase: IMPLEMENT
+  summary: 'Feature phase: DESIGN → IMPLEMENT'
+  details: Add an authenticated live update and permit additive clarification revisions.
+- timestamp: '2026-11-23T00:24:08+00:00'
+  phase: IMPLEMENT
+  summary: 'LIVE-FORM-UPDATES: TODO → WIP'
+  details: Verify same-link changes, draft retention, and a follow-up round.
+- timestamp: '2026-11-23T00:24:08+00:00'
+  phase: TEST
+  summary: 'Feature phase: IMPLEMENT → TEST'
+  details: Run API, browser, and portable package checks.
+- timestamp: '2026-11-23T00:26:16+00:00'
+  phase: TEST
+  summary: 'LIVE-FORM-UPDATES: WIP → DONE'
+  details: Verified open and clarification updates in Chromium at the same URL, with
+    retained drafts, new defaults, and an adaptive follow-up. All 74 tests passed.
+- timestamp: '2026-11-23T00:26:16+00:00'
+  phase: DONE
+  summary: 'Feature phase: TEST → DONE'
+  details: Recorded live update behavior, API protections, and verification in the
+    tracked closeout.
+- timestamp: '2026-11-23T00:42:05+00:00'
+  phase: DESIGN
+  summary: 'Feature phase: DONE → DESIGN'
+  details: Offer a thirty-minute live listener and tell the browser whether the agent
+    is listening, has received the event, or needs a chat message.
+- timestamp: '2026-11-23T00:46:16+00:00'
+  phase: IMPLEMENT
+  summary: 'Feature phase: DESIGN → IMPLEMENT'
+  details: Add a persistent listener with receipt status and include the visible questions
+    in clarification events.
+- timestamp: '2026-11-23T00:46:16+00:00'
+  phase: IMPLEMENT
+  summary: 'FORM-LISTENER: TODO → WIP'
+  details: Check agent presence, real event delivery, and wake-up prompts.
+- timestamp: '2026-11-23T00:46:16+00:00'
+  phase: IMPLEMENT
+  summary: 'QUESTION-CONTEXT: TODO → WIP'
+  details: Verify later question pages report their visible question context.
+- timestamp: '2026-11-23T00:46:16+00:00'
+  phase: TEST
+  summary: 'Feature phase: IMPLEMENT → TEST'
+  details: Run CLI, API, browser, and packaging checks for listening and clarification
+    scope.
+- timestamp: '2026-11-23T00:49:19+00:00'
+  phase: TEST
+  summary: Verified listening status and visible-question context
+  details: The extracted package in Chromium showed listening, receipt and chat prompts.
+    A clarification from browser page three returned only its two visible questions
+    and retained the draft. A killed listener stopped reporting presence, and the
+    saved answer remained readable. All 76 tests and language, links and package checks
+    passed. The tests used short event waits and checked the minimum timeout, without
+    a full thirty-minute quiet run.
+- timestamp: '2026-11-23T00:49:19+00:00'
+  phase: TEST
+  summary: 'FORM-LISTENER: WIP → DONE'
+  details: Verified waiting and receipt for both event types, fallback when the listener
+    is absent or killed, and the minimum configured wait.
+- timestamp: '2026-11-23T00:49:19+00:00'
+  phase: TEST
+  summary: 'QUESTION-CONTEXT: WIP → DONE'
+  details: Verified that a later browser page delivered only its question IDs and
+    labels and kept the draft after clarification.
+- timestamp: '2026-11-23T00:49:19+00:00'
+  phase: DONE
+  summary: 'Feature phase: TEST → DONE'
+  details: Verified the form and portable package and recorded the results in the
+    tracked agent closeout.
+- timestamp: '2026-11-23T01:22:20+00:00'
+  phase: DESIGN
+  summary: 'Feature phase: DONE → DESIGN'
+  details: Give the form a more expressive visual design with distinct context, question,
+    navigation, and status treatments.
+- timestamp: '2026-11-23T01:23:58+00:00'
+  phase: IMPLEMENT
+  summary: 'Feature phase: DESIGN → IMPLEMENT'
+  details: Apply the new typography, palette, surfaces, and control states to the
+    form.
+- timestamp: '2026-11-23T01:23:58+00:00'
+  phase: IMPLEMENT
+  summary: 'FORM-VISUAL-DESIGN: TODO → WIP'
+  details: Verify the refreshed browser views and portable package.
+- timestamp: '2026-11-23T01:23:58+00:00'
+  phase: TEST
+  summary: 'Feature phase: IMPLEMENT → TEST'
+  details: Review the preview at desktop and phone widths and rerun form checks.
+- timestamp: '2026-11-23T01:25:55+00:00'
+  phase: TEST
+  summary: 'FORM-VISUAL-DESIGN: WIP → DONE'
+  details: Verified both viewport sizes, colour and focus states, the clarification
+    dialog, navigation, and a successful submission in Chromium. All 76 tests passed.
+- timestamp: '2026-11-23T01:25:55+00:00'
+  phase: DONE
+  summary: 'Feature phase: TEST → DONE'
+  details: Recorded the visual design and browser verification in the tracked closeout.
+- timestamp: '2026-11-23T01:30:19+00:00'
+  phase: DESIGN
+  summary: 'Feature phase: DONE → DESIGN'
+  details: Soften the palette and masthead based on feedback on the redesigned form.
+- timestamp: '2026-11-23T01:32:13+00:00'
+  phase: IMPLEMENT
+  summary: 'Feature phase: DESIGN → IMPLEMENT'
+  details: Keep the layout and controls while reducing the colour and scale of the
+    visual treatment.
+- timestamp: '2026-11-23T01:32:13+00:00'
+  phase: IMPLEMENT
+  summary: 'FORM-VISUAL-TONE: TODO → WIP'
+  details: Refine the CSS palette, title scale, and supporting accents.
+- timestamp: '2026-11-23T01:32:14+00:00'
+  phase: TEST
+  summary: 'Feature phase: IMPLEMENT → TEST'
+  details: The softer stylesheet is packaged and ready for desktop and mobile validation.
+- timestamp: '2026-11-23T01:33:31+00:00'
+  phase: TEST
+  summary: Verified the quieter form design
+  details: Compared the stylesheet to the initial visual redesign. Changes are limited
+    to existing CSS declarations for title scale, spacing, and colour, with no executable
+    complexity or new dependencies, resource loads, or trust boundaries. Chromium
+    at 1200 px and 390 px confirmed focus, selected options, single-column layout,
+    pagination, clarification, draft retention, and submission from the extracted
+    package. Checked representative foreground contrast pairs. Stylelint, package
+    metadata, glossary and local links, and all 76 harness tests passed.
+- timestamp: '2026-11-23T01:33:31+00:00'
+  phase: TEST
+  summary: 'FORM-VISUAL-TONE: WIP → DONE'
+  details: The extracted form passed desktop and phone visual and interaction checks.
+- timestamp: '2026-11-23T01:33:31+00:00'
+  phase: DONE
+  summary: 'Feature phase: TEST → DONE'
+  details: The updated visual tone is verified and the decision and evidence are recorded
+    in the tracked closeout.

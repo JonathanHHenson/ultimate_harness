@@ -125,6 +125,7 @@ files = [
   ".agents/skills/human-interaction/SKILL.md",
   ".agents/skills/human-interaction/references/form-schema.md",
   ".agents/skills/human-interaction/scripts/form.py",
+  ".agents/skills/human-interaction/scripts/form_events.py",
   ".agents/skills/human-interaction/scripts/form_page.py",
   ".agents/skills/human-interaction/scripts/form_schema.py",
   ".agents/skills/human-interaction/scripts/form_server.py",
@@ -132,6 +133,7 @@ files = [
   ".agents/skills/human-interaction/assets/style.css",
   ".agents/skills/human-interaction/assets/app.js",
   ".agents/skills/human-interaction/assets/clarification.js",
+  ".agents/skills/human-interaction/assets/question-pages.js",
   ".agents/skills/human-interaction/assets/markdown.js",
   ".agents/skills/human-interaction/assets/mermaid.js",
 ]

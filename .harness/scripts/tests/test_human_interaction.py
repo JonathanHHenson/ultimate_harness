@@ -41,9 +41,9 @@ class HumanInteractionTests(unittest.TestCase):
             payload["prologue"] = prologue
         _ = (self.workspace / name).write_text(json.dumps(payload))
 
-    def start(self, *args: str) -> tuple[subprocess.Popen[str], str]:
+    def start_process(self, action: str, *args: str) -> subprocess.Popen[str]:
         process = subprocess.Popen(
-            self.arguments("serve", "--page", "page.json", *args),
+            self.arguments(action, *args),
             stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True,
         )
 
@@ -53,6 +53,10 @@ class HumanInteractionTests(unittest.TestCase):
             _ = process.communicate(timeout=5)
 
         self.addCleanup(cleanup)
+        return process
+
+    def start(self, *args: str) -> tuple[subprocess.Popen[str], str]:
+        process = self.start_process("serve", "--page", "page.json", *args)
         assert process.stdout is not None
         cutoff = monotonic() + 5
         while not (self.workspace / ".form-session/session.json").exists():
@@ -84,6 +88,52 @@ class HumanInteractionTests(unittest.TestCase):
 
     def submit(self, url: str, page: int, field: str, value: str, rating: int = 3) -> tuple[int, dict[str, object]]:
         return self.request(url, "submit", {"page": page, "answers": {field: value, "rating": rating, "ok": False}})
+
+    def wait_for_agent_status(self, url: str, status: str) -> None:
+        deadline = monotonic() + 7
+        while self.request(url, "state")[1]["agent_status"] != status:
+            self.assertLess(monotonic(), deadline, f"Agent status did not become {status}")
+            sleep(0.05)
+
+    def test_listener_delivers_a_clarification_and_a_submission(self) -> None:
+        self.page("page.json", "choice")
+        process, url = self.start()
+        self.cli("listen", "--timeout", "1799", expect=1)
+        self.assertEqual(self.request(url, "state")[1]["agent_status"], "away")
+        listener = self.start_process("listen")
+        self.wait_for_agent_status(url, "listening")
+        self.assertEqual(self.request(url, "clarify", {"page": 1, "scope": "context", "feedback": "Explain"})[0], 200)
+        received, error = listener.communicate(timeout=5)
+        self.assertEqual(listener.returncode, 0, error)
+        event = cast(dict[str, object], json.loads(received))
+        self.assertEqual((event["kind"], event["feedback"]), ("clarification", "Explain"))
+        self.wait_for_agent_status(url, "received")
+        _ = self.cli("revise", "--request", str(event["request"]), "--page", "page.json")
+        second_listener = self.start_process("listen")
+        self.wait_for_agent_status(url, "listening")
+        self.assertEqual(self.submit(url, 1, "choice", "Proceed")[0], 200)
+        received, error = second_listener.communicate(timeout=5)
+        self.assertEqual(second_listener.returncode, 0, error)
+        self.assertEqual(json.loads(received)["answers"], {"choice": "Proceed", "rating": 3, "ok": False})
+        self.wait_for_agent_status(url, "received")
+        self.assertEqual(self.request(url, "ack", {})[0], 200)
+        self.assertEqual(process.wait(timeout=4), 0)
+
+    def test_stopped_listener_leaves_the_saved_response_available(self) -> None:
+        self.page("page.json", "choice")
+        process, url = self.start("--multi")
+        listener = self.start_process("listen")
+        self.wait_for_agent_status(url, "listening")
+        listener.kill()
+        _ = listener.wait(timeout=5)
+        self.assertEqual(self.submit(url, 1, "choice", "Saved while away")[1]["view"], "waiting")
+        self.wait_for_agent_status(url, "away")
+        self.assertEqual(self.cli("wait", "--timeout", "0")["answers"],
+                         {"choice": "Saved while away", "rating": 3, "ok": False})
+        self.wait_for_agent_status(url, "received")
+        _ = self.cli("close")
+        self.assertEqual(self.request(url, "ack", {})[0], 200)
+        self.assertEqual(process.wait(timeout=4), 0)
 
     def test_single_submission_confirms_and_saved_response_outlives_the_server(self) -> None:
         _ = (self.workspace / "intro.md").write_text("## Context\n\nRead this before answering.")
@@ -186,6 +236,72 @@ class HumanInteractionTests(unittest.TestCase):
         self.assertEqual(self.cli("close")["view"], "complete")
         self.assertEqual(self.request(url, "ack", {})[0], 200)
         self.assertEqual(process.wait(timeout=4), 0)
+
+    def test_clarification_can_target_the_context_or_the_questions(self) -> None:
+        _ = (self.workspace / "initial.md").write_text("Initial explanation.")
+        _ = (self.workspace / "clear.md").write_text("Clearer explanation.")
+        self.page("page.json", "choice", prologue="initial.md")
+        self.page("context.json", "choice", prologue="clear.md")
+        questions_path = self.workspace / "questions.json"
+        questions = cast(dict[str, object], json.loads((self.workspace / "context.json").read_text()))
+        fields = cast(list[dict[str, object]], questions["fields"])
+        fields[0]["label"] = "Which outcome should we prioritize?"
+        fields.append({"id": "examples", "type": "checkbox", "label": "Include examples", "default": True})
+        _ = questions_path.write_text(json.dumps(questions))
+
+        process, url = self.start()
+        self.assertEqual(self.request(url, "clarify", {"page": 1, "scope": "other"})[0], 400)
+        self.assertEqual(self.request(url, "clarify", {"page": 1, "scope": "context"})[0], 200)
+        context = self.cli("wait")
+        self.assertEqual(context["scope"], "context")
+        _ = self.cli("revise", "--request", str(context["request"]), "--page", "questions.json", expect=1)
+        _ = self.cli("revise", "--request", str(context["request"]), "--page", "context.json")
+        request: dict[str, object] = {
+            "page": 1, "scope": "questions", "question_page": 1, "question_ids": ["choice", "rating", "ok"],
+        }
+        self.assertEqual(self.request(url, "clarify", {**request, "question_ids": ["unrelated"]})[0], 400)
+        self.assertEqual(self.request(url, "clarify", request)[0], 200)
+        question = self.cli("wait")
+        self.assertEqual(question["scope"], "questions")
+        self.assertEqual(question["question_page"], 1)
+        self.assertEqual(question["visible_questions"], [
+            {"id": "choice", "label": "Your choice"}, {"id": "rating", "label": "Rating"}, {"id": "ok", "label": "Confirm"},
+        ])
+        _ = self.cli("revise", "--request", str(question["request"]), "--page", "page.json", expect=1)
+        _ = self.cli("revise", "--request", str(question["request"]), "--page", "questions.json")
+        form = cast(dict[str, object], self.request(url, "page")[1]["form"])
+        self.assertEqual(form["markdown"], "Clearer explanation.")
+        self.assertEqual(cast(list[dict[str, object]], form["fields"])[0]["label"], "Which outcome should we prioritize?")
+        self.assertEqual(self.request(url, "submit", {"page": 1, "answers": {
+            "choice": "Usability", "rating": 3, "ok": False, "examples": True,
+        }})[0], 200)
+        self.assertEqual(self.request(url, "ack", {})[0], 200)
+        self.assertEqual(process.wait(timeout=4), 0)
+
+    def test_open_form_accepts_additions_at_the_same_url(self) -> None:
+        language = {"id": "language", "type": "radio", "label": "Language",
+                    "options": [{"value": "python", "label": "Python"}], "default": "python"}
+        initial = {"title": "Language choices", "fields": [language]}
+        expanded = {**language, "options": [*language["options"], {"value": "rust", "label": "Rust"}]}
+        revised = {**initial, "fields": [expanded, {"id": "notes", "type": "text", "label": "Notes"}]}
+        _ = (self.workspace / "page.json").write_text(json.dumps(initial))
+        _ = (self.workspace / "expanded.json").write_text(json.dumps(revised))
+        process, url = self.start()
+        state = self.request(url, "page")[1]
+        revision = str(state["revision"])
+        self.assertEqual(self.request(url, "/control/update", {"revision": state["revision"], "form": revised})[0], 403)
+        updated = self.cli("update", "--revision", revision, "--page", "expanded.json")
+        self.assertEqual((updated["page"], updated["submitted"]), (1, 0))
+        self.assertEqual(self.request(url, "page")[1]["form"], revised)
+        _ = self.cli("update", "--revision", revision, "--page", "expanded.json", expect=1)
+        _ = self.cli("update", "--revision", str(updated["revision"]), "--page", "page.json", expect=1)
+        self.assertEqual(self.request(url, "page")[1]["form"], revised)
+        payload = {"page": 1, "revision": state["revision"], "answers": {"language": "rust", "notes": "Demo"}}
+        self.assertEqual(self.request(url, "submit", payload)[0], 409)
+        self.assertEqual(self.request(url, "submit", {**payload, "revision": updated["revision"]})[0], 200)
+        self.assertEqual(self.request(url, "ack", {})[0], 200)
+        self.assertEqual(process.wait(timeout=4), 0)
+        self.assertEqual(self.cli("wait")["answers"], {"language": "rust", "notes": "Demo"})
 
     def test_hard_lifetime_expires_while_clarification_is_pending(self) -> None:
         self.page("page.json", "choice")
