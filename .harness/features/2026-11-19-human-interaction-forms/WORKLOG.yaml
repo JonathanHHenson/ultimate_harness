@@ -407,3 +407,85 @@
   summary: 'Feature phase: TEST → DONE'
   details: The updated visual tone is verified and the decision and evidence are recorded
     in the tracked closeout.
+- timestamp: '2026-11-23T15:58:04+00:00'
+  phase: DESIGN
+  summary: 'Feature phase: DONE → DESIGN'
+  details: Define feedback format selection and separate the form delivery turn from
+    the listener turn based on Copilot user feedback.
+- timestamp: '2026-11-23T16:00:32+00:00'
+  phase: IMPLEMENT
+  summary: 'Feature phase: DESIGN → IMPLEMENT'
+  details: Use the shared Human Interaction workflow for chat selection and a final-reply
+    form handoff across adoption and design interviews.
+- timestamp: '2026-11-23T16:00:32+00:00'
+  phase: IMPLEMENT
+  summary: 'FEEDBACK-FORMAT: TODO → WIP'
+  details: Add format selection and sequential chat guidance to the shared skill.
+- timestamp: '2026-11-23T16:00:32+00:00'
+  phase: IMPLEMENT
+  summary: 'FORM-HANDOFF: TODO → WIP'
+  details: Separate opening the form from starting its listener while preserving saved-event
+    recovery.
+- timestamp: '2026-11-23T16:00:32+00:00'
+  phase: TEST
+  summary: 'Feature phase: IMPLEMENT → TEST'
+  details: Build the updated portable package and walk both delivery formats and their
+    failure paths.
+- timestamp: '2026-11-23T16:02:24+00:00'
+  phase: TEST
+  summary: Verified both feedback formats in the rebuilt package
+  details: Manual traces covered format choice and defaults, the final-reply URL and
+    next-turn listener, and expiry and unsupported listener capability. The extracted
+    CLI recovered a clarification and a submission saved while the agent was away.
+    Package, link and glossary checks and four package builder tests passed. Interactive
+    Copilot behavior was not measured.
+- timestamp: '2026-11-23T16:02:24+00:00'
+  phase: TEST
+  summary: 'FEEDBACK-FORMAT: WIP → DONE'
+  details: The packaged installation, evolution and design interview routes use one
+    format choice. The chat walkthrough verified the count and one-question flow with
+    an explicit default.
+- timestamp: '2026-11-23T16:02:24+00:00'
+  phase: TEST
+  summary: 'FORM-HANDOFF: WIP → DONE'
+  details: The packaged form handoff delivers the URL before waiting. The CLI verified
+    that clarification and answers submitted before listening are recoverable.
+- timestamp: '2026-11-23T16:02:24+00:00'
+  phase: DONE
+  summary: 'Feature phase: TEST → DONE'
+  details: Both delivery paths and their relevant failure cases were checked and recorded
+    in the tracked closeout.
+- timestamp: '2026-11-23T16:04:28+00:00'
+  phase: DESIGN
+  summary: 'Feature phase: DONE → DESIGN'
+  details: Refine chat to prefer the host questionnaire when it can represent the
+    pending decisions.
+- timestamp: '2026-11-23T16:05:31+00:00'
+  phase: IMPLEMENT
+  summary: 'Feature phase: DESIGN → IMPLEMENT'
+  details: Route chat through one native question at a time, with a plain chat fallback.
+- timestamp: '2026-11-23T16:05:31+00:00'
+  phase: IMPLEMENT
+  summary: 'NATIVE-QUESTIONS: TODO → WIP'
+  details: Keep tool selection and sequential delivery in the shared chat instructions.
+- timestamp: '2026-11-23T16:05:31+00:00'
+  phase: TEST
+  summary: 'Feature phase: IMPLEMENT → TEST'
+  details: Check the native, plain chat and web form paths in the rebuilt package.
+- timestamp: '2026-11-23T16:06:06+00:00'
+  phase: TEST
+  summary: Verified sequential native chat guidance
+  details: The packaged routes use one question per native call even on a host that
+    supports batches. The walkthrough covered unsupported inputs and absent tooling
+    with the one-question plain chat fallback. The browser instructions matched the
+    prior build. Package metadata, links, glossary and four package builder tests
+    passed. No live host questionnaire was run.
+- timestamp: '2026-11-23T16:06:06+00:00'
+  phase: TEST
+  summary: 'NATIVE-QUESTIONS: WIP → DONE'
+  details: The packaged routes describe one question at a time with or without a suitable
+    native tool.
+- timestamp: '2026-11-23T16:06:06+00:00'
+  phase: DONE
+  summary: 'Feature phase: TEST → DONE'
+  details: Packaged delivery guidance and its verification are recorded.

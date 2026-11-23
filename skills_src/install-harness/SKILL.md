@@ -14,7 +14,7 @@ description: Install or evolve a programming agent harness. Use for a first harn
 ## Before drafting either adoption plan
 
 1. Invoke the bundled [Grill With Docs skill](assets/harness/.agents/skills/grill-with-docs/SKILL.md) directly on both routes, including when the user requests only a plan. If the skill tool cannot invoke the bundled copies, open that file directly and apply it by opening [Grilling](assets/harness/.agents/skills/grilling/SKILL.md) and [Domain Modeling](assets/harness/.agents/skills/domain-modeling/SKILL.md).
-2. Use those skills and the bundled [design interview instructions](assets/harness/.harness/agents/design-interviews.md) to examine the proposed changes against the target's documented decisions and terminology. Resolve factual questions from the evidence and carry the open choices to the decision page.
+2. Use those skills and the bundled [design interview instructions](assets/harness/.harness/agents/design-interviews.md) to examine the proposed changes against the target's documented decisions and terminology. Resolve factual questions from the evidence and carry the open choices into the initial question set.
 
 ## When installing the first harness
 
@@ -30,12 +30,11 @@ description: Install or evolve a programming agent harness. Use for a first harn
 ## When agreeing on either plan
 
 - Propose separate project-specific skills and validation rulesets grounded in the research. Recommend the [third-party skill standard](assets/harness/.harness/agents/third-party-skills.md). Ask separately about each proposed import, including its source, pin, and purpose, and about connecting the feature merge check to CI.
-- Use bundled [Human Interaction](assets/harness/.agents/skills/human-interaction/SKILL.md) and the [decision-page instructions](assets/harness/.agents/skills/build-harness/references/adoption.md#before-showing-a-design-decision-page) to collect independent choices in one concise submission. Prefill supported recommendations as editable defaults. Ask known conditional preferences in that submission. Ask a follow-up only when an answer exposes a new material decision.
-- After preflight, run the bundled form CLI's `launch` command from the terminal and verify the form URL. If the form cannot be delivered, follow [the delivery fallback](assets/harness/.agents/skills/human-interaction/SKILL.md#when-the-form-cannot-be-delivered).
+- Use bundled [Human Interaction](assets/harness/.agents/skills/human-interaction/SKILL.md) and the [decision-page instructions](assets/harness/.agents/skills/build-harness/references/adoption.md#before-showing-a-design-decision-page) to prepare separate choices and editable defaults, including known conditional preferences. Ask a follow-up only when an answer exposes a new material decision.
 - Keep material choices for availability and activation separate on both routes. Give separate choices for installing and routing the code and security review rulesets, including Copilot instructions and activating hosted review, and including design interview guidance and requiring interviews. Record settled constraints without asking for acknowledgement.
 - Before building the page, map each proposed language skill to its own field. Apply this to configuration languages too. If you propose YAML and TOML language guidance, give each language its own skill and yes-or-no decision with concrete effects.
 - Review the draft choices for independent effects, including project-specific additions. If the human could accept one proposed check or trigger and decline another, give each its own field on the same page. For example, a regression check after a code change and an acceptance check before an operational action are separate decisions even if they use the same evidence.
-- Require both the form schema and answer-option checks to pass before publishing, updating, or revising any page. Wait for the human's answers and reconcile dependencies and unsettled scope before editing the target.
+- Use Human Interaction's format choice before asking the decisions. For chat, follow the [chat instructions](assets/harness/.agents/skills/human-interaction/SKILL.md#when-the-human-chooses-chat). For a form, require both the schema and answer-option checks before publishing, updating, or revising each page, then use the [form handoff](assets/harness/.agents/skills/human-interaction/SKILL.md#when-the-human-chooses-a-form). Wait for the human's answers and reconcile dependencies and unsettled scope before editing the target.
 
 ## When applying and verifying the agreed plan
 

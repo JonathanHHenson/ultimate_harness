@@ -26,7 +26,17 @@ All 58 harness tests passed. Integration tests verified the default deadline, re
 
 ## Reopening an expired form
 
-Expiry pauses the exchange if questions remain open. The agent sends a short notice asking the human to say when they are ready. It then opens the outstanding questions at a new URL and uses the saved submissions from the original workspace. The conversational fallback applies when the runner cannot deliver the initial form or the human requests chat. The design interview and both adoption routes use the same procedure. [Expiry instructions](../../.agents/skills/human-interaction/SKILL.md#when-a-form-expires)
+Expiry pauses the exchange if questions remain open. The agent sends a short notice asking the human to say when they are ready. It then opens the outstanding questions at a new URL and uses the saved submissions from the original workspace. The design interview and both adoption routes use the same procedure. [Expiry instructions](../../.agents/skills/human-interaction/SKILL.md#when-a-form-expires)
+
+## Choosing chat and handing off a form
+
+Announce the number of answerable questions and offer chat or a web form before starting either. Chat presents one question at a time and prefers the host's built-in question controls when available and suitable. Use short choice aliases in plain chat. Either path requires an explicit answer, including when the human accepts a default. Install Harness and design interviews use the same procedure.
+
+Deliver the verified form link in the final reply and ask the human to reply once the form is open. Post the current URL again immediately before each listener call. The server continues across turns, and the existing event reader can collect submissions and clarification requests sent before listening starts. This addresses reports that the link could be missed while Copilot was waiting. [Format choice and form handoff](../../.agents/skills/human-interaction/SKILL.md)
+
+Walked through the extracted package for installation in chat and evolution with a form, including clarification, a follow-up round, and expiry. The packaged form CLI returned an early clarification and an answer submitted before listening. Package, link, and builder checks passed. The walkthrough did not run an interactive Copilot session.
+
+For the native chat preference, traced the rebuilt package with a tool that supports batches, a tool that cannot represent the current question, and a host without a question tool. The instructions present only the current question in each case. Package checks and the four builder tests passed. This was an instruction walkthrough.
 
 Verified the procedure using the extracted portable package. An ordinary bounded wait left the first form active. After the first answer was submitted, the follow-up expired. Serving that follow-up from a fresh workspace collected the remaining answer at a distinct URL and preserved the first submission. Reviewed the agent instructions for the expiry notice and fallback. All 70 harness tests, package checks, and local links passed.
 

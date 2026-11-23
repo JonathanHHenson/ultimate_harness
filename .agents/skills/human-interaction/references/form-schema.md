@@ -78,6 +78,8 @@ An open tab polls for the form session state and explains when it expires. If it
 
 ## Listening for feedback
 
+Follow the [form handoff](../SKILL.md#when-the-human-chooses-a-form) before the first listener. When the human returns, use the current round number and share the current form link immediately before starting the command.
+
 ```sh
 "$python" "$form" listen --workspace "$workspace" --page 1
 ```
@@ -101,7 +103,7 @@ The command uses the authenticated `/control/update` endpoint. If the revision c
 
 When a bounded `wait` ends without a submission, check the live page state or, after shutdown, read `.form-session/finished.json`. A `view` of `expired` confirms expiry. Exit code 2 by itself means to keep waiting.
 
-Keep the latest page JSON, its prologue and assets, and earlier answer records in the original workspace. After the human signals readiness, copy the current unanswered page and its assets, or prepare the next page from the saved answers, in a fresh workspace with the same relative asset paths. Run `check` and `launch`, verify readiness, and share the new URL. The new form session starts at page 1. Continue from the earlier submissions and collect only the outstanding answers.
+Keep the latest page JSON, its prologue and assets, and earlier answer records in the original workspace. After the human signals readiness, copy the current unanswered page and its assets, or prepare the next page from the saved answers, in a fresh workspace with the same relative asset paths. Run `check` and `launch`, verify readiness, and follow the [form handoff](../SKILL.md#when-the-human-chooses-a-form) with the new URL. The new form session starts at page 1. Continue from the earlier submissions and collect only the outstanding answers.
 
 ## Clarification requests
 

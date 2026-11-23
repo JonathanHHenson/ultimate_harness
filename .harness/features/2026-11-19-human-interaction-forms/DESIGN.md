@@ -63,3 +63,13 @@ Send the browser's current question-page number and the visible field IDs with a
 ## FORM-VISUAL-DESIGN
 
 Use a pale lavender masthead with a compact serif title, violet progress accents, warm surfaces for context and clarification, and tinted selected choices. Use stronger violet for primary actions and keyboard focus. Retain standard system fonts, native form controls, and the single-column layout. Use the existing stylesheet and a small amount of structural markup, with no runtime assets or dependencies. Check the form, clarification dialog, and confirmation at desktop and phone widths.
+
+## FEEDBACK-FORMAT and FORM-HANDOFF
+
+Keep delivery rules in Human Interaction and route both adoption paths and installed design interviews through them. Count answerable questions in the initial set, then let the human choose chat or the browser. Chat uses the same decisions and defaults, with one question per turn and stable aliases. Keep unresolved follow-ups separate from the initial count.
+
+Form delivery ends the turn after a successful readiness check. The final reply contains the link and asks the human to confirm it is open. The form server continues independently. On the next turn, share the current URL immediately before invoking the listener. Use the existing saved-event reader if the human already submitted or the host cannot sustain a listener. Use the same URL after revision or a new round. Use a new URL and repeat the handoff after expiry. Walk through both formats in the built package and verify that the CLI can read an answer submitted before the listener starts.
+
+## NATIVE-QUESTIONS
+
+Select a question tool from those available to the current host and mode. Use one question per call even when the tool supports batches. Fall back to a single chat message when the tool cannot express the input or the human prefers plain chat. Both paths wait for an explicit answer before presenting the next question, so the initial question count sets expectations without displaying the whole set.

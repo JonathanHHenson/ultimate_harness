@@ -136,3 +136,30 @@ definition_of_done = "Inspect the updated form at desktop and phone widths and v
 status = "DONE"
 blocked_reason = ""
 blocked_from = ""
+
+[[requirements]]
+id = "FEEDBACK-FORMAT"
+kind = "functional"
+description = "Tell the human how many questions are ready and offer chat or a web form. Ask chat questions one at a time with short choice aliases and explicitly acceptable defaults. Use the same feedback procedure for installation, evolution, and design interviews."
+definition_of_done = "Walk through chat selection on the bundled adoption route and verify the question count, a multiple-choice answer alias, explicit default acceptance, and a clarification that stays on the current question."
+status = "DONE"
+blocked_reason = ""
+blocked_from = ""
+
+[[requirements]]
+id = "FORM-HANDOFF"
+kind = "functional"
+description = "End the form delivery turn with a verified URL and ask the human to reply when it is open. On the next turn, post the current URL immediately before listening. Preserve responses that arrive before the listener starts."
+definition_of_done = "Trace the final link and next-turn listener through the packaged instructions, including an early response, a follow-up round, and expiry. Verify the local CLI can collect an early saved response."
+status = "DONE"
+blocked_reason = ""
+blocked_from = ""
+
+[[requirements]]
+id = "NATIVE-QUESTIONS"
+kind = "functional"
+description = "Prefer the host's native question tool in chat when it can express the current question. Present only one question at a time in native and plain chat, and wait for an explicit answer before moving forward."
+definition_of_done = "Walk through the packaged adoption route with a native tool that supports batches, without a native tool, and with a question the tool cannot express. Verify each chat path asks only the current question."
+status = "DONE"
+blocked_reason = ""
+blocked_from = ""
